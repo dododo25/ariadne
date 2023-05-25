@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="node">
+                    <xs:complexType>
+                        <xs:attribute name="id" type="xs:int" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:anyAttribute processContents="lax"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="edge">
+                    <xs:complexType>
+                        <xs:attribute name="from" type="xs:int" use="required"/>
+                        <xs:attribute name="to" type="xs:int" use="required"/>
+                        <xs:anyAttribute processContents="lax"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+            <xs:attribute name="root" type="xs:int" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
