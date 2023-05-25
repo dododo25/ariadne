@@ -9,6 +9,7 @@ import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.drawio.model.StatementBlock;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.ChainBlock;
@@ -64,7 +65,7 @@ public final class PrepareRootBlockJob extends DrawIoAbstractJob {
                 blocks.put(point, new EndBlock(ref.getAndIncrement()));
             }
         };
-        FlowchartMouse mouse = new FlowchartMouse(contract);
+        FlowchartMouse mouse = new FlowchartMouse(contract, new ParentFirstFlowchartMouseStrategy());
         flowchart.accept(mouse);
     }
 
@@ -105,7 +106,7 @@ public final class PrepareRootBlockJob extends DrawIoAbstractJob {
                 }
             }
         };
-        FlowchartMouse mouse = new FlowchartMouse(contract);
+        FlowchartMouse mouse = new FlowchartMouse(contract, new ParentFirstFlowchartMouseStrategy());
         flowchart.accept(mouse);
     }
 }

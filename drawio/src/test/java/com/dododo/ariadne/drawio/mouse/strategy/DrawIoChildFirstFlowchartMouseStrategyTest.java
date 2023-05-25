@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-class DrawIoChildrenFirstFlowchartMouseStrategyTest {
+class DrawIoChildFirstFlowchartMouseStrategyTest {
 
     private static DrawIoFlowchartMouseStrategy strategy;
 

@@ -1,13 +1,11 @@
 package com.dododo.ariadne.core.model;
 
-import java.util.Objects;
-
 public abstract class SimpleState extends ChainState {
 
     protected final String value;
 
     protected SimpleState(String value) {
-        this.value = Objects.requireNonNull(value);
+        this.value = value;
     }
 
     public String getValue() {
@@ -16,6 +14,10 @@ public abstract class SimpleState extends ChainState {
 
     @Override
     public String toString() {
+        if (value == null) {
+            return String.format("%s(value=null)", getClass().getSimpleName());
+        }
+
         return String.format("%s(value='%s')", getClass().getSimpleName(), value);
     }
 }
