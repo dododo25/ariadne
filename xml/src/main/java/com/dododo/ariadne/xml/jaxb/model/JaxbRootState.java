@@ -57,4 +57,9 @@ public class JaxbRootState implements JaxbComplexState {
     public void accept(JaxbFlowchartContract contract) {
         contract.accept(this);
     }
+
+    @Override
+    public int compareTo(JaxbState o) {
+        return o instanceof JaxbRootState ? 0 : 1;
+    }
 }

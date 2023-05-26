@@ -36,9 +36,7 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
                 State s2 = states.get(i);
 
                 if (s1 != s2 && s1.compareTo(s2) == 0) {
-                    map.putIfAbsent(s1, new HashSet<>());
-                    map.get(s1).add(s2);
-
+                    map.computeIfAbsent(s1, key -> new HashSet<>()).add(s2);
                     states.remove(i);
                 } else {
                     i++;

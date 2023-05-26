@@ -5,6 +5,7 @@ import com.dododo.ariadne.xml.jaxb.contract.JaxbFlowchartContract;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JaxbMarker implements JaxbSimpleState {
@@ -26,5 +27,15 @@ public class JaxbMarker implements JaxbSimpleState {
     @Override
     public void accept(JaxbFlowchartContract contract) {
         contract.accept(this);
+    }
+
+    @Override
+    public int compareTo(JaxbState o) {
+        return o instanceof JaxbMarker && Objects.equals(((JaxbMarker) o).value, this.value) ? 0 : 1;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s(condition='%s')", getClass().getSimpleName(), value);
     }
 }

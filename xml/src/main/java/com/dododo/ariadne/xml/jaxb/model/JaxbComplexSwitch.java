@@ -53,4 +53,9 @@ public class JaxbComplexSwitch implements JaxbComplexState {
     public void accept(JaxbFlowchartContract contract) {
         contract.accept(this);
     }
+
+    @Override
+    public int compareTo(JaxbState o) {
+        return o instanceof JaxbComplexSwitch ? 0 : 1;
+    }
 }

@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -62,5 +63,19 @@ public class JaxbSwitchBranch implements JaxbComplexState, JaxbSimpleState {
     @Override
     public void accept(JaxbFlowchartContract contract) {
         contract.accept(this);
+    }
+
+    @Override
+    public int compareTo(JaxbState o) {
+        return o instanceof JaxbSwitchBranch && Objects.equals(((JaxbSwitchBranch) o).value, this.value) ? 0 : 1;
+    }
+
+    @Override
+    public String toString() {
+        if (value == null) {
+            return String.format("%s(condition=null)", getClass().getSimpleName());
+        }
+
+        return String.format("%s(condition='%s')", getClass().getSimpleName(), value);
     }
 }

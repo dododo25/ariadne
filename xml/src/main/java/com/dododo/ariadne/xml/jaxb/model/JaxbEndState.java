@@ -12,4 +12,9 @@ public class JaxbEndState implements JaxbState {
     public void accept(JaxbFlowchartContract contract) {
         contract.accept(this);
     }
+
+    @Override
+    public int compareTo(JaxbState o) {
+        return o instanceof JaxbEndState ? 0 : 1;
+    }
 }

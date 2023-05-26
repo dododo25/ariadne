@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.core.model.Switch" condition="switch1" />
+    <node id="2" type="com.dododo.ariadne.core.model.Switch" condition="switch2" />
+    <node id="3" type="com.dododo.ariadne.core.model.EndPoint" />
+
+    <edge from="1" to="3" switchBranch="true" />
+    <edge from="1" to="2" switchBranch="false" />
+    <edge from="2" to="3" switchBranch="true" />
+    <edge from="2" to="3" switchBranch="false" />
+</mapping>

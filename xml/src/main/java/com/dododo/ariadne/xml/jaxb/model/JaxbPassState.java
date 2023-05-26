@@ -8,4 +8,9 @@ public class JaxbPassState implements JaxbState {
     public void accept(JaxbFlowchartContract contract) {
         contract.accept(this);
     }
+
+    @Override
+    public int compareTo(JaxbState o) {
+        return o instanceof JaxbPassState ? 0 : 1;
+    }
 }
