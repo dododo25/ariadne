@@ -1,6 +1,8 @@
 package com.dododo.ariadne.drawio.model;
 
 import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
+import com.dododo.ariadne.drawio.factory.BlockComparatorFactory;
+import com.dododo.ariadne.drawio.factory.EndBlockComparatorFactory;
 import com.dododo.ariadne.drawio.mxg.DiagramRoot;
 import com.dododo.ariadne.drawio.mxg.geometry.ComplexNodeGeometry;
 import com.dododo.ariadne.drawio.mxg.MxNodeCell;
@@ -28,6 +30,11 @@ public final class EndBlock extends Block {
     @Override
     public int getHeight() {
         return 40;
+    }
+
+    @Override
+    public BlockComparatorFactory getFactory() {
+        return new EndBlockComparatorFactory(this);
     }
 
     @Override

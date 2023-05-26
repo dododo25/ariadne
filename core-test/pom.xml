@@ -9,7 +9,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>drawio</artifactId>
+    <artifactId>core-test</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,34 +20,13 @@
     <dependencies>
         <dependency>
             <groupId>com.dododo</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>core</artifactId>
             <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.dododo</groupId>
-            <artifactId>core-test</artifactId>
-            <version>0.0.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.dododo</groupId>
             <artifactId>test</artifactId>
             <version>0.0.1</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.2</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.12.4</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

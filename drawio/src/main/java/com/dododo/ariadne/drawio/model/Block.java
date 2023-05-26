@@ -1,6 +1,7 @@
 package com.dododo.ariadne.drawio.model;
 
 import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
+import com.dododo.ariadne.drawio.factory.BlockComparatorFactory;
 import com.dododo.ariadne.drawio.mxg.DiagramRoot;
 
 import java.util.HashSet;
@@ -57,4 +58,6 @@ public abstract class Block {
     public abstract int getWidth();
 
     public abstract int getHeight();
+
+    public abstract BlockComparatorFactory getFactory();
 }

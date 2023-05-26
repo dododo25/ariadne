@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.drawio.model.EntryBlock" x="0" y="0" />
+    <node id="2" type="com.dododo.ariadne.drawio.model.EndBlock" x="0" y="80" />
+
+    <edge from="1" to="2" />
+</mapping>
