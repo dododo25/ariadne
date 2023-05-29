@@ -7,8 +7,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 @XmlRootElement(name = "flowchart")
@@ -25,7 +25,7 @@ public class JaxbRootState implements JaxbComplexState {
     private List<JaxbState> children;
 
     public JaxbRootState() {
-        this.children = new ArrayList<>();
+        this.children = new CopyOnWriteArrayList<>();
     }
 
     @Override

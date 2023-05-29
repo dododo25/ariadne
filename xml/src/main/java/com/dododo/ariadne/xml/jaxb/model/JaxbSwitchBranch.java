@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -33,7 +33,7 @@ public class JaxbSwitchBranch implements JaxbComplexState, JaxbSimpleState {
 
     public JaxbSwitchBranch(String value) {
         this.value = value;
-        this.children = new ArrayList<>();
+        this.children = new CopyOnWriteArrayList<>();
     }
 
     @Override

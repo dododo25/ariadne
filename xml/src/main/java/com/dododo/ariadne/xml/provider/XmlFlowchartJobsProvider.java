@@ -9,6 +9,7 @@ import com.dododo.ariadne.xml.job.CollectStatesJob;
 import com.dododo.ariadne.xml.job.JoinGoToPointsJob;
 import com.dododo.ariadne.xml.job.JoinStatesJob;
 import com.dododo.ariadne.xml.job.PrepareSwitchStatesJob;
+import com.dododo.ariadne.xml.job.RemoveExcludedStatesJob;
 import com.dododo.ariadne.xml.job.XmlRemoveStateJob;
 import com.dododo.ariadne.xml.common.model.Marker;
 
@@ -22,6 +23,7 @@ public class XmlFlowchartJobsProvider extends FlowchartJobsProvider {
         JaxbRootState rootState = new JaxbRootState();
 
         addCollectStatesJob(jobs, rootState);
+        jobs.add(new RemoveExcludedStatesJob(rootState));
         jobs.add(new AddMissingSwitchFalseBranchComplexStateJob(rootState));
         jobs.add(new JoinStatesJob(rootState));
 

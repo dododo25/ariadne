@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -21,7 +21,7 @@ public class JaxbComplexSwitch implements JaxbComplexState {
     private final List<JaxbState> children;
 
     public JaxbComplexSwitch() {
-        this.children = new ArrayList<>();
+        this.children = new CopyOnWriteArrayList<>();
     }
 
     @Override
