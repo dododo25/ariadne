@@ -5,6 +5,8 @@ import com.dododo.ariadne.drawio.contract.DrawIoSimpleFlowchartContract;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.EndBlock;
 import com.dododo.ariadne.drawio.model.EntryBlock;
+import com.dododo.ariadne.drawio.model.MenuBlock;
+import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
@@ -39,6 +41,19 @@ class DrawIoChildFirstFlowchartMouseStrategyTest {
 
         testAccept(expected, (callback, mouse) ->
                 strategy.acceptChainBlock(first, mouse, callback, new HashSet<>()));
+    }
+
+    @Test
+    void testAcceptMenuShouldDoneWell() {
+        MenuBlock menu = new MenuBlock(0);
+        OptionBlock option = new OptionBlock(1, "test");
+
+        List<Block> expected = Arrays.asList(option, menu);
+
+        menu.addBranch(option);
+
+        testAccept(expected, (callback, mouse) ->
+                strategy.acceptMenuBlock(menu, mouse, callback, new HashSet<>()));
     }
 
     @Test

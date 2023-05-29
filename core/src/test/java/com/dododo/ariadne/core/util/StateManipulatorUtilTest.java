@@ -1,5 +1,8 @@
 package com.dododo.ariadne.core.util;
 
+import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.Option;
+import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.Statement;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EntryState;
@@ -18,6 +21,9 @@ class StateManipulatorUtilTest {
     void testReplaceShouldNotThrowException() {
         testReplaceChainState(new EntryState());
         testReplaceChainState(new Statement("test"));
+        testReplaceChainState(new Reply("character", "line"));
+        testReplaceChainState(new Option("test"));
+        testReplaceChainState(new ConditionalOption("test", "condition"));
 
         process(new Switch("test"), new Statement("replaceable"), new Statement("replacement"),
                 (root, state) -> ((Switch) root).setTrueBranch(state), root -> ((Switch) root).getTrueBranch());

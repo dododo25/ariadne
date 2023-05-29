@@ -4,6 +4,10 @@ public abstract class SimpleState extends ChainState {
 
     protected final String value;
 
+    protected SimpleState() {
+        this(null);
+    }
+
     protected SimpleState(String value) {
         this.value = value;
     }

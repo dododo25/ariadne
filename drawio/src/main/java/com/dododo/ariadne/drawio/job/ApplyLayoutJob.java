@@ -6,6 +6,10 @@ import com.dododo.ariadne.drawio.model.StatementBlock;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.ChainBlock;
 import com.dododo.ariadne.drawio.model.EntryBlock;
+import com.dododo.ariadne.drawio.model.MenuBlock;
+import com.dododo.ariadne.drawio.model.OptionBlock;
+import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
+import com.dododo.ariadne.drawio.model.ReplyBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
 import com.dododo.ariadne.drawio.mouse.strategy.DrawIoChildrenFirstFlowchartMouseStrategy;
@@ -15,8 +19,11 @@ import com.dododo.ariadne.drawio.mxg.MxFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.IntStream;
 
 public final class ApplyLayoutJob extends DrawIoAbstractJob {
+
+    public static final int HORIZONTAL_PADDING = 40;
 
     public static final int VERTICAL_PADDING = 40;
 
@@ -30,6 +37,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
         List<Block> appliedBlocks = new ArrayList<>();
 
         collectBlocks(rootBlock, appliedBlocks);
+        prepareMenus(rootBlock);
 
         appliedBlocks
                 .forEach(this::applyLayout);
@@ -43,12 +51,31 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
 
             @Override
+            public void accept(MenuBlock block) {
+                blocks.add(block);
+            }
+
+            @Override
             public void accept(SwitchBlock block) {
                 blocks.add(block);
             }
         };
         DrawIoFlowchartContract mouse = new DrawIoFlowchartMouse(callback,
                 new DrawIoChildrenFirstFlowchartMouseStrategy());
+
+        root.accept(mouse);
+    }
+
+    private void prepareMenus(Block root) {
+        DrawIoFlowchartContract callback = new DrawIoFlowchartContractAdapter() {
+            @Override
+            public void accept(MenuBlock block) {
+                block.setWidth(block.branchesStream()
+                        .mapToInt(b -> b.getWidth() + VERTICAL_PADDING).sum() - VERTICAL_PADDING);
+            }
+        };
+        DrawIoFlowchartContract mouse = new DrawIoFlowchartMouse(callback,
+                new DrawIoParentFirstFlowchartMouseStrategy());
 
         root.accept(mouse);
     }
@@ -64,6 +91,30 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             @Override
             public void accept(StatementBlock block) {
                 acceptChainBlock(block);
+            }
+
+            @Override
+            public void accept(ReplyBlock block) {
+                acceptChainBlock(block);
+            }
+
+            @Override
+            public void accept(OptionBlock block) {
+                acceptChainBlock(block);
+            }
+
+            @Override
+            public void accept(ConditionalOptionBlock block) {
+                acceptChainBlock(block);
+            }
+
+            @Override
+            public void accept(MenuBlock block) {
+                IntStream.range(0, block.branchesCount()).forEach(index -> {
+                    OptionBlock optionBlock = block.branchAt(index);
+                    acceptBlock(block, optionBlock,
+                                (optionBlock.getWidth() + HORIZONTAL_PADDING) * index, VERTICAL_PADDING);
+                });
             }
 
             @Override

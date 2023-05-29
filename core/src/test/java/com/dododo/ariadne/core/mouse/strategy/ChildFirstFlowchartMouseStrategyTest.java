@@ -4,6 +4,8 @@ import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
+import com.dododo.ariadne.core.model.Menu;
+import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
@@ -39,6 +41,19 @@ class ChildFirstFlowchartMouseStrategyTest {
 
         testAccept(expected, (callback, mouse) ->
                 strategy.acceptChainState(first, mouse, callback, new HashSet<>()));
+    }
+
+    @Test
+    void testAcceptMenuShouldDoneWell() {
+        Menu menu = new Menu();
+        Option option = new Option("test");
+
+        List<State> expected = Arrays.asList(option, menu);
+
+        menu.addBranch(option);
+
+        testAccept(expected, (callback, mouse) ->
+                strategy.acceptMenu(menu, mouse, callback, new HashSet<>()));
     }
 
     @Test

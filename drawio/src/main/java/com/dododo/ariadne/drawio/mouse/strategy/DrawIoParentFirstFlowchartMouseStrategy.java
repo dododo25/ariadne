@@ -4,6 +4,7 @@ import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
 import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.ChainBlock;
+import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 
 import java.util.LinkedList;
@@ -28,6 +29,17 @@ public class DrawIoParentFirstFlowchartMouseStrategy implements DrawIoFlowchartM
             if (blocks.getLast().getNext() != null) {
                 blocks.getLast().getNext().accept(mouse);
             }
+        }
+    }
+
+    @Override
+    public void acceptMenuBlock(MenuBlock block, DrawIoFlowchartMouse mouse, DrawIoFlowchartContract callback, Set<Block> visited) {
+        if (!visited.contains(block)) {
+            callback.accept(block);
+            visited.add(block);
+
+            block.branchesStream()
+                    .forEach(mouse::accept);
         }
     }
 

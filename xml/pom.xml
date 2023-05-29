@@ -21,25 +21,18 @@
         <dependency>
             <groupId>com.dododo</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.dododo</groupId>
             <artifactId>core-test</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.dododo</groupId>
             <artifactId>test</artifactId>
             <version>0.0.1</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->

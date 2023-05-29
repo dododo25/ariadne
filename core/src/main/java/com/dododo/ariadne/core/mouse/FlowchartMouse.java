@@ -1,8 +1,12 @@
 package com.dododo.ariadne.core.mouse;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
+import com.dododo.ariadne.core.model.Menu;
+import com.dododo.ariadne.core.model.Option;
+import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Statement;
 import com.dododo.ariadne.core.model.Switch;
@@ -33,6 +37,26 @@ public class FlowchartMouse implements FlowchartContract {
     @Override
     public void accept(Statement statement) {
         strategy.acceptChainState(statement, this, callback, visited);
+    }
+
+    @Override
+    public void accept(Reply reply) {
+        strategy.acceptChainState(reply, this, callback, visited);
+    }
+
+    @Override
+    public void accept(Menu menu) {
+        strategy.acceptMenu(menu, this, callback, visited);
+    }
+
+    @Override
+    public void accept(Option option) {
+        strategy.acceptChainState(option, this, callback, visited);
+    }
+
+    @Override
+    public void accept(ConditionalOption option) {
+        strategy.acceptChainState(option, this, callback, visited);
     }
 
     @Override

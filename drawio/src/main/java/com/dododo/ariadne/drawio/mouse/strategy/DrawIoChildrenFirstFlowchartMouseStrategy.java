@@ -4,6 +4,7 @@ import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
 import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.ChainBlock;
+import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 
 import java.util.LinkedList;
@@ -36,6 +37,18 @@ public class DrawIoChildrenFirstFlowchartMouseStrategy implements DrawIoFlowchar
             }
 
             block.accept(callback);
+        }
+    }
+
+    @Override
+    public void acceptMenuBlock(MenuBlock block, DrawIoFlowchartMouse mouse, DrawIoFlowchartContract callback, Set<Block> visited) {
+        if (!visited.contains(block)) {
+            visited.add(block);
+
+            block.branchesStream()
+                    .forEach(mouse::accept);
+
+            callback.accept(block);
         }
     }
 

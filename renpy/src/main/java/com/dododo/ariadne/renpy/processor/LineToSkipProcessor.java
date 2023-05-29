@@ -1,0 +1,18 @@
+package com.dododo.ariadne.renpy.processor;
+
+import com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+
+import java.util.regex.Matcher;
+
+public final class LineToSkipProcessor extends LineProcessor {
+
+    public LineToSkipProcessor() {
+        super("^.*$");
+    }
+
+    @Override
+    public JaxbState prepareState(Matcher matcher) {
+        return new JaxbSkipComplexState();
+    }
+}

@@ -1,8 +1,12 @@
 package com.dododo.ariadne.ct.supplier;
 
 import com.dododo.ariadne.core.model.ChainState;
+import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
+import com.dododo.ariadne.core.model.Menu;
+import com.dododo.ariadne.core.model.Option;
+import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Statement;
 import com.dododo.ariadne.core.model.Switch;
@@ -21,6 +25,32 @@ public class FlowchartRulesSupplier {
     public RuleSet createRuleForStatement() {
         return createRuleForChainState(Statement.class,
                 (id, attrs) -> new Statement(attrs.getValue("value")));
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForReply() {
+        return createRuleForChainState(Reply.class,
+                (id, attrs) -> new Reply(attrs.getValue("character"), attrs.getValue("line")));
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForMenu() {
+        return new RuleSet.Builder(Menu.class)
+                .setNodeRule((id, attrs) -> new Menu())
+                .setEdgeRule((o1, o2, attrs) -> ((Menu) o1).addBranch((Option) o2))
+                .build();
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForOption() {
+        return createRuleForChainState(Option.class,
+                (id, attrs) -> new Option(attrs.getValue("value")));
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForConditionalOption() {
+        return createRuleForChainState(ConditionalOption.class,
+                (id, attrs) -> new ConditionalOption(attrs.getValue("value"), attrs.getValue("condition")));
     }
 
     @RuleSetSupplier

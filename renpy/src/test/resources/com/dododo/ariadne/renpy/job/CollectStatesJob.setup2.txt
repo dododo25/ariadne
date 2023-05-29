@@ -1,0 +1,14 @@
+label test:
+    $ excluded = True
+
+    if i < 5:
+        $ i += 1
+        jump test
+    else:
+        'Example line #1'
+
+    menu:
+        'Option #1':
+            $ j = 1
+        'Option #2':
+            $ j = 2

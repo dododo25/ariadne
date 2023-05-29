@@ -4,6 +4,10 @@ import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.ChainBlock;
 import com.dododo.ariadne.drawio.model.EndBlock;
 import com.dododo.ariadne.drawio.model.EntryBlock;
+import com.dododo.ariadne.drawio.model.MenuBlock;
+import com.dododo.ariadne.drawio.model.OptionBlock;
+import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
+import com.dododo.ariadne.drawio.model.ReplyBlock;
 import com.dododo.ariadne.drawio.model.StatementBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.drawio.mxg.DiagramRoot;
@@ -21,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.mockito.Answers.RETURNS_DEEP_STUBS;
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -76,6 +80,149 @@ class PrepareDiagramRootJobTest {
         };
 
         testRunWhenRootBlockIsChainBlock(factory);
+    }
+
+    @Test
+    void testRunWhenRootBlockIsReplyWithoutCharacterShouldDoneWell() {
+        BlockToMxCellFactory factory = new BlockToMxCellFactory() {
+            @Override
+            public ChainBlock createBlock(int id) {
+                return new ReplyBlock(id, null, "test");
+            }
+
+            @Override
+            public MxNodeCell createMxCell(int id) {
+                return new MxNodeCell.Builder()
+                        .setId(id)
+                        .setValue("<i>test</i>")
+                        .setGeometry(ComplexNodeGeometry.create(0, 0, 120, 60))
+                        .build();
+            }
+        };
+
+        testRunWhenRootBlockIsChainBlock(factory);
+    }
+
+    @Test
+    void testRunWhenRootBlockIsReplyWithCharacterShouldDoneWell() {
+        BlockToMxCellFactory factory = new BlockToMxCellFactory() {
+            @Override
+            public ChainBlock createBlock(int id) {
+                return new ReplyBlock(id, "test1", "test2");
+            }
+
+            @Override
+            public MxNodeCell createMxCell(int id) {
+                return new MxNodeCell.Builder()
+                        .setId(id)
+                        .setValue("<p>test1</p><p><i>test2</i></p>")
+                        .setGeometry(ComplexNodeGeometry.create(0, 0, 120, 60))
+                        .build();
+            }
+        };
+
+        testRunWhenRootBlockIsChainBlock(factory);
+    }
+
+    @Test
+    void testRunWhenRootBlockIsOptionShouldDoneWell() {
+        BlockToMxCellFactory factory = new BlockToMxCellFactory() {
+            @Override
+            public ChainBlock createBlock(int id) {
+                return new OptionBlock(id, "test");
+            }
+
+            @Override
+            public MxNodeCell createMxCell(int id) {
+                return new MxNodeCell.Builder()
+                        .setId(id)
+                        .setValue("<i>test</i>")
+                        .setGeometry(ComplexNodeGeometry.create(0, 0, 120, 60))
+                        .build();
+            }
+        };
+
+        testRunWhenRootBlockIsChainBlock(factory);
+    }
+
+    @Test
+    void testRunWhenRootBlockIsOptionalOptionShouldDoneWell() {
+        BlockToMxCellFactory factory = new BlockToMxCellFactory() {
+            @Override
+            public ChainBlock createBlock(int id) {
+                return new ConditionalOptionBlock(id, "test1", "test2");
+            }
+
+            @Override
+            public MxNodeCell createMxCell(int id) {
+                return new MxNodeCell.Builder()
+                        .setId(id)
+                        .setValue("<p><i>test1</i></p><p>if test2</p>")
+                        .setGeometry(ComplexNodeGeometry.create(0, 0, 120, 60))
+                        .build();
+            }
+        };
+
+        testRunWhenRootBlockIsChainBlock(factory);
+    }
+
+    @Test
+    void testRunWhenRootBlockIsMenuShouldDoneWell() {
+        int width = 100;
+
+        MxNodeCell nodeCell1 = new MxNodeCell.Builder()
+                .setId(0)
+                .setGeometry(ComplexNodeGeometry.create(0, 0, width, 4))
+                .build();
+
+        MxNodeCell nodeCell2 = new MxNodeCell.Builder()
+                .setId(0)
+                .setIdSuffix(".1")
+                .setParent(0)
+                .setGeometry(ComplexNodeGeometry.create(0, 0, width, 4))
+                .build();
+
+        MxNodeCell nodeCell3 = new MxNodeCell.Builder()
+                .setId(1)
+                .setValue("<i>test</i>")
+                .setGeometry(ComplexNodeGeometry.create(0, 0, 120, 60))
+                .build();
+
+        MxNodeCell nodeCell4 = new MxNodeCell.Builder()
+                .setId(2)
+                .setGeometry(ComplexNodeGeometry.create(0, 0, 40, 40))
+                .build();
+
+        MxEdgeCell edgeCell1 = new MxEdgeCell.NoVerticesBuilder()
+                .setId(0)
+                .setIdSuffix(".2")
+                .setParent(0)
+                .setGeometry(EdgeGeometry.create(0, 2, width, 4))
+                .build();
+
+        MxEdgeCell edgeCell2 = new MxEdgeCell.Builder()
+                .setSource(0)
+                .setTarget(1)
+                .setEntryPoint(0.5, 0)
+                .setExitPoint(0.5, 1)
+                .build();
+
+        MxEdgeCell edgeCell3 = new MxEdgeCell.Builder()
+                .setSource(1)
+                .setTarget(2)
+                .setEntryPoint(0.5, 0)
+                .setExitPoint(0.5, 1)
+                .build();
+
+        MenuBlock menuBlock = new MenuBlock(0);
+        OptionBlock optionBlock = new OptionBlock(1, "test");
+        EndBlock endBlock = new EndBlock(2);
+
+        menuBlock.setWidth(width);
+        menuBlock.addBranch(optionBlock);
+        optionBlock.setNext(endBlock);
+
+        testRunShouldDoneWell(menuBlock, nodeCell1, nodeCell2, edgeCell1, edgeCell2, nodeCell3, edgeCell3, nodeCell4);
     }
 
     @Test

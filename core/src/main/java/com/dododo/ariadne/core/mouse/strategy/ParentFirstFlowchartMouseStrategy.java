@@ -2,6 +2,7 @@ package com.dododo.ariadne.core.mouse.strategy;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.ChainState;
+import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
@@ -28,6 +29,17 @@ public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy
             if (states.getLast().getNext() != null) {
                 states.getLast().getNext().accept(mouse);
             }
+        }
+    }
+
+    @Override
+    public void acceptMenu(Menu menu, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited) {
+        if (!visited.contains(menu)) {
+            visited.add(menu);
+            callback.accept(menu);
+
+            menu.branchesStream()
+                    .forEach(mouse::accept);
         }
     }
 

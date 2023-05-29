@@ -3,7 +3,10 @@ package com.dododo.ariadne.core.util;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ChainState;
+import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.EntryState;
+import com.dododo.ariadne.core.model.Option;
+import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Statement;
 import com.dododo.ariadne.core.model.Switch;
@@ -25,6 +28,21 @@ public final class StateManipulatorUtil {
             @Override
             public void accept(Statement statement) {
                 acceptChainState(statement);
+            }
+
+            @Override
+            public void accept(Reply reply) {
+                acceptChainState(reply);
+            }
+
+            @Override
+            public void accept(Option option) {
+                acceptChainState(option);
+            }
+
+            @Override
+            public void accept(ConditionalOption option) {
+                acceptChainState(option);
             }
 
             @Override

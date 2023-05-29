@@ -34,7 +34,7 @@ public abstract class ChainBlock extends Block {
                 .addStyleParam(BooleanStyleParam.createAsTrue(BooleanStyleParam.Key.ORTHOGONAL_LOOP))
                 .addStyleParam(BooleanStyleParam.createAsTrue(BooleanStyleParam.Key.ORTHOGONAL));
 
-        if (next.roots.size() == 1) {
+        if (!(next instanceof MenuBlock) || next.roots.size() == 1) {
             edgeCellBuilder.setEntryPoint(0.5, 0);
         }
 

@@ -31,6 +31,12 @@ class ApplyLayoutJobTest {
         testRunShouldDoneWell(expected, setup);
     }
 
+    @Test
+    void testRunWhenRootIsMenuBlockShouldDoneWell(@InputParam("ApplyLayoutJob.expected5.xml") Block expected,
+                                                  @InputParam("ApplyLayoutJob.setup4.xml") Block setup) {
+        testRunShouldDoneWell(expected, setup);
+    }
+
     private void testRunShouldDoneWell(Block expected, Block setup) {
         ApplyLayoutJob job = new ApplyLayoutJob(new AtomicReference<>(), new AtomicReference<>());
 

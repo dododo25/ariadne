@@ -118,11 +118,11 @@ public final class SwitchBlock extends Block {
                 .addStyleParam(BooleanStyleParam.createAsTrue(BooleanStyleParam.Key.ROUNDED))
                 .setGeometry(EdgeGeometry.create(0, 0, 160, 120));
 
-        if (trueBranch.roots.size() == 1) {
+        if (!(trueBranch instanceof MenuBlock) || trueBranch.roots.size() == 1) {
             trueCheckEdgeBuilder.setEntryPoint(0.5, 0);
         }
 
-        if (falseBranch.roots.size() == 1) {
+        if (!(falseBranch instanceof MenuBlock) || falseBranch.roots.size() == 1) {
             falseCheckEdgeBuilder.setEntryPoint(0.5, 0);
         }
 

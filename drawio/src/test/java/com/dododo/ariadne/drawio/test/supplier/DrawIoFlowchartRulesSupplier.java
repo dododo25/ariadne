@@ -4,6 +4,10 @@ import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.ChainBlock;
 import com.dododo.ariadne.drawio.model.EndBlock;
 import com.dododo.ariadne.drawio.model.EntryBlock;
+import com.dododo.ariadne.drawio.model.MenuBlock;
+import com.dododo.ariadne.drawio.model.OptionBlock;
+import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
+import com.dododo.ariadne.drawio.model.ReplyBlock;
 import com.dododo.ariadne.drawio.model.StatementBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
@@ -22,6 +26,40 @@ public class DrawIoFlowchartRulesSupplier {
     public RuleSet createRuleForStatementBlock() {
         return createRuleForChainBlock(StatementBlock.class,
                 (id, attrs) -> new StatementBlock(id, attrs.getValue("value")));
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForReplyBlock() {
+        return createRuleForChainBlock(ReplyBlock.class,
+                (id, attrs) -> new ReplyBlock(id, attrs.getValue("character"), attrs.getValue("line")));
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForOptionBlock() {
+        return createRuleForChainBlock(OptionBlock.class,
+                (id, attrs) -> new OptionBlock(id, attrs.getValue("value")));
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForConditionalOptionBlock() {
+        return createRuleForChainBlock(ConditionalOptionBlock.class, (id, attrs) -> new ConditionalOptionBlock(id,
+                attrs.getValue("value"), attrs.getValue("condition")));
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForMenuBlock() {
+        return new RuleSet.Builder(MenuBlock.class)
+                .setNodeRule((id, attrs) -> {
+                    MenuBlock block = new MenuBlock(id);
+
+                    block.setX(getIntValue(attrs, "x"));
+                    block.setY(getIntValue(attrs, "y"));
+                    block.setWidth(getIntValue(attrs, "width"));
+
+                    return block;
+                })
+                .setEdgeRule((o1, o2, attrs) -> ((MenuBlock) o1).addBranch((OptionBlock) o2))
+                .build();
     }
 
     @RuleSetSupplier
