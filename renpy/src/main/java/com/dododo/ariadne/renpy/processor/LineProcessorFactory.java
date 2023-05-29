@@ -1,5 +1,7 @@
 package com.dododo.ariadne.renpy.processor;
 
+import com.dododo.ariadne.common.configuration.Configuration;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -8,11 +10,15 @@ public final class LineProcessorFactory {
 
     private LineProcessorFactory() {}
 
-    public static LineProcessor create() {
+    public static LineProcessor create(Configuration configuration) {
         List<LineProcessor> processors = new ArrayList<>();
 
         populateInvalidLineProcessors(processors);
         populateProcessors(processors);
+
+        if (configuration.isLoadReply()) {
+            populateReplyRelatedProcessors(processors);
+        }
 
         processors.add(new LineToSkipProcessor());
 
@@ -46,6 +52,9 @@ public final class LineProcessorFactory {
         processors.add(new SwitchElseIfLineProcessor());
         processors.add(new SwitchElseLineProcessor());
         processors.add(new ReturnLineProcessor());
+    }
+
+    private static void populateReplyRelatedProcessors(List<LineProcessor> processors) {
         processors.add(new WithoutCharacterReplyLineProcessor());
         processors.add(new WithValueCharacterReplyLineProcessor());
         processors.add(new WithTextValueCharacterReplyLineProcessor());

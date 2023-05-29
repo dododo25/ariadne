@@ -33,7 +33,7 @@ public final class CollectStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        processor = LineProcessorFactory.create();
+        processor = LineProcessorFactory.create(getConfiguration());
         Path path = Paths.get(getConfiguration().getInputFiles().get(index));
 
         try (BufferedReader reader = Files.newBufferedReader(path)) {

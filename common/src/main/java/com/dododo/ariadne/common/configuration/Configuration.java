@@ -18,6 +18,8 @@ public class Configuration {
 
     private String outputDir;
 
+    private boolean loadReply;
+
     private Configuration() {}
 
     public String getInputProfile() {
@@ -36,6 +38,10 @@ public class Configuration {
         return outputDir;
     }
 
+    public boolean isLoadReply() {
+        return loadReply;
+    }
+
     public static Configuration create(Properties properties) {
         Configuration configuration = new Configuration();
 
@@ -43,6 +49,7 @@ public class Configuration {
         configuration.outputProfile = properties.getProperty("flowchart.output.profile");
         configuration.outputDir     = properties.getProperty("flowchart.output.directory");
         configuration.inputFiles    = prepareSortedInputFilesList(properties);
+        configuration.loadReply     = Boolean.parseBoolean(properties.getProperty("flowchart.loadReply", "true"));
 
         return configuration;
     }

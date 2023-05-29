@@ -13,8 +13,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 class JoinStatesJobTest {
 
     @Test
-    void testRunShouldDoneWell(@InputParam("JoinStatesJob.expected.xml") State expected,
-                               @InputParam("JoinStatesJob.setup.xml") JaxbState setup) {
+    void testRunShouldDoneWell(@InputParam("JoinStatesJob.expected1.xml") State expected,
+                               @InputParam("JoinStatesJob.setup1.xml") JaxbState setup) {
+        JoinStatesJob job = new JoinStatesJob(setup);
+        job.run();
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new RenPyFlowchartMouseFactory());
+    }
+
+    @Test
+    void testRunWhenComplexStateWithoutChildrenExistsShouldDoneWell(@InputParam("JoinStatesJob.expected2.xml") State expected,
+                                                                    @InputParam("JoinStatesJob.setup2.xml") JaxbState setup) {
         JoinStatesJob job = new JoinStatesJob(setup);
         job.run();
         StateAssertions.assertEquals(expected, job.getFlowchart(), new RenPyFlowchartMouseFactory());

@@ -184,6 +184,10 @@ public final class JoinStatesJob extends AbstractJob {
             private void acceptComplexState(JaxbComplexState jaxbState) {
                 ComplexState root = (ComplexState) map.get(jaxbState);
 
+                if (jaxbState.childrenCount() == 0) {
+                    root.addChild(new PassState());
+                }
+
                 jaxbState.childrenStream()
                         .map(map::get)
                         .forEach(root::addChild);
@@ -191,6 +195,13 @@ public final class JoinStatesJob extends AbstractJob {
 
             private void acceptChainState(JaxbComplexState jaxbState) {
                 State lastState = map.get(jaxbState);
+
+                if (jaxbState.childrenCount() == 0) {
+                    PassState state = new PassState();
+
+                    leafChainStateCollector.collect(lastState)
+                            .forEach(leaf -> leaf.setNext(state));
+                }
 
                 for (int i = 0; i < jaxbState.childrenCount(); i++) {
                     State child = map.get(jaxbState.childAt(i));

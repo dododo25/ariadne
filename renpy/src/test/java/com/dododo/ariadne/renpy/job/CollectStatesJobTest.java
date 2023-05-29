@@ -21,8 +21,26 @@ import static org.mockito.Mockito.when;
 class CollectStatesJobTest {
 
     @Test
-    void testRunShouldDoneWell(@InputParam("CollectStatesJob.expected1.xml") JaxbState expected) throws URISyntaxException {
+    void testRunWhenLoadReplyIsTrueShouldDoneWell(@InputParam("CollectStatesJob.expected1.xml") JaxbState expected) throws URISyntaxException {
         Configuration config = createConfig();
+
+        when(config.isLoadReply())
+                .thenReturn(true);
+
+        testRunShouldDoneWell(expected, config);
+    }
+
+    @Test
+    void testRunWhenLoadReplyIsFalseShouldDoneWell(@InputParam("CollectStatesJob.expected2.xml") JaxbState expected) throws URISyntaxException {
+        Configuration config = createConfig();
+
+        when(config.isLoadReply())
+                .thenReturn(false);
+
+        testRunShouldDoneWell(expected, config);
+    }
+
+    private void testRunShouldDoneWell(JaxbState expected, Configuration config) {
         JaxbComplexState rootState = new JaxbGroupState();
 
         for (int i = 0; i < config.getInputFiles().size(); i++) {
