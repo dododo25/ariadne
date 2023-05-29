@@ -1,10 +1,13 @@
 package com.dododo.ariadne.renpy.processor;
 
 import com.dododo.ariadne.common.configuration.Configuration;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
 
 public final class LineProcessorFactory {
 
@@ -14,6 +17,7 @@ public final class LineProcessorFactory {
         List<LineProcessor> processors = new ArrayList<>();
 
         populateInvalidLineProcessors(processors);
+        populateSkipComplexStateLineProcessors(processors, configuration);
         populateProcessors(processors);
 
         if (configuration.isLoadReply()) {
@@ -38,6 +42,12 @@ public final class LineProcessorFactory {
         processors.add(InvalidLineProcessor.RENPY_CALL_LINE_PROCESSOR);
     }
 
+    private static void populateSkipComplexStateLineProcessors(List<LineProcessor> processors,
+                                                               Configuration configuration) {
+        configuration.getExcluded()
+                .forEach(line -> processors.add(createSkipComplexStateLineProcessor(line)));
+    }
+
     private static void populateProcessors(List<LineProcessor> processors) {
         processors.add(new InitLineProcessor());
         processors.add(new CallLineProcessor());
@@ -58,5 +68,14 @@ public final class LineProcessorFactory {
         processors.add(new WithoutCharacterReplyLineProcessor());
         processors.add(new WithValueCharacterReplyLineProcessor());
         processors.add(new WithTextValueCharacterReplyLineProcessor());
+    }
+
+    private static LineProcessor createSkipComplexStateLineProcessor(String regex) {
+        return new LineProcessor(regex) {
+            @Override
+            public JaxbState prepareState(Matcher matcher) {
+                return new JaxbSkipComplexState();
+            }
+        };
     }
 }

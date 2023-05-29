@@ -3,6 +3,7 @@ package com.dododo.ariadne.common.configuration;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Configuration {
@@ -19,6 +20,8 @@ public class Configuration {
     private String outputDir;
 
     private boolean loadReply;
+
+    private Set<String> excluded;
 
     private Configuration() {}
 
@@ -42,6 +45,10 @@ public class Configuration {
         return loadReply;
     }
 
+    public Set<String> getExcluded() {
+        return excluded;
+    }
+
     public static Configuration create(Properties properties) {
         Configuration configuration = new Configuration();
 
@@ -50,6 +57,7 @@ public class Configuration {
         configuration.outputDir     = properties.getProperty("flowchart.output.directory");
         configuration.inputFiles    = prepareSortedInputFilesList(properties);
         configuration.loadReply     = Boolean.parseBoolean(properties.getProperty("flowchart.loadReply", "true"));
+        configuration.excluded      = prepareExcluded(properties);
 
         return configuration;
     }
@@ -61,5 +69,13 @@ public class Configuration {
                 .sorted(KEYS_COMPARATOR)
                 .map(properties::getProperty)
                 .collect(Collectors.toList());
+    }
+
+    private static Set<String> prepareExcluded(Properties properties) {
+        return properties.stringPropertyNames()
+                .stream()
+                .filter(key -> key.startsWith("flowchart.excluded"))
+                .map(properties::getProperty)
+                .collect(Collectors.toSet());
     }
 }

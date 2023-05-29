@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -36,6 +37,16 @@ class CollectStatesJobTest {
 
         when(config.isLoadReply())
                 .thenReturn(false);
+
+        testRunShouldDoneWell(expected, config);
+    }
+
+    @Test
+    void testRunWhenExcludedExistsShouldDoneWell(@InputParam("CollectStatesJob.expected3.xml") JaxbState expected) throws URISyntaxException {
+        Configuration config = createConfig();
+
+        when(config.getExcluded())
+                .thenReturn(Collections.singleton("\\$\\s+excluded\\s*=.*"));
 
         testRunShouldDoneWell(expected, config);
     }
