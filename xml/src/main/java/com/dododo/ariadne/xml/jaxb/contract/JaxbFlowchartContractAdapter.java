@@ -1,6 +1,5 @@
 package com.dododo.ariadne.xml.jaxb.contract;
 
-
 import com.dododo.ariadne.xml.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.xml.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbGoToState;

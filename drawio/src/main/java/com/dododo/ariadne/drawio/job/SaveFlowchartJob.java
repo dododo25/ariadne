@@ -1,7 +1,7 @@
 package com.dododo.ariadne.drawio.job;
 
-import com.dododo.ariadne.common.configuration.*;
-import com.dododo.ariadne.common.exception.*;
+import com.dododo.ariadne.common.configuration.Configuration;
+import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.mxg.MxFile;
 

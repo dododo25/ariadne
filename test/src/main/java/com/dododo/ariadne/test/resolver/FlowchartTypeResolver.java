@@ -67,10 +67,10 @@ public final class FlowchartTypeResolver implements ParameterResolver {
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
-        try {
-            InputParam inputAnnotation = parameterContext.findAnnotation(InputParam.class)
-                    .orElseThrow(IllegalArgumentException::new);
+        InputParam inputAnnotation = parameterContext.findAnnotation(InputParam.class)
+                .orElseThrow(IllegalArgumentException::new);
 
+        try {
             URL url = extensionContext.getTestClass()
                     .map(testType -> testType.getResource(inputAnnotation.value()))
                     .orElseThrow(IllegalArgumentException::new);
@@ -78,12 +78,14 @@ public final class FlowchartTypeResolver implements ParameterResolver {
             Mapping mapping = (Mapping) unmarshaller.unmarshal(url);
             Map<Integer, Object> map = new HashMap<>();
 
-            collectStates(map, mapping, url);
-            joinStates(map, mapping, url);
+            collectStates(map, mapping);
+            joinStates(map, mapping);
 
             return map.get(mapping.getRoot());
         } catch (JAXBException e) {
             throw new ParameterResolutionException(e.getMessage(), e);
+        } catch (IllegalArgumentException e) {
+            throw new ParameterResolutionException(String.format("%s at %s", e.getMessage(), inputAnnotation.value()));
         }
     }
 
@@ -98,25 +100,25 @@ public final class FlowchartTypeResolver implements ParameterResolver {
         }
     }
 
-    private void collectStates(Map<Integer, Object> map, Mapping mapping, URL url) {
+    private void collectStates(Map<Integer, Object> map, Mapping mapping) {
         mapping.getNodes().forEach(node -> {
             Class<?> type = node.getType();
 
             if (type == null) {
-                throw new ParameterResolutionException(String.format("Unknown type for %s at %s", node, url));
+                throw new IllegalArgumentException(String.format("Unknown type for %s", node));
             }
 
             NodeRule rule = nodeRules.get(type);
 
             if (rule == null) {
-                throw new ParameterResolutionException(String.format("Unknown node rule for %s", type));
+                throw new IllegalArgumentException(String.format("Unknown node rule for %s", type));
             }
 
             map.put(node.getId(), nodeRules.get(type).createState(node.getId(), node.getAttrs()));
         });
     }
 
-    private void joinStates(Map<Integer, Object> map, Mapping mapping, URL url) {
+    private void joinStates(Map<Integer, Object> map, Mapping mapping) {
         mapping.getEdges().forEach(edge -> {
             Object o1 = map.get(edge.getFrom());
             Object o2 = map.get(edge.getTo());
@@ -124,8 +126,7 @@ public final class FlowchartTypeResolver implements ParameterResolver {
             EdgeRule rule = edgeRules.get(o1.getClass());
 
             if (rule == null) {
-                throw new ParameterResolutionException(String.format("Unknown edge rule for %s at %s",
-                        o1.getClass(), url));
+                throw new IllegalArgumentException(String.format("Unknown edge rule for %s", o1.getClass()));
             }
 
             rule.joinStates(o1, o2, edge.getAttrs());
