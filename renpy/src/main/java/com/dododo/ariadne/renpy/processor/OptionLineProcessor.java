@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
 import java.util.regex.Matcher;
 
-public final class OptionLineProcessor extends TextLineProcessor {
+public final class OptionLineProcessor extends GenericLineProcessor {
 
     public OptionLineProcessor() {
         super("^'(.+)'\\s*:$");

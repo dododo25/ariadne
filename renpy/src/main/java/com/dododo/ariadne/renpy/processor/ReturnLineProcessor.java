@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
 import java.util.regex.Matcher;
 
-public final class ReturnLineProcessor extends LineProcessor {
+public final class ReturnLineProcessor extends GenericLineProcessor {
 
     public ReturnLineProcessor() {
         super("^return(\\s+.+)?$");

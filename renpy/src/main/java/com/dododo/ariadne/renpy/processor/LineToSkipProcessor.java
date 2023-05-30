@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
 import java.util.regex.Matcher;
 
-public final class LineToSkipProcessor extends LineProcessor {
+public final class LineToSkipProcessor extends GenericLineProcessor {
 
     public LineToSkipProcessor() {
         super("^.*$");

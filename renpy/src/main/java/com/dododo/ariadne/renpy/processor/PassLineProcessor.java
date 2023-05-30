@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
 import java.util.regex.Matcher;
 
-final class PassLineProcessor extends LineProcessor {
+public final class PassLineProcessor extends GenericLineProcessor {
 
     public PassLineProcessor() {
         super("^pass$");

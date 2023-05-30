@@ -2,32 +2,22 @@ package com.dododo.ariadne.renpy.processor;
 
 import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public abstract class LineProcessor {
+    protected LineProcessor next;
 
-    protected final Pattern pattern;
-
-    private LineProcessor next;
-
-    protected LineProcessor(String regex) {
-        pattern = Pattern.compile(regex);
+    public void setNext(LineProcessor next) {
+        this.next = next;
     }
 
     public JaxbState accept(String s) {
-        Matcher matcher = pattern.matcher(s);
+        JaxbState state = prepareState(s);
 
-        if (matcher.find()) {
-            return prepareState(matcher);
+        if (state != null) {
+            return state;
         }
 
         return next == null ? null : next.accept(s);
     }
 
-    public abstract JaxbState prepareState(Matcher matcher);
-
-    public void setNext(LineProcessor next) {
-        this.next = next;
-    }
+    protected abstract JaxbState prepareState(String s);
 }

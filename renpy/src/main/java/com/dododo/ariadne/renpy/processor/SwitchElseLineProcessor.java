@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 
 import java.util.regex.Matcher;
 
-public final class SwitchElseLineProcessor extends LineProcessor {
+public final class SwitchElseLineProcessor extends GenericLineProcessor {
 
     public SwitchElseLineProcessor() {
         super("^else\\s*:$");

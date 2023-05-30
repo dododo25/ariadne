@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
 import java.util.regex.Matcher;
 
-public final class WithValueCharacterReplyLineProcessor extends TextLineProcessor {
+public final class WithValueCharacterReplyLineProcessor extends GenericLineProcessor {
 
     public WithValueCharacterReplyLineProcessor() {
         super("^([a-zA-Z]\\w*)\\s*'(.+)'$");

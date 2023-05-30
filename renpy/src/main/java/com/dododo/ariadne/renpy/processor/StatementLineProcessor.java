@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbStatement;
 
 import java.util.regex.Matcher;
 
-public final class StatementLineProcessor extends LineProcessor {
+public final class StatementLineProcessor extends GenericLineProcessor {
 
     public StatementLineProcessor() {
         super("^\\$\\s*(\\S+(\\s+\\S+)*)$");

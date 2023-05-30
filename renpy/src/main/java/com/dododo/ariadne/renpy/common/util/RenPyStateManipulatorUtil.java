@@ -79,7 +79,11 @@ public final class RenPyStateManipulatorUtil {
 
             @Override
             public void accept(ComplexState state) {
-                state.replaceChild(oldState, newState);
+                if (newState == null) {
+                    state.removeChild(oldState);
+                } else {
+                    state.replaceChild(oldState, newState);
+                }
             }
 
             @Override

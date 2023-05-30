@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 
 import java.util.regex.Matcher;
 
-public final class MenuLineProcessor extends LineProcessor {
+public final class MenuLineProcessor extends GenericLineProcessor {
 
     public MenuLineProcessor() {
         super("^menu(\\(.*\\))? *:$");

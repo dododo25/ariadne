@@ -30,18 +30,12 @@ public class ComplexState extends State {
 
     public void addChild(State state) {
         children.add(state);
-
-        if (state != null) {
-            state.addRoot(this);
-        }
+        state.addRoot(this);
     }
 
     public void removeChild(State state) {
         children.remove(state);
-
-        if (state != null) {
-            state.removeRoot(this);
-        }
+        state.removeRoot(this);
     }
 
     public void replaceChild(State oldState, State newState) {
@@ -51,13 +45,8 @@ public class ComplexState extends State {
             children.remove(oldState);
             children.add(index, newState);
 
-            if (oldState != null) {
-                oldState.removeRoot(this);
-            }
-
-            if (newState != null) {
-                newState.addRoot(this);
-            }
+            oldState.removeRoot(this);
+            newState.addRoot(this);
         }
     }
 

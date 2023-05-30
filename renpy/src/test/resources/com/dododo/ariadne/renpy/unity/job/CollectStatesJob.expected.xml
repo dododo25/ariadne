@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+
+    <node id="1" type="com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState" />
+    <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup" value="x" />
+    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch" condition="expression1" />
+    <node id="4" type="com.dododo.ariadne.renpy.jaxb.model.JaxbStatement" value="value = 1" />
+    <node id="5" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch" condition="expression2" />
+    <node id="6" type="com.dododo.ariadne.renpy.jaxb.model.JaxbStatement" value="value = 2" />
+    <node id="7" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch" />
+    <node id="8" type="com.dododo.ariadne.renpy.jaxb.model.JaxbStatement" value="value = 3" />
+    <node id="9" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState" />
+    <node id="10" type="com.dododo.ariadne.renpy.jaxb.model.JaxbStatement" value="value = 4" />
+
+    <edge from="1" to="2" />
+    <edge from="2" to="3" />
+    <edge from="2" to="5" />
+    <edge from="2" to="7" />
+    <edge from="2" to="9" />
+    <edge from="3" to="4" />
+    <edge from="5" to="6" />
+    <edge from="7" to="8" />
+    <edge from="9" to="10" />
+</mapping>

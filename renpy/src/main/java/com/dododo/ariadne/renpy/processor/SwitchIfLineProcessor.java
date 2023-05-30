@@ -5,7 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 
 import java.util.regex.Matcher;
 
-public final class SwitchIfLineProcessor extends LineProcessor {
+public final class SwitchIfLineProcessor extends GenericLineProcessor {
 
     public SwitchIfLineProcessor() {
         super("^if\\s+(\\S+(\\s+\\S+)*)\\s*:$");
