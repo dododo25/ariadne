@@ -32,7 +32,7 @@ class ApplyLayoutJobTest {
     }
 
     @Test
-    void testRunWhenRootIsMenuBlockShouldDoneWell(@InputParam("ApplyLayoutJob.expected5.xml") Block expected,
+    void testRunWhenRootIsMenuBlockShouldDoneWell(@InputParam("ApplyLayoutJob.expected4.xml") Block expected,
                                                   @InputParam("ApplyLayoutJob.setup4.xml") Block setup) {
         testRunShouldDoneWell(expected, setup);
     }

@@ -5,9 +5,9 @@ import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 
 import java.util.Objects;
 
-public class OptionalOptionBlockComparatorFactory extends BlockComparatorFactory {
+public class ConditionalOptionBlockComparatorFactory extends BlockComparatorFactory {
 
-    public OptionalOptionBlockComparatorFactory(ConditionalOptionBlock block) {
+    public ConditionalOptionBlockComparatorFactory(ConditionalOptionBlock block) {
         super(block);
     }
 
