@@ -22,6 +22,10 @@ public abstract class Block {
         this.roots = new HashSet<>();
     }
 
+    public Block[] getRoots() {
+        return roots.toArray(new Block[0]);
+    }
+
     public void addRoot(Block block) {
         roots.add(block);
     }

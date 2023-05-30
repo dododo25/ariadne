@@ -65,7 +65,7 @@ public class DrawIoFlowchartRulesSupplier {
     @RuleSetSupplier
     public RuleSet createRuleForSwitchBlock() {
         return new RuleSet.Builder(SwitchBlock.class)
-                .setNodeRule((id, attrs) -> new SwitchBlock(id, attrs.getValue("condition")))
+                .setNodeRule(createNodeRuleForBlock((id, attrs) -> new SwitchBlock(id, attrs.getValue("condition"))))
                 .setEdgeRule((o1, o2, attrs) -> {
                     SwitchBlock aSwitch = (SwitchBlock) o1;
                     Block next = (Block) o2;
