@@ -36,6 +36,6 @@ public class JaxbMarker implements JaxbSimpleState {
 
     @Override
     public String toString() {
-        return String.format("%s(condition='%s')", getClass().getSimpleName(), value);
+        return String.format("%s(value='%s')", getClass().getSimpleName(), value);
     }
 }

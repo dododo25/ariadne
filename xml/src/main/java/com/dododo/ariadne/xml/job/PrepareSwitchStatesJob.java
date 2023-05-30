@@ -1,6 +1,7 @@
 package com.dododo.ariadne.xml.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContractAdapter;
@@ -18,26 +19,32 @@ public final class PrepareSwitchStatesJob extends AbstractJob {
 
             @Override
             public void accept(ComplexSwitch complexSwitch) {
-                SwitchBranch firstSwitchBranch = (SwitchBranch) complexSwitch.childAt(0);
+                SwitchBranch switchBranch = (SwitchBranch) complexSwitch.childAt(0);
+                State nextState = switchBranch.getNext();
 
-                Switch rootSwitch = new Switch(firstSwitchBranch.getValue());
-                rootSwitch.setTrueBranch(firstSwitchBranch.getNext());
+                Switch rootSwitch = new Switch(switchBranch.getValue());
+                rootSwitch.setTrueBranch(switchBranch.getNext());
+
+                nextState.removeRoot(switchBranch);
 
                 Switch current = rootSwitch;
 
                 for (int i = 1; i < complexSwitch.childrenCount(); i++) {
-                    SwitchBranch switchBranch = (SwitchBranch) complexSwitch.childAt(i);
+                    switchBranch = (SwitchBranch) complexSwitch.childAt(i);
+                    nextState = switchBranch.getNext();
 
                     if (switchBranch.getValue() == null) {
-                        current.setFalseBranch(switchBranch.getNext());
+                        current.setFalseBranch(nextState);
                     } else {
                         Switch nextSwitch = new Switch(switchBranch.getValue());
 
-                        nextSwitch.setTrueBranch(switchBranch.getNext());
+                        nextSwitch.setTrueBranch(nextState);
                         current.setFalseBranch(nextSwitch);
 
                         current = nextSwitch;
                     }
+
+                    nextState.removeRoot(switchBranch);
                 }
 
                 XmlStateManipulatorUtil.replace(complexSwitch, rootSwitch);

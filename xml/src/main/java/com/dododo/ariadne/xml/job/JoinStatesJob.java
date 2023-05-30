@@ -5,7 +5,6 @@ import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
-import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Statement;
 import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
@@ -58,7 +57,7 @@ public final class JoinStatesJob extends AbstractJob {
         JaxbFlowchartContract callback = new JaxbFlowchartContract() {
             @Override
             public void accept(JaxbRootState state) {
-                map.put(state, new EntryState());
+                map.put(state, new ComplexState());
             }
 
             @Override
@@ -105,7 +104,12 @@ public final class JoinStatesJob extends AbstractJob {
         JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
             @Override
             public void accept(JaxbRootState state) {
-                acceptChainState(state);
+                acceptComplexState(state);
+            }
+
+            @Override
+            public void accept(JaxbComplexSwitch complexSwitch) {
+                acceptComplexState(complexSwitch);
             }
 
             @Override
@@ -113,11 +117,10 @@ public final class JoinStatesJob extends AbstractJob {
                 acceptChainState(switchBranch);
             }
 
-            @Override
-            public void accept(JaxbComplexSwitch complexSwitch) {
-                ComplexState state = (ComplexState) map.get(complexSwitch);
+            private void acceptComplexState(JaxbComplexState jaxbState) {
+                ComplexState state = (ComplexState) map.get(jaxbState);
 
-                complexSwitch.childrenStream()
+                jaxbState.childrenStream()
                         .map(map::get)
                         .forEach(state::addChild);
             }

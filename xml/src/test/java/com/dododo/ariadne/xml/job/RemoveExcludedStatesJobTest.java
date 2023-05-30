@@ -22,7 +22,7 @@ class RemoveExcludedStatesJobTest {
         Configuration config = mock(Configuration.class);
 
         when(config.getExcluded())
-                .thenReturn(Collections.singleton("\\$\\s+excluded\\s*=.*"));
+                .thenReturn(Collections.singleton("^\\$\\s+excluded\\s*=\\s*True$"));
 
         RemoveExcludedStatesJob job = new RemoveExcludedStatesJob(setup);
 
