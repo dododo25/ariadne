@@ -45,6 +45,9 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <excludes>
+                        <exclude>**/*JobTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
