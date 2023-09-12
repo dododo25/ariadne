@@ -130,12 +130,8 @@ public final class PrepareRootBlockJob extends DrawIoAbstractJob {
             public void accept(Menu menu) {
                 MenuBlock menuBlock = (MenuBlock) blocks.get(menu);
 
-                menu.branchesStream().forEach(option -> {
-                    OptionBlock optionBlock = (OptionBlock) blocks.get(option);
-
-                    menuBlock.addBranch(optionBlock);
-                    optionBlock.addRoot(menuBlock);
-                });
+                menu.branchesStream().forEach(option ->
+                        menuBlock.addBranch((OptionBlock) blocks.get(option)));
             }
 
             @Override

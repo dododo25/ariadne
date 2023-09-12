@@ -13,9 +13,12 @@
         <module>core</module>
         <module>core-test</module>
         <module>drawio</module>
+        <module>jaxb</module>
+        <module>jaxb-test</module>
         <module>mxg</module>
         <module>renpy</module>
         <module>test</module>
+        <module>thread</module>
         <module>xml</module>
     </modules>
 

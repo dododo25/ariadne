@@ -1,15 +1,15 @@
 package com.dododo.ariadne.xml.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.xml.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.xml.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.xml.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbText;
-import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
-import com.dododo.ariadne.xml.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.xml.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbText;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
 
 import java.util.Set;
 

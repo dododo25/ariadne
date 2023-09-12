@@ -7,12 +7,34 @@
         <xs:attribute name="value" use="required" />
     </xs:complexType>
 
+    <xs:complexType name="replyType">
+        <xs:attribute name="character" />
+        <xs:attribute name="line" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="optionType">
+        <xs:complexContent>
+            <xs:extension base="groupType">
+                <xs:attribute name="value" type="xs:string" />
+                <xs:attribute name="condition" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="menuType">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="option" type="optionType" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="groupType">
         <xs:choice>
             <xs:sequence>
                 <xs:choice maxOccurs="unbounded">
                     <xs:element name="marker" type="simpleStateType" />
                     <xs:element name="text" type="simpleStateType" />
+                    <xs:element name="reply" type="replyType" />
+                    <xs:element name="menu" type="menuType" />
                     <xs:element name="switch" type="complexSwitchType" />
                 </xs:choice>
                 <xs:choice minOccurs="0">

@@ -4,9 +4,16 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;
+import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.EndPoint;
+import com.dododo.ariadne.core.model.Menu;
+import com.dododo.ariadne.core.model.Option;
+import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Text;
+import com.dododo.ariadne.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.jaxb.model.JaxbOption;
+import com.dododo.ariadne.jaxb.model.JaxbReply;
 import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.model.GoToPoint;
@@ -14,21 +21,21 @@ import com.dododo.ariadne.xml.common.model.Marker;
 import com.dododo.ariadne.xml.common.model.PassState;
 import com.dododo.ariadne.xml.common.model.SwitchBranch;
 import com.dododo.ariadne.xml.common.model.ComplexSwitch;
-import com.dododo.ariadne.xml.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.xml.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.xml.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbComplexSwitch;
-import com.dododo.ariadne.xml.jaxb.model.JaxbEndState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbGoToState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbMarker;
-import com.dododo.ariadne.xml.jaxb.model.JaxbPassState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbText;
-import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
-import com.dododo.ariadne.xml.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.xml.jaxb.mouse.strategy.ChildFirstJaxbFlowchartMouseStrategy;
-import com.dododo.ariadne.xml.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
+import com.dododo.ariadne.jaxb.model.JaxbEndState;
+import com.dododo.ariadne.jaxb.model.JaxbGoToState;
+import com.dododo.ariadne.jaxb.model.JaxbMarker;
+import com.dododo.ariadne.jaxb.model.JaxbPassState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbText;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.jaxb.mouse.strategy.ChildFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +70,25 @@ public final class JoinStatesJob extends AbstractJob {
             @Override
             public void accept(JaxbText text) {
                 map.put(text, new Text(text.getValue()));
+            }
+
+            @Override
+            public void accept(JaxbReply reply) {
+                map.put(reply, new Reply(reply.getCharacter(), reply.getLine()));
+            }
+
+            @Override
+            public void accept(JaxbMenu menu) {
+                map.put(menu, new Menu());
+            }
+
+            @Override
+            public void accept(JaxbOption option) {
+                if (option.getCondition() == null) {
+                    map.put(option, new Option(option.getValue()));
+                } else {
+                    map.put(option, new ConditionalOption(option.getValue(), option.getCondition()));
+                }
             }
 
             @Override
@@ -105,6 +131,16 @@ public final class JoinStatesJob extends AbstractJob {
             @Override
             public void accept(JaxbRootState state) {
                 acceptComplexState(state);
+            }
+
+            @Override
+            public void accept(JaxbMenu menu) {
+                acceptComplexState(menu);
+            }
+
+            @Override
+            public void accept(JaxbOption option) {
+                acceptComplexState(option);
             }
 
             @Override
