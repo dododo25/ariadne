@@ -11,6 +11,6 @@ public final class EntryState extends ChainState {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof EntryState ? 0 : 1;
+        return compareByClass(o);
     }
 }

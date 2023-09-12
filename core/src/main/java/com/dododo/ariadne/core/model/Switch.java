@@ -59,7 +59,7 @@ public final class Switch extends State {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof Switch && Objects.equals(condition, ((Switch) o).condition) ? 0 : 1;
+        return compareBySingleValue(o, state -> ((Switch) state).getCondition());
     }
 
     @Override

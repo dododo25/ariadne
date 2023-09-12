@@ -1,7 +1,7 @@
 package com.dododo.ariadne.xml.job;
 
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
@@ -15,7 +15,7 @@ class XmlRemoveStateJobTest {
     @Test
     void testRunShouldDoneWell(@InputParam("XmlRemoveStateJob.expected.xml") State expected,
                                @InputParam("XmlRemoveStateJob.setup.xml") State setup) {
-        XmlRemoveStateJob<Statement> job = new XmlRemoveStateJob<>(Statement.class);
+        XmlRemoveStateJob<Text> job = new XmlRemoveStateJob<>(Text.class);
 
         job.setFlowchart(setup);
         job.run();

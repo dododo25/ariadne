@@ -7,7 +7,7 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 
 public abstract class SimpleFlowchartContract implements FlowchartContract {
@@ -18,8 +18,8 @@ public abstract class SimpleFlowchartContract implements FlowchartContract {
     }
 
     @Override
-    public final void accept(Statement statement) {
-        acceptState(statement);
+    public final void accept(Text text) {
+        acceptState(text);
     }
 
     @Override

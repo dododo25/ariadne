@@ -9,7 +9,7 @@ import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.drawio.mouse.strategy.DrawIoChildrenFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.drawio.mouse.strategy.DrawIoFlowchartMouseStrategy;
@@ -25,8 +25,8 @@ import java.util.List;
 class DrawIoFlowchartMouseTest {
 
     private static EntryBlock entryBlock;
-    private static StatementBlock statement1;
-    private static StatementBlock statement2;
+    private static TextBlock text1;
+    private static TextBlock text2;
     private static ReplyBlock reply;
     private static MenuBlock menu;
     private static OptionBlock option1;
@@ -38,8 +38,8 @@ class DrawIoFlowchartMouseTest {
     @BeforeAll
     static void setUp() {
         entryBlock = new EntryBlock(0);
-        statement1 = new StatementBlock(1, "test1");
-        statement2 = new StatementBlock(2, "test2");
+        text1 = new TextBlock(1, "test1");
+        text2 = new TextBlock(2, "test2");
         reply = new ReplyBlock(3, null, "test");
         menu = new MenuBlock(4);
         option1 = new OptionBlock(5, "test");
@@ -52,24 +52,24 @@ class DrawIoFlowchartMouseTest {
         reply.setNext(menu);
         menu.addBranch(option1);
         menu.addBranch(option2);
-        option1.setNext(statement1);
+        option1.setNext(text1);
         option2.setNext(aSwitch);
-        statement1.setNext(aSwitch);
-        aSwitch.setTrueBranch(statement2);
+        text1.setNext(aSwitch);
+        aSwitch.setTrueBranch(text2);
         aSwitch.setFalseBranch(endPoint1);
-        statement2.setNext(endPoint2);
+        text2.setNext(endPoint2);
     }
 
     @Test
     void testAcceptWhenParentFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
-        List<Block> expected = Arrays.asList(entryBlock, reply, menu, option1, statement1, aSwitch,
-                statement2, endPoint2, endPoint1, option2);
+        List<Block> expected = Arrays.asList(entryBlock, reply, menu, option1, text1, aSwitch,
+                text2, endPoint2, endPoint1, option2);
         testAccept(expected, new DrawIoParentFirstFlowchartMouseStrategy());
     }
 
     @Test
     void testAcceptWhenChildrenFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
-        List<Block> expected = Arrays.asList(endPoint2, statement2, endPoint1, aSwitch, statement1,
+        List<Block> expected = Arrays.asList(endPoint2, text2, endPoint1, aSwitch, text1,
                 option1, option2, menu, reply, entryBlock);
         testAccept(expected, new DrawIoChildrenFirstFlowchartMouseStrategy());
     }

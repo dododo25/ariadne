@@ -43,6 +43,6 @@ public final class Menu extends State {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof Menu ? 0 : 1;
+        return compareByClass(o);
     }
 }

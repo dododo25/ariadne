@@ -7,12 +7,15 @@ import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
+import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
 import com.dododo.ariadne.test.rule.NodeRule;
 import com.dododo.ariadne.test.rule.RuleSet;
+
+import java.util.function.Function;
 
 public class FlowchartRulesSupplier {
 
@@ -22,9 +25,8 @@ public class FlowchartRulesSupplier {
     }
 
     @RuleSetSupplier
-    public RuleSet createRuleForStatement() {
-        return createRuleForChainState(Statement.class,
-                (id, attrs) -> new Statement(attrs.getValue("value")));
+    public RuleSet createRuleForText() {
+        return createRuleForSimpleState(Text.class, Text::new);
     }
 
     @RuleSetSupplier
@@ -43,8 +45,7 @@ public class FlowchartRulesSupplier {
 
     @RuleSetSupplier
     public RuleSet createRuleForOption() {
-        return createRuleForChainState(Option.class,
-                (id, attrs) -> new Option(attrs.getValue("value")));
+        return createRuleForSimpleState(Option.class, Option::new);
     }
 
     @RuleSetSupplier
@@ -81,6 +82,10 @@ public class FlowchartRulesSupplier {
         return new RuleSet.Builder(EndPoint.class)
                 .setNodeRule((id, attrs) -> new EndPoint())
                 .build();
+    }
+
+    private <T extends SimpleState> RuleSet createRuleForSimpleState(Class<T> type, Function<String, T> function) {
+        return createRuleForChainState(type, (id, attrs) -> function.apply(attrs.getValue("value")));
     }
 
     private RuleSet createRuleForChainState(Class<? extends ChainState> type, NodeRule rule) {

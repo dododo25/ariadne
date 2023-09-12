@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <flowchart>
-    <statement value="i = 0"/>
+    <text value="i = 0"/>
     <marker value="m1"/>
     <switch>
         <if condition="i &lt; 5">
-            <statement value="i++"/>
+            <text value="i++"/>
             <goto value="m1"/>
         </if>
     </switch>

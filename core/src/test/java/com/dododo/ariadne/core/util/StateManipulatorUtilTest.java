@@ -3,7 +3,7 @@ package com.dododo.ariadne.core.util;
 import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
@@ -20,14 +20,14 @@ class StateManipulatorUtilTest {
     @Test
     void testReplaceShouldNotThrowException() {
         testReplaceChainState(new EntryState());
-        testReplaceChainState(new Statement("test"));
+        testReplaceChainState(new Text("test"));
         testReplaceChainState(new Reply("character", "line"));
         testReplaceChainState(new Option("test"));
         testReplaceChainState(new ConditionalOption("test", "condition"));
 
-        process(new Switch("test"), new Statement("replaceable"), new Statement("replacement"),
+        process(new Switch("test"), new Text("replaceable"), new Text("replacement"),
                 (root, state) -> ((Switch) root).setTrueBranch(state), root -> ((Switch) root).getTrueBranch());
-        process(new Switch("test"), new Statement("replaceable"), new Statement("replacement"),
+        process(new Switch("test"), new Text("replaceable"), new Text("replacement"),
                 (root, state) -> ((Switch) root).setFalseBranch(state), root -> ((Switch) root).getFalseBranch());
     }
 
@@ -36,8 +36,8 @@ class StateManipulatorUtilTest {
         EntryState rootState1 = new EntryState();
         EntryState rootState2 = new EntryState();
 
-        Statement replaceable = new Statement("replaceable");
-        Statement replacement = new Statement("replacement");
+        Text replaceable = new Text("replaceable");
+        Text replacement = new Text("replacement");
 
         rootState1.setNext(replaceable);
         rootState2.setNext(replaceable);
@@ -50,7 +50,7 @@ class StateManipulatorUtilTest {
     }
 
     private void testReplaceChainState(ChainState chainState) {
-        process(chainState, new Statement("replaceable"), new Statement("replacement"),
+        process(chainState, new Text("replaceable"), new Text("replacement"),
                 (root, state) -> ((ChainState) root).setNext(state), root -> ((ChainState) root).getNext());
     }
 

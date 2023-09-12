@@ -8,7 +8,7 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.strategy.FlowchartMouseStrategy;
 
@@ -35,8 +35,8 @@ public class FlowchartMouse implements FlowchartContract {
     }
 
     @Override
-    public void accept(Statement statement) {
-        strategy.acceptChainState(statement, this, callback, visited);
+    public void accept(Text text) {
+        strategy.acceptChainState(text, this, callback, visited);
     }
 
     @Override

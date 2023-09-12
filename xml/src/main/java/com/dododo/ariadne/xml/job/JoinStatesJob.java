@@ -6,7 +6,7 @@ import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.model.GoToPoint;
@@ -24,7 +24,7 @@ import com.dododo.ariadne.xml.jaxb.model.JaxbMarker;
 import com.dododo.ariadne.xml.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.xml.jaxb.mouse.JaxbFlowchartMouse;
 import com.dododo.ariadne.xml.jaxb.mouse.strategy.ChildFirstJaxbFlowchartMouseStrategy;
@@ -61,8 +61,8 @@ public final class JoinStatesJob extends AbstractJob {
             }
 
             @Override
-            public void accept(JaxbStatement statement) {
-                map.put(statement, new Statement(statement.getValue()));
+            public void accept(JaxbText text) {
+                map.put(text, new Text(text.getValue()));
             }
 
             @Override

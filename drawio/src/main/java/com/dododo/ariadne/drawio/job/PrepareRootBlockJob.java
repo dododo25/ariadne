@@ -3,7 +3,7 @@ package com.dododo.ariadne.drawio.job;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ConditionalOption;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
@@ -14,7 +14,7 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.model.ChainBlock;
 import com.dododo.ariadne.drawio.model.EndBlock;
@@ -59,8 +59,8 @@ public final class PrepareRootBlockJob extends DrawIoAbstractJob {
             }
 
             @Override
-            public void accept(Statement statement) {
-                blocks.put(statement, new StatementBlock(ref.getAndIncrement(), statement.getValue()));
+            public void accept(Text text) {
+                blocks.put(text, new TextBlock(ref.getAndIncrement(), text.getValue()));
             }
 
             @Override
@@ -107,8 +107,8 @@ public final class PrepareRootBlockJob extends DrawIoAbstractJob {
             }
 
             @Override
-            public void accept(Statement statement) {
-                acceptChainState(statement);
+            public void accept(Text text) {
+                acceptChainState(text);
             }
 
             @Override

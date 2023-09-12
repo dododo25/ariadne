@@ -8,7 +8,7 @@ import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.mxg.DiagramRoot;
 import com.dododo.ariadne.mxg.MxAbstractCell;
@@ -62,11 +62,11 @@ class PrepareDiagramRootJobTest {
     }
 
     @Test
-    void testRunWhenRootBlockIsStatementShouldDoneWell() {
+    void testRunWhenRootBlockIsTextShouldDoneWell() {
         BlockToMxCellFactory factory = new BlockToMxCellFactory() {
             @Override
             public ChainBlock createBlock(int id) {
-                return new StatementBlock(id, "test");
+                return new TextBlock(id, "test");
             }
 
             @Override

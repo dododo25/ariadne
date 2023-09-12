@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.comparator;
 
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Switch;
@@ -22,11 +22,11 @@ class StateComparatorTest {
     void testIsEqualShouldReturnBoolean() {
         Assertions.assertEquals(0, comparator.compare(new EntryState(), new EntryState()));
         Assertions.assertEquals(0, comparator.compare(new EndPoint(), new EndPoint()));
-        Assertions.assertEquals(0, comparator.compare(new Statement("test"), new Statement("test")));
+        Assertions.assertEquals(0, comparator.compare(new Text("test"), new Text("test")));
 
         Assertions.assertEquals(0, comparator.compare(new Switch("test"), new Switch("test")));
 
-        Assertions.assertNotEquals(0, comparator.compare(new Statement("test"), new Statement("__INVALID")));
+        Assertions.assertNotEquals(0, comparator.compare(new Text("test"), new Text("__INVALID")));
         Assertions.assertNotEquals(0, comparator.compare(new Switch("test"), new Switch("__INVALID")));
     }
 
@@ -38,19 +38,19 @@ class StateComparatorTest {
         Switch aSwitch1 = new Switch("test");
         Switch aSwitch2 = new Switch("test");
 
-        Statement statement1 = new Statement("test");
-        Statement statement2 = new Statement("test");
+        Text text1 = new Text("test");
+        Text text2 = new Text("test");
 
         EndPoint endPoint = new EndPoint();
 
         entryState1.setNext(aSwitch1);
-        aSwitch1.setTrueBranch(statement1);
-        statement1.setNext(entryState1);
+        aSwitch1.setTrueBranch(text1);
+        text1.setNext(entryState1);
         aSwitch1.setFalseBranch(endPoint);
 
         entryState2.setNext(aSwitch2);
-        aSwitch2.setTrueBranch(statement2);
-        statement2.setNext(entryState2);
+        aSwitch2.setTrueBranch(text2);
+        text2.setNext(entryState2);
         aSwitch2.setFalseBranch(endPoint);
 
         Assertions.assertEquals(0, comparator.compare(entryState1, entryState2));
@@ -64,13 +64,13 @@ class StateComparatorTest {
         Switch aSwitch1 = new Switch("test");
         Switch aSwitch2 = new Switch("test");
 
-        Statement statement1 = new Statement("test");
+        Text text1 = new Text("test");
 
         EndPoint endPoint = new EndPoint();
 
         entryState1.setNext(aSwitch1);
-        aSwitch1.setTrueBranch(statement1);
-        statement1.setNext(entryState1);
+        aSwitch1.setTrueBranch(text1);
+        text1.setNext(entryState1);
         aSwitch1.setFalseBranch(endPoint);
 
         entryState2.setNext(aSwitch2);
@@ -88,20 +88,20 @@ class StateComparatorTest {
         Switch aSwitch1 = new Switch("test");
         Switch aSwitch2 = new Switch("test");
 
-        Statement statement1 = new Statement("test");
-        Statement statement2 = new Statement("test");
+        Text text1 = new Text("test");
+        Text text2 = new Text("test");
 
         EndPoint endPoint = new EndPoint();
 
         entryState1.setNext(aSwitch1);
-        aSwitch1.setTrueBranch(statement1);
-        statement1.setNext(entryState1);
+        aSwitch1.setTrueBranch(text1);
+        text1.setNext(entryState1);
         aSwitch1.setFalseBranch(endPoint);
 
         entryState2.setNext(aSwitch2);
         aSwitch2.setTrueBranch(endPoint);
-        aSwitch2.setFalseBranch(statement2);
-        statement2.setNext(entryState2);
+        aSwitch2.setFalseBranch(text2);
+        text2.setNext(entryState2);
 
         Assertions.assertNotEquals(0, comparator.compare(entryState1, entryState2));
     }

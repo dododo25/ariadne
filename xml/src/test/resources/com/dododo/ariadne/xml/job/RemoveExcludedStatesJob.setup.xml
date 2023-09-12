@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
     <node id="1" type="com.dododo.ariadne.xml.jaxb.model.JaxbRootState" />
-    <node id="2" type="com.dododo.ariadne.xml.jaxb.model.JaxbStatement" value="$ excluded = True" />
+    <node id="2" type="com.dododo.ariadne.xml.jaxb.model.JaxbText" value="$ excluded = True" />
     <node id="3" type="com.dododo.ariadne.xml.jaxb.model.JaxbComplexSwitch" />
     <node id="4" type="com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch" condition="switch" />
-    <node id="5" type="com.dododo.ariadne.xml.jaxb.model.JaxbStatement" value="$ excluded = False" />
+    <node id="5" type="com.dododo.ariadne.xml.jaxb.model.JaxbText" value="$ excluded = False" />
 
     <edge from="1" to="2" />
     <edge from="1" to="3" />

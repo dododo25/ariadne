@@ -10,7 +10,7 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartMouseFactory;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.ComplexState;
@@ -33,7 +33,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbReply;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbText;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
@@ -71,8 +71,8 @@ public final class JoinStatesJob extends AbstractJob {
             }
 
             @Override
-            public void accept(JaxbStatement statement) {
-                map.put(statement, new Statement(statement.getValue()));
+            public void accept(JaxbText text) {
+                map.put(text, new Text(text.getValue()));
             }
 
             @Override

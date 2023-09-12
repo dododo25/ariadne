@@ -5,14 +5,14 @@
     <node id="3" type="com.dododo.ariadne.core.model.Option" value="option1" />
     <node id="4" type="com.dododo.ariadne.core.model.Option" value="option1" />
     <node id="5" type="com.dododo.ariadne.core.model.Option" value="option2" />
-    <node id="6" type="com.dododo.ariadne.core.model.Statement" value="statement1" />
+    <node id="6" type="com.dododo.ariadne.core.model.Text" value="text1" />
     <node id="7" type="com.dododo.ariadne.core.model.Menu" />
     <node id="8" type="com.dododo.ariadne.core.model.Option" value="option" />
     <node id="9" type="com.dododo.ariadne.core.model.Option" value="option" />
-    <node id="10" type="com.dododo.ariadne.core.model.Statement" value="statement2" />
+    <node id="10" type="com.dododo.ariadne.core.model.Text" value="text2" />
     <node id="11" type="com.dododo.ariadne.core.model.Switch" condition="test" />
-    <node id="12" type="com.dododo.ariadne.core.model.Statement" value="statement3" />
-    <node id="13" type="com.dododo.ariadne.core.model.Statement" value="statement3" />
+    <node id="12" type="com.dododo.ariadne.core.model.Text" value="text3" />
+    <node id="13" type="com.dododo.ariadne.core.model.Text" value="text3" />
 
     <edge from="1" to="2" />
     <edge from="2" to="3" />

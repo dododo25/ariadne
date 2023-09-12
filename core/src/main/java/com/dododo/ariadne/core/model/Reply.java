@@ -30,9 +30,7 @@ public final class Reply extends ChainState {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof Reply
-                && Objects.equals(((Reply) o).character, this.character)
-                && Objects.equals(((Reply) o).line, this.line) ? 0 : 1;
+        return compareByValuesPair(o, s -> ((Reply) s).getCharacter(), s -> ((Reply) s).getLine());
     }
 
     @Override

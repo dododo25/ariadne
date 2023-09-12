@@ -1,7 +1,7 @@
 package com.dododo.ariadne.xml.common.mouse;
 
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 import com.dododo.ariadne.xml.common.contract.XmlSimpleFlowchartContract;
 import com.dododo.ariadne.xml.common.model.ComplexState;
@@ -25,8 +25,8 @@ class XmlFlowchartMouseTest {
     private static SwitchBranch switchTrueBranchComplexState;
     private static SwitchBranch switchFalseBranchComplexState;
 
-    private static Statement statement1;
-    private static Statement statement2;
+    private static Text text1;
+    private static Text text2;
 
     @BeforeAll
     static void setUp() {
@@ -35,27 +35,27 @@ class XmlFlowchartMouseTest {
         switchTrueBranchComplexState = new SwitchBranch("test");
         switchFalseBranchComplexState = new SwitchBranch("test");
 
-        statement1 = new Statement("test1");
-        statement2 = new Statement("test2");
+        text1 = new Text("test1");
+        text2 = new Text("test2");
 
         rootComplexState.addChild(complexSwitch);
         complexSwitch.addChild(switchTrueBranchComplexState);
         complexSwitch.addChild(switchFalseBranchComplexState);
-        switchTrueBranchComplexState.setNext(statement1);
-        switchFalseBranchComplexState.setNext(statement2);
+        switchTrueBranchComplexState.setNext(text1);
+        switchFalseBranchComplexState.setNext(text2);
     }
 
     @Test
     void testAcceptWhenParentFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
         List<State> expected = Arrays.asList(rootComplexState, complexSwitch, switchTrueBranchComplexState,
-                statement1, switchFalseBranchComplexState, statement2);
+                text1, switchFalseBranchComplexState, text2);
 
         testAccept(expected, rootComplexState, new ParentFirstXmlFlowchartMouseStrategy());
     }
 
     @Test
     void testAcceptWhenChildrenFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
-        List<State> expected = Arrays.asList(statement1, switchTrueBranchComplexState, statement2,
+        List<State> expected = Arrays.asList(text1, switchTrueBranchComplexState, text2,
                 switchFalseBranchComplexState, complexSwitch, rootComplexState);
 
         testAccept(expected, rootComplexState, new ChildFirstXmlFlowchartMouseStrategy());

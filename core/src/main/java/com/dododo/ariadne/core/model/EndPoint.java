@@ -11,6 +11,6 @@ public final class EndPoint extends State {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof EndPoint ? 0 : 1;
+        return compareByClass(o);
     }
 }

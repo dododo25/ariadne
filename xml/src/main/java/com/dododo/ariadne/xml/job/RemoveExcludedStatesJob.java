@@ -6,7 +6,7 @@ import com.dododo.ariadne.xml.jaxb.contract.JaxbFlowchartContractAdapter;
 import com.dododo.ariadne.xml.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.xml.jaxb.mouse.JaxbFlowchartMouse;
 import com.dododo.ariadne.xml.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
@@ -39,8 +39,8 @@ public final class RemoveExcludedStatesJob extends AbstractJob {
 
             private void acceptComplexState(JaxbComplexState complexState) {
                 complexState.childrenStream()
-                        .filter(JaxbStatement.class::isInstance)
-                        .map(JaxbStatement.class::cast)
+                        .filter(JaxbText.class::isInstance)
+                        .map(JaxbText.class::cast)
                         .filter(c -> excluded.stream().anyMatch(regex -> c.getValue().matches(regex)))
                         .forEach(complexState::removeChild);
             }

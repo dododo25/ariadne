@@ -4,7 +4,7 @@ import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.model.ComplexSwitch;
@@ -28,8 +28,8 @@ public final class XmlStateManipulatorUtil {
             }
 
             @Override
-            public void accept(Statement statement) {
-                acceptChainState(statement);
+            public void accept(Text text) {
+                acceptChainState(text);
             }
 
             @Override

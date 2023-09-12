@@ -8,7 +8,7 @@ import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
 import com.dododo.ariadne.test.rule.NodeRule;
@@ -23,9 +23,9 @@ public class DrawIoFlowchartRulesSupplier {
     }
 
     @RuleSetSupplier
-    public RuleSet createRuleForStatementBlock() {
-        return createRuleForChainBlock(StatementBlock.class,
-                (id, attrs) -> new StatementBlock(id, attrs.getValue("value")));
+    public RuleSet createRuleForTextBlock() {
+        return createRuleForChainBlock(TextBlock.class,
+                (id, attrs) -> new TextBlock(id, attrs.getValue("value")));
     }
 
     @RuleSetSupplier

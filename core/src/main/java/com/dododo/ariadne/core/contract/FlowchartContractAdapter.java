@@ -6,7 +6,7 @@ import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 
 public abstract class FlowchartContractAdapter implements FlowchartContract {
@@ -15,7 +15,7 @@ public abstract class FlowchartContractAdapter implements FlowchartContract {
     public void accept(EntryState state) {}
 
     @Override
-    public void accept(Statement statement) {}
+    public void accept(Text text) {}
 
     @Override
     public void accept(Reply reply) {}

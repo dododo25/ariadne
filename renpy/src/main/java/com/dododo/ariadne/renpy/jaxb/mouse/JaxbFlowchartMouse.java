@@ -10,7 +10,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbReply;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbText;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
@@ -63,8 +63,8 @@ public class JaxbFlowchartMouse implements JaxbFlowchartContract {
     }
 
     @Override
-    public void accept(JaxbStatement statement) {
-        callback.accept(statement);
+    public void accept(JaxbText text) {
+        callback.accept(text);
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.drawio.mouse.strategy.DrawIoFlowchartMouseStrategy;
 
@@ -35,7 +35,7 @@ public class DrawIoFlowchartMouse implements DrawIoFlowchartContract {
     }
 
     @Override
-    public void accept(StatementBlock block) {
+    public void accept(TextBlock block) {
         strategy.acceptChainBlock(block, this, callback, visited);
     }
 

@@ -17,6 +17,11 @@ public abstract class SimpleState extends ChainState {
     }
 
     @Override
+    public int compareTo(State o) {
+        return compareBySingleValue(o, s -> ((SimpleState) s).getValue());
+    }
+
+    @Override
     public String toString() {
         if (value == null) {
             return String.format("%s(value=null)", getClass().getSimpleName());

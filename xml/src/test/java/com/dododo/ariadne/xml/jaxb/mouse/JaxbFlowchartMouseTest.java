@@ -9,7 +9,7 @@ import com.dododo.ariadne.xml.jaxb.model.JaxbMarker;
 import com.dododo.ariadne.xml.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.xml.jaxb.mouse.strategy.ChildFirstJaxbFlowchartMouseStrategy;
 import com.dododo.ariadne.xml.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
@@ -25,7 +25,7 @@ import java.util.List;
 class JaxbFlowchartMouseTest {
 
     private static JaxbRootState rootState;
-    private static JaxbStatement statement;
+    private static JaxbText text;
     private static JaxbComplexSwitch complexSwitch;
     private static JaxbSwitchBranch switchBranch1;
     private static JaxbSwitchBranch switchBranch2;
@@ -37,7 +37,7 @@ class JaxbFlowchartMouseTest {
     @BeforeAll
     static void setUp() {
         rootState = new JaxbRootState();
-        statement = new JaxbStatement("statement");
+        text = new JaxbText("text");
         complexSwitch = new JaxbComplexSwitch();
         switchBranch1 = new JaxbSwitchBranch("branch1");
         switchBranch2 = new JaxbSwitchBranch("branch2");
@@ -46,7 +46,7 @@ class JaxbFlowchartMouseTest {
         passState = new JaxbPassState();
         endState = new JaxbEndState();
 
-        rootState.addChild(statement);
+        rootState.addChild(text);
         rootState.addChild(complexSwitch);
         complexSwitch.addChild(switchBranch1);
         complexSwitch.addChild(switchBranch2);
@@ -58,7 +58,7 @@ class JaxbFlowchartMouseTest {
 
     @Test
     void testAcceptWhenParentFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
-        List<JaxbState> expected = Arrays.asList(rootState, statement, complexSwitch, switchBranch1, marker,
+        List<JaxbState> expected = Arrays.asList(rootState, text, complexSwitch, switchBranch1, marker,
                 passState, endState, switchBranch2, goToState);
 
         testAccept(expected, rootState, new ParentFirstJaxbFlowchartMouseStrategy());
@@ -66,7 +66,7 @@ class JaxbFlowchartMouseTest {
 
     @Test
     void testAcceptWhenChildrenFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
-        List<JaxbState> expected = Arrays.asList(statement, marker, passState, endState, switchBranch1, goToState,
+        List<JaxbState> expected = Arrays.asList(text, marker, passState, endState, switchBranch1, goToState,
                 switchBranch2, complexSwitch, rootState);
 
         testAccept(expected, rootState, new ChildFirstJaxbFlowchartMouseStrategy());
