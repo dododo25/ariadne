@@ -1,6 +1,5 @@
 package com.dododo.ariadne.test.resolver;
 
-import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
 import com.dododo.ariadne.test.model.Mapping;
@@ -139,7 +138,7 @@ public final class FlowchartTypeResolver implements ParameterResolver {
                 values.forEach(next -> loadRules(root, next));
                 return;
             } catch (IOException e) {
-                throw new AriadneException(e);
+                throw new IllegalArgumentException(e);
             }
         }
 
@@ -183,7 +182,7 @@ public final class FlowchartTypeResolver implements ParameterResolver {
                 edgeRules.put(set.getType(), set.getEdgeRule());
             }
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new AriadneException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 }
