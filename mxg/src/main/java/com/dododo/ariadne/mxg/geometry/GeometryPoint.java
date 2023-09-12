@@ -1,4 +1,4 @@
-package com.dododo.ariadne.drawio.mxg.geometry;
+package com.dododo.ariadne.mxg.geometry;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

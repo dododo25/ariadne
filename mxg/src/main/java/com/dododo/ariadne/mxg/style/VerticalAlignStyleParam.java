@@ -1,4 +1,4 @@
-package com.dododo.ariadne.drawio.mxg.style;
+package com.dododo.ariadne.mxg.style;
 
 public final class VerticalAlignStyleParam extends StyleParam {
 

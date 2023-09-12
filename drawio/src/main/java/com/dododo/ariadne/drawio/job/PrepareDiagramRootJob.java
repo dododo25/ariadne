@@ -5,8 +5,8 @@ import com.dododo.ariadne.drawio.contract.DrawIoSimpleFlowchartContract;
 import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
 import com.dododo.ariadne.drawio.mouse.strategy.DrawIoParentFirstFlowchartMouseStrategy;
-import com.dododo.ariadne.drawio.mxg.DiagramRoot;
-import com.dododo.ariadne.drawio.mxg.MxFile;
+import com.dododo.ariadne.mxg.DiagramRoot;
+import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.concurrent.atomic.AtomicReference;
 

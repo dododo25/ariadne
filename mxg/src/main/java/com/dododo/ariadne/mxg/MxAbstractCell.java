@@ -1,4 +1,4 @@
-package com.dododo.ariadne.drawio.mxg;
+package com.dododo.ariadne.mxg;
 
 public abstract class MxAbstractCell {
 

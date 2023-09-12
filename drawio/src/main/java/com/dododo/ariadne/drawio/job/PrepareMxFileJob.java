@@ -1,10 +1,10 @@
 package com.dododo.ariadne.drawio.job;
 
 import com.dododo.ariadne.drawio.model.Block;
-import com.dododo.ariadne.drawio.mxg.Diagram;
-import com.dododo.ariadne.drawio.mxg.DiagramRoot;
-import com.dododo.ariadne.drawio.mxg.MxFile;
-import com.dododo.ariadne.drawio.mxg.MxGraphModel;
+import com.dododo.ariadne.mxg.Diagram;
+import com.dododo.ariadne.mxg.DiagramRoot;
+import com.dododo.ariadne.mxg.MxFile;
+import com.dododo.ariadne.mxg.MxGraphModel;
 
 import java.util.concurrent.atomic.AtomicReference;
 

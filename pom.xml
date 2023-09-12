@@ -13,6 +13,7 @@
         <module>core</module>
         <module>core-test</module>
         <module>drawio</module>
+        <module>mxg</module>
         <module>renpy</module>
         <module>test</module>
         <module>xml</module>

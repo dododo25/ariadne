@@ -1,8 +1,8 @@
 package com.dododo.ariadne.drawio.model;
 
-import com.dododo.ariadne.drawio.mxg.DiagramRoot;
-import com.dododo.ariadne.drawio.mxg.MxEdgeCell;
-import com.dododo.ariadne.drawio.mxg.style.BooleanStyleParam;
+import com.dododo.ariadne.mxg.DiagramRoot;
+import com.dododo.ariadne.mxg.MxEdgeCell;
+import com.dododo.ariadne.mxg.style.BooleanStyleParam;
 
 public abstract class ChainBlock extends Block {
 

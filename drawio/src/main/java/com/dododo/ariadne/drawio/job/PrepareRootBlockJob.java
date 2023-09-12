@@ -24,7 +24,7 @@ import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
-import com.dododo.ariadne.drawio.mxg.MxFile;
+import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.HashMap;
 import java.util.Map;

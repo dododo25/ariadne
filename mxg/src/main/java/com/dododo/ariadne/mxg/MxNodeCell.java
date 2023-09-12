@@ -1,9 +1,9 @@
-package com.dododo.ariadne.drawio.mxg;
+package com.dododo.ariadne.mxg;
 
-import com.dododo.ariadne.drawio.mxg.geometry.AbstractNodeGeometry;
-import com.dododo.ariadne.drawio.mxg.geometry.ComplexNodeGeometry;
-import com.dododo.ariadne.drawio.mxg.geometry.RelativeNodeGeometry;
-import com.dododo.ariadne.drawio.mxg.style.StyleParam;
+import com.dododo.ariadne.mxg.geometry.AbstractNodeGeometry;
+import com.dododo.ariadne.mxg.geometry.ComplexNodeGeometry;
+import com.dododo.ariadne.mxg.geometry.RelativeNodeGeometry;
+import com.dododo.ariadne.mxg.style.StyleParam;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
