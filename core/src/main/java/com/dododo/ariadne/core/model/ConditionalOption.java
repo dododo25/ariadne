@@ -24,9 +24,8 @@ public final class ConditionalOption extends Option {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof ConditionalOption
-                && Objects.equals(value, ((ConditionalOption) o).value)
-                && Objects.equals(condition, ((ConditionalOption) o).condition) ? 0 : 1;
+        return compareByValuesPair(o, s -> ((ConditionalOption) s).getValue(),
+                s -> ((ConditionalOption) s).getCondition());
     }
 
     @Override
