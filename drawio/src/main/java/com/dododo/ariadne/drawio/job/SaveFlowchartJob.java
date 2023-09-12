@@ -3,7 +3,7 @@ package com.dododo.ariadne.drawio.job;
 import com.dododo.ariadne.common.configuration.Configuration;
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.drawio.model.Block;
-import com.dododo.ariadne.drawio.mxg.MxFile;
+import com.dododo.ariadne.mxg.MxFile;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

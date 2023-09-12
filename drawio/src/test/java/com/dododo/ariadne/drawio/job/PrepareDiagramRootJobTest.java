@@ -10,14 +10,14 @@ import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
 import com.dododo.ariadne.drawio.model.StatementBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
-import com.dododo.ariadne.drawio.mxg.DiagramRoot;
-import com.dododo.ariadne.drawio.mxg.MxAbstractCell;
-import com.dododo.ariadne.drawio.mxg.MxEdgeCell;
-import com.dododo.ariadne.drawio.mxg.MxFile;
-import com.dododo.ariadne.drawio.mxg.MxNodeCell;
-import com.dododo.ariadne.drawio.mxg.geometry.ComplexNodeGeometry;
-import com.dododo.ariadne.drawio.mxg.geometry.EdgeGeometry;
-import com.dododo.ariadne.drawio.mxg.geometry.RelativeNodeGeometry;
+import com.dododo.ariadne.mxg.DiagramRoot;
+import com.dododo.ariadne.mxg.MxAbstractCell;
+import com.dododo.ariadne.mxg.MxEdgeCell;
+import com.dododo.ariadne.mxg.MxFile;
+import com.dododo.ariadne.mxg.MxNodeCell;
+import com.dododo.ariadne.mxg.geometry.ComplexNodeGeometry;
+import com.dododo.ariadne.mxg.geometry.EdgeGeometry;
+import com.dododo.ariadne.mxg.geometry.RelativeNodeGeometry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -197,7 +197,7 @@ class PrepareDiagramRootJobTest {
                 .setId(0)
                 .setIdSuffix(".2")
                 .setParent(0)
-                .setGeometry(EdgeGeometry.create(0, 2, width, 2))
+                .setGeometry(EdgeGeometry.create(0, 2, width, 4))
                 .build();
 
         MxEdgeCell edgeCell2 = new MxEdgeCell.Builder()

@@ -1,7 +1,7 @@
 package com.dododo.ariadne.drawio.job;
 
 import com.dododo.ariadne.drawio.model.Block;
-import com.dododo.ariadne.drawio.mxg.MxFile;
+import com.dododo.ariadne.mxg.MxFile;
 import com.dododo.ariadne.common.job.AbstractJob;
 
 import java.util.concurrent.atomic.AtomicReference;

@@ -2,7 +2,7 @@ package com.dododo.ariadne.drawio.model;
 
 import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
 import com.dododo.ariadne.drawio.factory.BlockComparatorFactory;
-import com.dododo.ariadne.drawio.mxg.DiagramRoot;
+import com.dododo.ariadne.mxg.DiagramRoot;
 
 import java.util.HashSet;
 import java.util.Set;

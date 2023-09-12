@@ -14,7 +14,7 @@ import com.dododo.ariadne.drawio.model.StatementBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
 import com.dododo.ariadne.drawio.mouse.strategy.DrawIoParentFirstFlowchartMouseStrategy;
-import com.dododo.ariadne.drawio.mxg.MxFile;
+import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.ArrayList;
 import java.util.Collection;

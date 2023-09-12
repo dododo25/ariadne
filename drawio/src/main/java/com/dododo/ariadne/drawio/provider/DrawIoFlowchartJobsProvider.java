@@ -8,7 +8,7 @@ import com.dododo.ariadne.drawio.job.PrepareRootBlockJob;
 import com.dododo.ariadne.drawio.job.SaveFlowchartJob;
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.drawio.model.Block;
-import com.dododo.ariadne.drawio.mxg.MxFile;
+import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;

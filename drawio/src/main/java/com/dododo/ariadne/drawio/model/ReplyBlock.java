@@ -3,11 +3,11 @@ package com.dododo.ariadne.drawio.model;
 import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
 import com.dododo.ariadne.drawio.factory.BlockComparatorFactory;
 import com.dododo.ariadne.drawio.factory.ReplyBlockComparatorFactory;
-import com.dododo.ariadne.drawio.mxg.DiagramRoot;
-import com.dododo.ariadne.drawio.mxg.geometry.ComplexNodeGeometry;
-import com.dododo.ariadne.drawio.mxg.MxNodeCell;
-import com.dododo.ariadne.drawio.mxg.style.BooleanStyleParam;
-import com.dododo.ariadne.drawio.mxg.style.WhiteSpaceStyleParam;
+import com.dododo.ariadne.mxg.DiagramRoot;
+import com.dododo.ariadne.mxg.geometry.ComplexNodeGeometry;
+import com.dododo.ariadne.mxg.MxNodeCell;
+import com.dododo.ariadne.mxg.style.BooleanStyleParam;
+import com.dododo.ariadne.mxg.style.WhiteSpaceStyleParam;
 
 public final class ReplyBlock extends ChainBlock {
 

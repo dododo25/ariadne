@@ -3,16 +3,16 @@ package com.dododo.ariadne.drawio.model;
 import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
 import com.dododo.ariadne.drawio.factory.BlockComparatorFactory;
 import com.dododo.ariadne.drawio.factory.MenuBlockComparatorFactory;
-import com.dododo.ariadne.drawio.mxg.DiagramRoot;
-import com.dododo.ariadne.drawio.mxg.MxEdgeCell;
-import com.dododo.ariadne.drawio.mxg.MxNodeCell;
-import com.dododo.ariadne.drawio.mxg.geometry.ComplexNodeGeometry;
-import com.dododo.ariadne.drawio.mxg.geometry.EdgeGeometry;
-import com.dododo.ariadne.drawio.mxg.style.BooleanStyleParam;
-import com.dododo.ariadne.drawio.mxg.style.ShapeStyleParam;
-import com.dododo.ariadne.drawio.mxg.style.SingleKeyStyleParam;
-import com.dododo.ariadne.drawio.mxg.style.StrokeColorStyleParam;
-import com.dododo.ariadne.drawio.mxg.style.WhiteSpaceStyleParam;
+import com.dododo.ariadne.mxg.DiagramRoot;
+import com.dododo.ariadne.mxg.MxEdgeCell;
+import com.dododo.ariadne.mxg.MxNodeCell;
+import com.dododo.ariadne.mxg.geometry.ComplexNodeGeometry;
+import com.dododo.ariadne.mxg.geometry.EdgeGeometry;
+import com.dododo.ariadne.mxg.style.BooleanStyleParam;
+import com.dododo.ariadne.mxg.style.ShapeStyleParam;
+import com.dododo.ariadne.mxg.style.SingleKeyStyleParam;
+import com.dododo.ariadne.mxg.style.StrokeColorStyleParam;
+import com.dododo.ariadne.mxg.style.WhiteSpaceStyleParam;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,7 +107,7 @@ public final class MenuBlock extends Block {
                 .addStyleParam(BooleanStyleParam.createAsTrue(BooleanStyleParam.Key.TREE_MOVING))
                 .addStyleParam(BooleanStyleParam.createAsTrue(BooleanStyleParam.Key.HTML))
                 .addStyleParam(BooleanStyleParam.createAsFalse(BooleanStyleParam.Key.ROUNDED))
-                .setGeometry(EdgeGeometry.create(0, height / 2, width, height / 2))
+                .setGeometry(EdgeGeometry.create(0, height / 2, width, height))
                 .build();
 
         diagramRoot.getCells().addAll(Arrays.asList(groupNodeCell, firstPartNodeCell, secondPartEdgeCell));
