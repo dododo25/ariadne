@@ -2,16 +2,16 @@ package com.dododo.ariadne.drawio.model;
 
 import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
 import com.dododo.ariadne.drawio.factory.BlockComparatorFactory;
-import com.dododo.ariadne.drawio.factory.StatementBlockComparatorFactory;
+import com.dododo.ariadne.drawio.factory.TextBlockComparatorFactory;
 import com.dododo.ariadne.mxg.DiagramRoot;
 import com.dododo.ariadne.mxg.geometry.ComplexNodeGeometry;
 import com.dododo.ariadne.mxg.MxNodeCell;
 import com.dododo.ariadne.mxg.style.BooleanStyleParam;
 import com.dododo.ariadne.mxg.style.WhiteSpaceStyleParam;
 
-public final class StatementBlock extends SimpleBlock {
+public final class TextBlock extends SimpleBlock {
 
-    public StatementBlock(int id, String value) {
+    public TextBlock(int id, String value) {
         super(id, value);
     }
 
@@ -27,7 +27,7 @@ public final class StatementBlock extends SimpleBlock {
 
     @Override
     public BlockComparatorFactory getFactory() {
-        return new StatementBlockComparatorFactory(this);
+        return new TextBlockComparatorFactory(this);
     }
 
     @Override

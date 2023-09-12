@@ -11,7 +11,7 @@ import com.dododo.ariadne.xml.jaxb.model.JaxbMarker;
 import com.dododo.ariadne.xml.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
 
 public class JaxbFlowchartRulesSupplier {
@@ -34,7 +34,7 @@ public class JaxbFlowchartRulesSupplier {
 
     @RuleSetSupplier
     public RuleSet createRuleForJaxbStatement() {
-        return createRuleForState(JaxbStatement.class, (id, attrs) -> new JaxbStatement(attrs.getValue("value")));
+        return createRuleForState(JaxbText.class, (id, attrs) -> new JaxbText(attrs.getValue("value")));
     }
 
     @RuleSetSupplier

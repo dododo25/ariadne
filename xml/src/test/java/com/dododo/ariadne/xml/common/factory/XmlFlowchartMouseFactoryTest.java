@@ -3,7 +3,7 @@ package com.dododo.ariadne.xml.common.factory;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.xml.common.model.ComplexState;
@@ -28,7 +28,7 @@ class XmlFlowchartMouseFactoryTest {
     @Test
     void testCreateForShouldDoneWell() {
         testCreateFor(new EntryState());
-        testCreateFor(new Statement("test"));
+        testCreateFor(new Text("test"));
         testCreateFor(new Switch("test"));
         testCreateFor(new EndPoint());
 

@@ -6,14 +6,14 @@ import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 
 public interface DrawIoFlowchartContract {
 
     void accept(EntryBlock block);
 
-    void accept(StatementBlock block);
+    void accept(TextBlock block);
 
     void accept(ReplyBlock block);
 

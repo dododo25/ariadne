@@ -3,7 +3,7 @@
     <node id="1" type="com.dododo.ariadne.renpy.common.model.ComplexState" />
 
     <node id="2" type="com.dododo.ariadne.renpy.common.model.LabelledGroup" value="group" />
-    <node id="3" type="com.dododo.ariadne.core.model.Statement" value="statement" />
+    <node id="3" type="com.dododo.ariadne.core.model.Text" value="text" />
     <node id="4" type="com.dododo.ariadne.core.model.Reply" character="c" line="l" />
     <node id="5" type="com.dododo.ariadne.renpy.common.model.PassState" />
 

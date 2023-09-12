@@ -6,7 +6,7 @@ import com.dododo.ariadne.xml.jaxb.model.JaxbGoToState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbMarker;
 import com.dododo.ariadne.xml.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
 
 public abstract class JaxbFlowchartContractAdapter implements JaxbFlowchartContract {
@@ -15,7 +15,7 @@ public abstract class JaxbFlowchartContractAdapter implements JaxbFlowchartContr
     public void accept(JaxbRootState state) {}
 
     @Override
-    public void accept(JaxbStatement statement) {}
+    public void accept(JaxbText text) {}
 
     @Override
     public void accept(JaxbComplexSwitch complexSwitch) {}

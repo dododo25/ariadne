@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
     <node id="1" type="com.dododo.ariadne.xml.jaxb.model.JaxbRootState" />
-    <node id="2" type="com.dododo.ariadne.xml.jaxb.model.JaxbStatement" value="statement1" />
+    <node id="2" type="com.dododo.ariadne.xml.jaxb.model.JaxbText" value="text1" />
     <node id="3" type="com.dododo.ariadne.xml.jaxb.model.JaxbMarker" value="marker1" />
     <node id="4" type="com.dododo.ariadne.xml.jaxb.model.JaxbComplexSwitch" />
     <node id="5" type="com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch" condition="switch1" />

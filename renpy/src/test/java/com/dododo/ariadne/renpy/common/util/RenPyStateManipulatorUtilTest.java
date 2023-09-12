@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.common.util;
 
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Option;
@@ -26,7 +26,7 @@ class RenPyStateManipulatorUtilTest {
     @Test
     void testReplaceShouldNotThrowException() {
         testReplaceChainState(new EntryState());
-        testReplaceChainState(new Statement("test"));
+        testReplaceChainState(new Text("test"));
         testReplaceChainState(new Reply("test1", "test2"));
         testReplaceChainState(new Option("test"));
         testReplaceChainState(new ConditionalOption("test1", "test2"));
@@ -36,9 +36,9 @@ class RenPyStateManipulatorUtilTest {
         testReplaceChainState(new PassState());
         testReplaceChainState(new SwitchBranch("test"));
 
-        process(new Switch("test"),new Statement("replaceable"),new Statement("replacement"),
+        process(new Switch("test"),new Text("replaceable"),new Text("replacement"),
                 (root, state) -> ((Switch) root).setTrueBranch(state), root -> ((Switch) root).getTrueBranch());
-        process(new Switch("test"),new Statement("replaceable"),new Statement("replacement"),
+        process(new Switch("test"),new Text("replaceable"),new Text("replacement"),
                 (root, state) -> ((Switch) root).setFalseBranch(state), root -> ((Switch) root).getFalseBranch());
 
         testReplaceComplexStateChild(new ComplexState());

@@ -8,7 +8,7 @@ import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 
 import java.util.stream.Stream;
@@ -26,8 +26,8 @@ public final class StateManipulatorUtil {
             }
 
             @Override
-            public void accept(Statement statement) {
-                acceptChainState(statement);
+            public void accept(Text text) {
+                acceptChainState(text);
             }
 
             @Override

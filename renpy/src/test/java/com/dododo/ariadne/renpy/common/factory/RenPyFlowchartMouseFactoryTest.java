@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.common.factory;
 
 import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -34,7 +34,7 @@ class RenPyFlowchartMouseFactoryTest {
     @Test
     void testCreateForShouldDoneWell() {
         testCreateFor(new EntryState());
-        testCreateFor(new Statement("test"));
+        testCreateFor(new Text("test"));
         testCreateFor(new Reply(null, "test"));
         testCreateFor(new Menu());
         testCreateFor(new Option("test"));

@@ -7,7 +7,7 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Switch;
@@ -25,8 +25,8 @@ import java.util.List;
 class FlowchartMouseTest {
 
     private static EntryState entryState;
-    private static Statement statement1;
-    private static Statement statement2;
+    private static Text text1;
+    private static Text text2;
     private static Reply reply;
     private static Menu menu;
     private static Option option1;
@@ -38,8 +38,8 @@ class FlowchartMouseTest {
     @BeforeAll
     static void setUp() {
         entryState = new EntryState();
-        statement1 = new Statement("test1");
-        statement2 = new Statement("test2");
+        text1 = new Text("test1");
+        text2 = new Text("test2");
         reply = new Reply("character", "line");
         menu = new Menu();
         option1 = new Option("option1");
@@ -48,29 +48,29 @@ class FlowchartMouseTest {
         endPoint1 = new EndPoint();
         endPoint2 = new EndPoint();
 
-        entryState.setNext(statement1);
-        statement1.setNext(reply);
+        entryState.setNext(text1);
+        text1.setNext(reply);
         reply.setNext(menu);
         menu.addBranch(option1);
         menu.addBranch(option2);
         option1.setNext(aSwitch);
         option2.setNext(aSwitch);
-        aSwitch.setTrueBranch(statement2);
+        aSwitch.setTrueBranch(text2);
         aSwitch.setFalseBranch(endPoint1);
-        statement2.setNext(endPoint2);
+        text2.setNext(endPoint2);
     }
 
     @Test
     void testAcceptWhenParentFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
-        List<State> expected = Arrays.asList(entryState, statement1, reply, menu, option1, aSwitch, statement2,
+        List<State> expected = Arrays.asList(entryState, text1, reply, menu, option1, aSwitch, text2,
                 endPoint2, endPoint1, option2);
         testAccept(expected, new ParentFirstFlowchartMouseStrategy());
     }
 
     @Test
     void testAcceptWhenChildrenFirstFlowchartMouseStrategyIsUsedShouldNotThrowException() {
-        List<State> expected = Arrays.asList(endPoint2, statement2, endPoint1, aSwitch, option1, option2, menu,
-                reply, statement1, entryState);
+        List<State> expected = Arrays.asList(endPoint2, text2, endPoint1, aSwitch, option1, option2, menu,
+                reply, text1, entryState);
         testAccept(expected, new ChildFirstFlowchartMouseStrategy());
     }
 

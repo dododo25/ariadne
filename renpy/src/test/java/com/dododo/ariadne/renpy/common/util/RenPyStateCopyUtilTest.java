@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.common.util;
 
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
@@ -28,7 +28,7 @@ class RenPyStateCopyUtilTest {
     @Test
     void testCopyShouldReturnObject() {
         testCopyChainState(new EntryState());
-        testCopyChainState(new Statement("test"));
+        testCopyChainState(new Text("test"));
         testCopyChainState(new Reply("test1", "test2"));
         testCopyChainState(new Option("test"));
         testCopyChainState(new ConditionalOption("test1", "test2"));

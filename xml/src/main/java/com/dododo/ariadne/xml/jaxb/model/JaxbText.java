@@ -8,14 +8,14 @@ import javax.xml.bind.annotation.XmlAttribute;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class JaxbStatement implements JaxbSimpleState {
+public class JaxbText implements JaxbSimpleState {
 
     @XmlAttribute
     private String value;
 
-    public JaxbStatement() {}
+    public JaxbText() {}
 
-    public JaxbStatement(String value) {
+    public JaxbText(String value) {
         this.value = value;
     }
 
@@ -31,7 +31,7 @@ public class JaxbStatement implements JaxbSimpleState {
 
     @Override
     public int compareTo(JaxbState o) {
-        return o instanceof JaxbStatement && Objects.equals(((JaxbStatement) o).value, this.value) ? 0 : 1;
+        return o instanceof JaxbText && Objects.equals(((JaxbText) o).value, this.value) ? 0 : 1;
     }
 
     @Override

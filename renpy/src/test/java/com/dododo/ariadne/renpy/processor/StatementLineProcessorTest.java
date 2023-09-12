@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbText;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,8 +16,8 @@ class StatementLineProcessorTest {
 
     @Test
     void testAcceptShouldReturnObject() {
-        JaxbStatement expected1 = new JaxbStatement("test");
-        JaxbStatement expected2 = new JaxbStatement("test = 'a'");
+        JaxbText expected1 = new JaxbText("test");
+        JaxbText expected2 = new JaxbText("test = 'a'");
 
         Assertions.assertEquals(0, processor.accept("$ test").compareTo(expected1));
         Assertions.assertEquals(0, processor.accept("$ test = 'a'").compareTo(expected2));

@@ -3,7 +3,7 @@
     <node id="1" type="com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState" />
 
     <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup" value="group" />
-    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbStatement" value="statement" />
+    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="text" />
     <node id="4" type="com.dododo.ariadne.renpy.jaxb.model.JaxbReply" character="c" line="l" />
     <node id="5" type="com.dododo.ariadne.renpy.jaxb.model.JaxbPassState" />
 

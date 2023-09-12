@@ -3,7 +3,7 @@ package com.dododo.ariadne.xml.common.util;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.model.ComplexSwitch;
@@ -22,14 +22,14 @@ class XmlStateManipulatorUtilTest {
     @Test
     void testReplaceShouldNotThrowException() {
         testReplaceChainState(new EntryState());
-        testReplaceChainState(new Statement("test"));
+        testReplaceChainState(new Text("test"));
         testReplaceChainState(new PassState());
         testReplaceChainState(new Marker("test"));
         testReplaceChainState(new SwitchBranch("test"));
 
-        process(new Switch("test"), new Statement("replaceable"), new Statement("replacement"),
+        process(new Switch("test"), new Text("replaceable"), new Text("replacement"),
                 (root, state) -> ((Switch) root).setTrueBranch(state), root -> ((Switch) root).getTrueBranch());
-        process(new Switch("test"), new Statement("replaceable"), new Statement("replacement"),
+        process(new Switch("test"), new Text("replaceable"), new Text("replacement"),
                 (root, state) -> ((Switch) root).setFalseBranch(state), root -> ((Switch) root).getFalseBranch());
 
         testReplaceComplexStateChild(new ComplexState());

@@ -10,7 +10,7 @@ import com.dododo.ariadne.drawio.model.EntryBlock;
 import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
 import com.dododo.ariadne.drawio.mouse.strategy.DrawIoParentFirstFlowchartMouseStrategy;
@@ -89,7 +89,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
 
             @Override
-            public void accept(StatementBlock block) {
+            public void accept(TextBlock block) {
                 acceptChainBlock(block);
             }
 
@@ -148,7 +148,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
                 }
 
                 @Override
-                public void accept(StatementBlock block) {
+                public void accept(TextBlock block) {
                     block.setNext(null);
                 }
 
@@ -192,7 +192,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
 
             @Override
-            public void accept(StatementBlock block) {
+            public void accept(TextBlock block) {
                 acceptChainBlock(block);
             }
 
@@ -270,7 +270,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
                 }
 
                 @Override
-                public void accept(StatementBlock block) {
+                public void accept(TextBlock block) {
                     block.setNext(b);
                 }
 
@@ -317,7 +317,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
 
             @Override
-            public void accept(StatementBlock block) {
+            public void accept(TextBlock block) {
                 acceptChainBlock(block);
             }
 

@@ -13,7 +13,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbReply;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbText;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
@@ -68,7 +68,7 @@ public class JaxbFlowchartRulesSupplier {
 
     @RuleSetSupplier
     public RuleSet createRuleForJaxbStatement() {
-        return createRuleForState(JaxbStatement.class, (id, attrs) -> new JaxbStatement(attrs.getValue("value")));
+        return createRuleForState(JaxbText.class, (id, attrs) -> new JaxbText(attrs.getValue("value")));
     }
 
     @RuleSetSupplier

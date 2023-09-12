@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class JaxbRootState implements JaxbComplexState {
 
     @XmlElements({
-            @XmlElement(name = "statement", type = JaxbStatement.class),
+            @XmlElement(name = "text", type = JaxbText.class),
             @XmlElement(name = "marker", type = JaxbMarker.class),
             @XmlElement(name = "goto", type = JaxbGoToState.class),
             @XmlElement(name = "switch", type = JaxbComplexSwitch.class),

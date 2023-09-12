@@ -6,7 +6,7 @@ import com.dododo.ariadne.drawio.model.MenuBlock;
 import com.dododo.ariadne.drawio.model.OptionBlock;
 import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
 import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.StatementBlock;
+import com.dododo.ariadne.drawio.model.TextBlock;
 import com.dododo.ariadne.drawio.model.SwitchBlock;
 
 public abstract class DrawIoFlowchartContractAdapter implements DrawIoFlowchartContract {
@@ -15,7 +15,7 @@ public abstract class DrawIoFlowchartContractAdapter implements DrawIoFlowchartC
     public void accept(EntryBlock block) {}
 
     @Override
-    public void accept(StatementBlock block) {}
+    public void accept(TextBlock block) {}
 
     @Override
     public void accept(ReplyBlock block) {}

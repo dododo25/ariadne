@@ -6,14 +6,14 @@ import com.dododo.ariadne.xml.jaxb.model.JaxbGoToState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbMarker;
 import com.dododo.ariadne.xml.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
 
 public interface JaxbFlowchartContract {
 
     void accept(JaxbRootState state);
 
-    void accept(JaxbStatement statement);
+    void accept(JaxbText text);
 
     void accept(JaxbComplexSwitch complexSwitch);
 

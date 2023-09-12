@@ -4,7 +4,7 @@ import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.renpy.jaxb.contract.JaxbSimpleFlowchartContract;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbText;
 import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,11 +27,11 @@ class ChildFirstJaxbFlowchartMouseStrategyTest {
     @Test
     void testAcceptComplexStateShouldDoneWell() {
         JaxbGroupState rootState = new JaxbGroupState();
-        JaxbStatement statement = new JaxbStatement("statement");
+        JaxbText text = new JaxbText("text");
 
-        List<JaxbState> expected = Arrays.asList(statement, rootState);
+        List<JaxbState> expected = Arrays.asList(text, rootState);
 
-        rootState.addChild(statement);
+        rootState.addChild(text);
 
         testAccept(expected, (callback, mouse) ->
                 strategy.acceptComplexState(rootState, callback, mouse));

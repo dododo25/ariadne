@@ -8,7 +8,7 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
@@ -49,8 +49,8 @@ public final class RenPyStateCopyUtil {
             }
 
             @Override
-            public void accept(Statement statement) {
-                map.put(statement, new Statement(statement.getValue()));
+            public void accept(Text text) {
+                map.put(text, new Text(text.getValue()));
             }
 
             @Override
@@ -132,8 +132,8 @@ public final class RenPyStateCopyUtil {
             }
 
             @Override
-            public void accept(Statement statement) {
-                acceptChainState(statement);
+            public void accept(Text text) {
+                acceptChainState(text);
             }
 
             @Override

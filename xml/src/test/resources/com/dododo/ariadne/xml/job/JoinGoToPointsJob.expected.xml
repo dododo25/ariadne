@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
     <node id="1" type="com.dododo.ariadne.xml.common.model.ComplexState" />
-    <node id="2" type="com.dododo.ariadne.core.model.Statement" value="i = 0" />
+    <node id="2" type="com.dododo.ariadne.core.model.Text" value="i = 0" />
     <node id="3" type="com.dododo.ariadne.xml.common.model.Marker" value="m1" />
     <node id="4" type="com.dododo.ariadne.core.model.Switch" condition="i &lt; 5" />
-    <node id="5" type="com.dododo.ariadne.core.model.Statement" value="i++" />
+    <node id="5" type="com.dododo.ariadne.core.model.Text" value="i++" />
 
     <edge from="1" to="2" />
     <edge from="1" to="3" />

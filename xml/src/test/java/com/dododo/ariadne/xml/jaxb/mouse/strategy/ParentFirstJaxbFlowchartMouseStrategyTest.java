@@ -4,7 +4,7 @@ import com.dododo.ariadne.xml.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.xml.jaxb.contract.JaxbSimpleFlowchartContract;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.mouse.JaxbFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,7 +27,7 @@ class ParentFirstJaxbFlowchartMouseStrategyTest {
     @Test
     void testAcceptComplexStateShouldDoneWell() {
         JaxbRootState rootState = new JaxbRootState();
-        JaxbStatement statement = new JaxbStatement("statement");
+        JaxbText statement = new JaxbText("text");
 
         List<JaxbState> expected = Arrays.asList(rootState, statement);
 

@@ -4,9 +4,9 @@ import com.dododo.ariadne.core.contract.FlowchartContract;
 
 import java.util.Objects;
 
-public final class Statement extends SimpleState {
+public final class Text extends SimpleState {
 
-    public Statement(String value) {
+    public Text(String value) {
         super(value);
     }
 
@@ -17,6 +17,6 @@ public final class Statement extends SimpleState {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof Statement && Objects.equals(((Statement) o).value, this.value) ? 0 : 1;
+        return o instanceof Text && Objects.equals(((Text) o).value, this.value) ? 0 : 1;
     }
 }

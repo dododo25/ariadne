@@ -9,7 +9,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbReply;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbText;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
@@ -18,7 +18,7 @@ public interface JaxbFlowchartContract {
 
     void accept(JaxbGroupState state);
 
-    void accept(JaxbStatement statement);
+    void accept(JaxbText text);
 
     void accept(JaxbReply reply);
 

@@ -6,14 +6,14 @@ import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
-import com.dododo.ariadne.core.model.Statement;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 
 public interface FlowchartContract {
 
     void accept(EntryState state);
 
-    void accept(Statement statement);
+    void accept(Text text);
 
     void accept(Reply reply);
 

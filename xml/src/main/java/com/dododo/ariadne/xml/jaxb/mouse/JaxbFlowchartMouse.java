@@ -7,7 +7,7 @@ import com.dododo.ariadne.xml.jaxb.model.JaxbGoToState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbMarker;
 import com.dododo.ariadne.xml.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbStatement;
+import com.dododo.ariadne.xml.jaxb.model.JaxbText;
 import com.dododo.ariadne.xml.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.xml.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
 
@@ -38,8 +38,8 @@ public class JaxbFlowchartMouse implements JaxbFlowchartContract {
     }
 
     @Override
-    public void accept(JaxbStatement statement) {
-        statement.accept(callback);
+    public void accept(JaxbText text) {
+        text.accept(callback);
     }
 
     @Override
