@@ -19,8 +19,8 @@
     <dependencies>
         <dependency>
             <groupId>com.dododo</groupId>
-            <artifactId>common</artifactId>
-            <version>0.0.1</version>
+            <artifactId>core</artifactId>
+            <version>0.0.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
