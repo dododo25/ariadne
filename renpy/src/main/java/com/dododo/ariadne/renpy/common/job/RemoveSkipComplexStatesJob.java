@@ -5,6 +5,7 @@ import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState;
@@ -27,6 +28,11 @@ public final class RemoveSkipComplexStatesJob extends AbstractJob {
         JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
             @Override
             public void accept(JaxbGroupState state) {
+                acceptComplexState(state);
+            }
+
+            @Override
+            public void accept(JaxbInitGroupState state) {
                 acceptComplexState(state);
             }
 

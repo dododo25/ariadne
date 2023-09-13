@@ -4,6 +4,7 @@ import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbCallToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbEndState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbJumpToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
@@ -29,6 +30,11 @@ public class JaxbFlowchartMouse implements JaxbFlowchartContract {
 
     @Override
     public void accept(JaxbGroupState state) {
+        strategy.acceptComplexState(state, callback, this);
+    }
+
+    @Override
+    public void accept(JaxbInitGroupState state) {
         strategy.acceptComplexState(state, callback, this);
     }
 

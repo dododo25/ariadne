@@ -3,6 +3,7 @@ package com.dododo.ariadne.renpy.jaxb.contract;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbCallToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbEndState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbJumpToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
@@ -18,6 +19,9 @@ public abstract class JaxbFlowchartContractAdapter implements JaxbFlowchartContr
 
     @Override
     public void accept(JaxbGroupState state) {}
+
+    @Override
+    public void accept(JaxbInitGroupState state) {}
 
     @Override
     public void accept(JaxbText text) {}

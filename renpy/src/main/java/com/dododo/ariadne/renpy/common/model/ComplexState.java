@@ -33,6 +33,11 @@ public class ComplexState extends State {
         state.addRoot(this);
     }
 
+    public void addChildAt(int index, State state) {
+        children.add(index, state);
+        state.addRoot(this);
+    }
+
     public void removeChild(State state) {
         children.remove(state);
         state.removeRoot(this);
@@ -57,6 +62,6 @@ public class ComplexState extends State {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof ComplexState ? 0 : 1;
+        return compareByClass(o);
     }
 }

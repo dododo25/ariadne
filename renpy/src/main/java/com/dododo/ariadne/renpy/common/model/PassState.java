@@ -14,6 +14,6 @@ public class PassState extends ChainState {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof PassState ? 0 : 1;
+        return compareByClass(o);
     }
 }

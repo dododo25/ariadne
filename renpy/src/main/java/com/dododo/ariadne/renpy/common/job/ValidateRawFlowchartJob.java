@@ -7,6 +7,7 @@ import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbJumpToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
@@ -30,6 +31,11 @@ public final class ValidateRawFlowchartJob extends AbstractJob {
         JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
             @Override
             public void accept(JaxbGroupState state) {
+                acceptComplexState(state);
+            }
+
+            @Override
+            public void accept(JaxbInitGroupState state) {
                 acceptComplexState(state);
             }
 

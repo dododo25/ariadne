@@ -34,7 +34,7 @@ public abstract class State implements Comparable<State> {
     public abstract void accept(FlowchartContract contract);
 
     protected int compareByClass(State state) {
-        if (!(state.getClass().isInstance(this))) {
+        if (!(this.getClass().isInstance(state))) {
             return 1;
         }
 
