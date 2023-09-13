@@ -4,8 +4,6 @@ import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 
-import java.util.Objects;
-
 public class JumpToPoint extends State {
 
     private final String value;
@@ -25,7 +23,7 @@ public class JumpToPoint extends State {
 
     @Override
     public int compareTo(State o) {
-        return o instanceof JumpToPoint && Objects.equals(value, ((JumpToPoint) o).value) ? 0 : 1;
+        return compareBySingleValue(o, state -> ((JumpToPoint) state).getValue());
     }
 
     @Override

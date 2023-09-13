@@ -19,6 +19,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
 import com.dododo.ariadne.renpy.rpy.job.CollectStatesJob;
 import com.dododo.ariadne.renpy.rpy.job.PrepareGroupCallStatesJob;
+import com.dododo.ariadne.renpy.rpy.job.RearrangeInitGroupStatesJob;
 import com.dododo.ariadne.renpy.rpy.job.RemoveUnknownGroupCallStatesJob;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 
@@ -36,6 +37,7 @@ public final class RenPyFlowchartJobsProvider extends FlowchartJobsProvider {
         jobs.add(new RemoveSkipComplexStatesJob(rootState));
         jobs.add(new PrepareJaxbComplexSwitchStatesJob(rootState));
         jobs.add(new AddMissingSwitchFalseBranchComplexStateJob(rootState));
+        jobs.add(new RearrangeInitGroupStatesJob(rootState));
         jobs.add(new JoinStatesJob(rootState));
 
         jobs.add(new PrepareSwitchStatesJob());

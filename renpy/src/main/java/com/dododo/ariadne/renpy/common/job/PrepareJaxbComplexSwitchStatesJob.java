@@ -6,6 +6,7 @@ import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
@@ -30,6 +31,11 @@ public final class PrepareJaxbComplexSwitchStatesJob extends AbstractJob {
 
             @Override
             public void accept(JaxbGroupState state) {
+                acceptComplexState(state);
+            }
+
+            @Override
+            public void accept(JaxbInitGroupState state) {
                 acceptComplexState(state);
             }
 

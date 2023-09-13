@@ -26,6 +26,7 @@ import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbJumpToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
@@ -67,6 +68,11 @@ public final class JoinStatesJob extends AbstractJob {
         JaxbFlowchartContract callback = new JaxbFlowchartContract() {
             @Override
             public void accept(JaxbGroupState state) {
+                map.put(state, new ComplexState());
+            }
+
+            @Override
+            public void accept(JaxbInitGroupState state) {
                 map.put(state, new ComplexState());
             }
 
@@ -144,6 +150,11 @@ public final class JoinStatesJob extends AbstractJob {
             @Override
             public void accept(JaxbGroupState jaxbState) {
                 acceptComplexState(jaxbState);
+            }
+
+            @Override
+            public void accept(JaxbInitGroupState state) {
+                acceptComplexState(state);
             }
 
             @Override

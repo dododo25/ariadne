@@ -2,7 +2,7 @@
 <mapping root="1">
 
     <node id="1" type="com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState" />
-    <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState" />
+    <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState" />
     <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="i = 0" />
     <node id="4" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="j = 0" />
     <node id="5" type="com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup" value="test" />

@@ -49,6 +49,18 @@ class StateManipulatorUtilTest {
         Assertions.assertEquals(0, replaceable.getRoots().length);
     }
 
+    @Test
+    void testReplaceWhenStateHaveChildShouldNotThrowException() {
+        Text replaceable = new Text("replaceable");
+        Text replaceableChild = new Text("child");
+        Text replacement = new Text("replacement");
+
+        replaceable.setNext(replaceableChild);
+        StateManipulatorUtil.replace(replaceable, replacement);
+
+        Assertions.assertEquals(0, replaceableChild.getRoots().length);
+    }
+
     private void testReplaceChainState(ChainState chainState) {
         process(chainState, new Text("replaceable"), new Text("replacement"),
                 (root, state) -> ((ChainState) root).setNext(state), root -> ((ChainState) root).getNext());

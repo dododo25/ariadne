@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.rpy.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +18,7 @@ class InitLineProcessorTest {
 
     @Test
     void testAcceptShouldReturnObject() {
-        JaxbState expected = new JaxbGroupState();
+        JaxbState expected = new JaxbInitGroupState();
 
         Assertions.assertEquals(0, processor.accept("init:").compareTo(expected));
         Assertions.assertEquals(0, processor.accept("init :").compareTo(expected));
