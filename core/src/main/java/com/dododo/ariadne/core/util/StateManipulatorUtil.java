@@ -18,6 +18,15 @@ public final class StateManipulatorUtil {
     private StateManipulatorUtil() {}
 
     public static void replace(State oldState, State newState) {
+        replaceStateOnRoots(oldState, newState);
+        removeStateFromChildrenRoots(oldState);
+
+        if (newState != null) {
+            newState.removeRoot(oldState);
+        }
+    }
+
+    private static void replaceStateOnRoots(State oldState, State newState) {
         FlowchartContract contract = new FlowchartContractAdapter() {
 
             @Override
@@ -63,9 +72,45 @@ public final class StateManipulatorUtil {
         };
 
         Stream.of(oldState.getRoots()).forEach(root -> root.accept(contract));
+    }
 
-        if (newState != null) {
-            newState.removeRoot(oldState);
-        }
+    private static void removeStateFromChildrenRoots(State state) {
+        FlowchartContract contract = new FlowchartContractAdapter() {
+
+            @Override
+            public void accept(EntryState state) {
+                acceptChainState(state);
+            }
+
+            @Override
+            public void accept(Text text) {
+                acceptChainState(text);
+            }
+
+            @Override
+            public void accept(Reply reply) {
+                acceptChainState(reply);
+            }
+
+            @Override
+            public void accept(Option option) {
+                acceptChainState(option);
+            }
+
+            @Override
+            public void accept(ConditionalOption option) {
+                acceptChainState(option);
+            }
+
+            private void acceptChainState(ChainState state) {
+                State next = state.getNext();
+
+                if (next != null) {
+                    next.removeRoot(state);
+                }
+            }
+        };
+
+        state.accept(contract);
     }
 }
