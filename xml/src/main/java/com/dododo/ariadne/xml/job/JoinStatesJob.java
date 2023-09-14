@@ -135,17 +135,22 @@ public final class JoinStatesJob extends AbstractJob {
 
             @Override
             public void accept(JaxbMenu menu) {
-                acceptComplexState(menu);
-            }
+                Menu menuState = (Menu) map.get(menu);
 
-            @Override
-            public void accept(JaxbOption option) {
-                acceptComplexState(option);
+                menu.childrenStream()
+                        .map(map::get)
+                        .map(Option.class::cast)
+                        .forEach(menuState::addBranch);
             }
 
             @Override
             public void accept(JaxbComplexSwitch complexSwitch) {
                 acceptComplexState(complexSwitch);
+            }
+
+            @Override
+            public void accept(JaxbOption option) {
+                acceptChainState(option);
             }
 
             @Override
