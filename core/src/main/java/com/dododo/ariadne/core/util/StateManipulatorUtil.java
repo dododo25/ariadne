@@ -4,6 +4,8 @@ import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
@@ -31,6 +33,16 @@ public final class StateManipulatorUtil {
 
             @Override
             public void accept(EntryState state) {
+                acceptChainState(state);
+            }
+
+            @Override
+            public void accept(CycleMarker marker) {
+                acceptChainState(marker);
+            }
+
+            @Override
+            public void accept(CycleEntryState state) {
                 acceptChainState(state);
             }
 
@@ -79,6 +91,16 @@ public final class StateManipulatorUtil {
 
             @Override
             public void accept(EntryState state) {
+                acceptChainState(state);
+            }
+
+            @Override
+            public void accept(CycleMarker marker) {
+                acceptChainState(marker);
+            }
+
+            @Override
+            public void accept(CycleEntryState state) {
                 acceptChainState(state);
             }
 

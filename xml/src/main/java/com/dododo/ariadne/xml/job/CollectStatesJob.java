@@ -2,7 +2,7 @@ package com.dododo.ariadne.xml.job;
 
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;

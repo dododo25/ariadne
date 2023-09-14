@@ -3,7 +3,7 @@ package com.dododo.ariadne.xml.provider;
 import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.xml.common.model.PassState;
-import com.dododo.ariadne.xml.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.xml.job.AddMissingSwitchFalseBranchComplexStateJob;
 import com.dododo.ariadne.xml.job.CollectStatesJob;
 import com.dododo.ariadne.xml.job.JoinGoToPointsJob;

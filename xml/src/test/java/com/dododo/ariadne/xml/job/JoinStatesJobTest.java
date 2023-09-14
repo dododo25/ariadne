@@ -5,7 +5,7 @@ import com.dododo.ariadne.ct.assertions.StateAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
 import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
-import com.dododo.ariadne.xml.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

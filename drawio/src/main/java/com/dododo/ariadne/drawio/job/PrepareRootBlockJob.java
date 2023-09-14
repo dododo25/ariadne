@@ -1,5 +1,15 @@
 package com.dododo.ariadne.drawio.job;
 
+import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.block.model.ChainBlock;
+import com.dododo.ariadne.block.model.ConditionalOptionBlock;
+import com.dododo.ariadne.block.model.EndBlock;
+import com.dododo.ariadne.block.model.EntryBlock;
+import com.dododo.ariadne.block.model.MenuBlock;
+import com.dododo.ariadne.block.model.OptionBlock;
+import com.dododo.ariadne.block.model.ReplyBlock;
+import com.dododo.ariadne.block.model.SwitchBlock;
+import com.dododo.ariadne.block.model.TextBlock;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ConditionalOption;
@@ -14,16 +24,6 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
-import com.dododo.ariadne.drawio.model.TextBlock;
-import com.dododo.ariadne.drawio.model.Block;
-import com.dododo.ariadne.drawio.model.ChainBlock;
-import com.dododo.ariadne.drawio.model.EndBlock;
-import com.dododo.ariadne.drawio.model.EntryBlock;
-import com.dododo.ariadne.drawio.model.MenuBlock;
-import com.dododo.ariadne.drawio.model.OptionBlock;
-import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
-import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.SwitchBlock;
 import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.HashMap;
@@ -51,7 +51,7 @@ public final class PrepareRootBlockJob extends DrawIoAbstractJob {
     private void collectBlocks(Map<State, Block> blocks, State flowchart) {
         AtomicInteger ref = new AtomicInteger();
 
-        FlowchartContract contract = new FlowchartContract() {
+        FlowchartContract contract = new FlowchartContractAdapter() {
 
             @Override
             public void accept(EntryState state) {
@@ -130,12 +130,8 @@ public final class PrepareRootBlockJob extends DrawIoAbstractJob {
             public void accept(Menu menu) {
                 MenuBlock menuBlock = (MenuBlock) blocks.get(menu);
 
-                menu.branchesStream().forEach(option -> {
-                    OptionBlock optionBlock = (OptionBlock) blocks.get(option);
-
-                    menuBlock.addBranch(optionBlock);
-                    optionBlock.addRoot(menuBlock);
-                });
+                menu.branchesStream().forEach(option ->
+                        menuBlock.addBranch((OptionBlock) blocks.get(option)));
             }
 
             @Override

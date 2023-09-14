@@ -2,6 +2,8 @@ package com.dododo.ariadne.renpy.common.util;
 
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -46,6 +48,16 @@ public final class RenPyStateCopyUtil {
             @Override
             public void accept(EntryState state) {
                 map.put(state, new EntryState());
+            }
+
+            @Override
+            public void accept(CycleMarker marker) {
+                map.put(marker, new CycleMarker(marker.getValue()));
+            }
+
+            @Override
+            public void accept(CycleEntryState state) {
+                map.put(state, new CycleEntryState(state.getValue()));
             }
 
             @Override
@@ -128,6 +140,16 @@ public final class RenPyStateCopyUtil {
 
             @Override
             public void accept(EntryState state) {
+                acceptChainState(state);
+            }
+
+            @Override
+            public void accept(CycleMarker marker) {
+                acceptChainState(marker);
+            }
+
+            @Override
+            public void accept(CycleEntryState state) {
                 acceptChainState(state);
             }
 

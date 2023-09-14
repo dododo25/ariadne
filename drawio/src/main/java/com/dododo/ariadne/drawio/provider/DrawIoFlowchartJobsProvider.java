@@ -1,5 +1,6 @@
 package com.dododo.ariadne.drawio.provider;
 
+import com.dododo.ariadne.block.model.Block;
 import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
 import com.dododo.ariadne.drawio.job.ApplyLayoutJob;
 import com.dododo.ariadne.drawio.job.PrepareDiagramRootJob;
@@ -7,7 +8,6 @@ import com.dododo.ariadne.drawio.job.PrepareMxFileJob;
 import com.dododo.ariadne.drawio.job.PrepareRootBlockJob;
 import com.dododo.ariadne.drawio.job.SaveFlowchartJob;
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.drawio.model.Block;
 import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.List;

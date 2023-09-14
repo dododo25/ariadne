@@ -1,15 +1,15 @@
 package com.dododo.ariadne.drawio.job;
 
-import com.dododo.ariadne.drawio.model.Block;
-import com.dododo.ariadne.drawio.model.ChainBlock;
-import com.dododo.ariadne.drawio.model.EndBlock;
-import com.dododo.ariadne.drawio.model.EntryBlock;
-import com.dododo.ariadne.drawio.model.MenuBlock;
-import com.dododo.ariadne.drawio.model.OptionBlock;
-import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
-import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.TextBlock;
-import com.dododo.ariadne.drawio.model.SwitchBlock;
+import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.block.model.ChainBlock;
+import com.dododo.ariadne.block.model.ConditionalOptionBlock;
+import com.dododo.ariadne.block.model.EndBlock;
+import com.dododo.ariadne.block.model.EntryBlock;
+import com.dododo.ariadne.block.model.MenuBlock;
+import com.dododo.ariadne.block.model.OptionBlock;
+import com.dododo.ariadne.block.model.ReplyBlock;
+import com.dododo.ariadne.block.model.SwitchBlock;
+import com.dododo.ariadne.block.model.TextBlock;
 import com.dododo.ariadne.mxg.DiagramRoot;
 import com.dododo.ariadne.mxg.MxAbstractCell;
 import com.dododo.ariadne.mxg.MxEdgeCell;

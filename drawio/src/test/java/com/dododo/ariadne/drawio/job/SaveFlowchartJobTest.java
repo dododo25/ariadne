@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
@@ -41,9 +42,11 @@ class SaveFlowchartJobTest {
         job.setConfiguration(createConfig(files));
         job.run();
 
-        Path newFilePath = tempDir.getFileSystem().getPath(expected);
+        Path newFilePath = tempDir.resolve(expected);
 
-        Assertions.assertNotNull(newFilePath);
+        if (!Files.exists(newFilePath)) {
+            Assertions.fail();
+        }
     }
 
     private Configuration createConfig(String... files) {

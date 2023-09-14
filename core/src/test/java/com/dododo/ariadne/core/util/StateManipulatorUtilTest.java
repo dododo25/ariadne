@@ -1,6 +1,8 @@
 package com.dododo.ariadne.core.util;
 
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.Text;
@@ -20,6 +22,8 @@ class StateManipulatorUtilTest {
     @Test
     void testReplaceShouldNotThrowException() {
         testReplaceChainState(new EntryState());
+        testReplaceChainState(new CycleMarker("test"));
+        testReplaceChainState(new CycleEntryState("test"));
         testReplaceChainState(new Text("test"));
         testReplaceChainState(new Reply("character", "line"));
         testReplaceChainState(new Option("test"));

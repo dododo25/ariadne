@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.jaxb.model.JaxbRootState" />
+    <node id="2" type="com.dododo.ariadne.jaxb.model.JaxbReply" line="reply1" />
+    <node id="3" type="com.dododo.ariadne.jaxb.model.JaxbMenu" />
+    <node id="4" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="option1" />
+    <node id="5" type="com.dododo.ariadne.jaxb.model.JaxbText" value="text1" />
+    <node id="6" type="com.dododo.ariadne.jaxb.model.JaxbMarker" value="#0" />
+    <node id="7" type="com.dododo.ariadne.jaxb.model.JaxbComplexSwitch" />
+    <node id="8" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" condition="switch" />
+    <node id="9" type="com.dododo.ariadne.jaxb.model.JaxbText" value="text3" />
+    <node id="10" type="com.dododo.ariadne.jaxb.model.JaxbMarker" value="#1" />
+    <node id="11" type="com.dododo.ariadne.jaxb.model.JaxbEndState" />
+    <node id="12" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" />
+    <node id="13" type="com.dododo.ariadne.jaxb.model.JaxbText" value="text4" />
+    <node id="14" type="com.dododo.ariadne.jaxb.model.JaxbGoToState" value="#1" />
+    <node id="15" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="option2" condition="condition" />
+    <node id="16" type="com.dododo.ariadne.jaxb.model.JaxbText" value="text2" />
+    <node id="17" type="com.dododo.ariadne.jaxb.model.JaxbGoToState" value="#0" />
+
+
+    <edge from="1" to="2" />
+    <edge from="1" to="3" />
+    <edge from="3" to="4" />
+    <edge from="3" to="15" />
+    <edge from="4" to="5" />
+    <edge from="4" to="6" />
+    <edge from="4" to="7" />
+    <edge from="15" to="16" />
+    <edge from="15" to="17" />
+    <edge from="7" to="8" />
+    <edge from="7" to="12" />
+    <edge from="8" to="9" />
+    <edge from="8" to="10" />
+    <edge from="8" to="11" />
+    <edge from="12" to="13" />
+    <edge from="12" to="14" />
+
+</mapping>
