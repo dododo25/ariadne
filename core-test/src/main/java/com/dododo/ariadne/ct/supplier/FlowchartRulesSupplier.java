@@ -2,6 +2,8 @@ package com.dododo.ariadne.ct.supplier;
 
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -22,6 +24,16 @@ public class FlowchartRulesSupplier {
     @RuleSetSupplier
     public RuleSet createRuleForEntryState() {
         return createRuleForChainState(EntryState.class, (id, attrs) -> new EntryState());
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForCycleMarker() {
+        return createRuleForSimpleState(CycleMarker.class, CycleMarker::new);
+    }
+
+    @RuleSetSupplier
+    public RuleSet createRuleForCycleEntryState() {
+        return createRuleForSimpleState(CycleEntryState.class, CycleEntryState::new);
     }
 
     @RuleSetSupplier

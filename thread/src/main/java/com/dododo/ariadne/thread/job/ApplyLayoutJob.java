@@ -1,20 +1,20 @@
 package com.dododo.ariadne.thread.job;
 
+import com.dododo.ariadne.block.contract.BlockFlowchartContract;
+import com.dododo.ariadne.block.contract.BlockFlowchartContractAdapter;
+import com.dododo.ariadne.block.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.block.model.ChainBlock;
+import com.dododo.ariadne.block.model.ConditionalOptionBlock;
+import com.dododo.ariadne.block.model.EntryBlock;
+import com.dododo.ariadne.block.model.MenuBlock;
+import com.dododo.ariadne.block.model.OptionBlock;
+import com.dododo.ariadne.block.model.ReplyBlock;
+import com.dododo.ariadne.block.model.SwitchBlock;
+import com.dododo.ariadne.block.model.TextBlock;
+import com.dododo.ariadne.block.mouse.BlockFlowchartMouse;
+import com.dododo.ariadne.block.mouse.strategy.ParentFirstBlockFlowchartMouseStrategy;
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.thread.contract.ThreadFlowchartContract;
-import com.dododo.ariadne.thread.contract.ThreadFlowchartContractAdapter;
-import com.dododo.ariadne.thread.contract.ThreadSimpleFlowchartContract;
-import com.dododo.ariadne.thread.model.Block;
-import com.dododo.ariadne.thread.model.ChainBlock;
-import com.dododo.ariadne.thread.model.ConditionalOptionBlock;
-import com.dododo.ariadne.thread.model.EntryBlock;
-import com.dododo.ariadne.thread.model.MenuBlock;
-import com.dododo.ariadne.thread.model.OptionBlock;
-import com.dododo.ariadne.thread.model.ReplyBlock;
-import com.dododo.ariadne.thread.model.TextBlock;
-import com.dododo.ariadne.thread.model.SwitchBlock;
-import com.dododo.ariadne.thread.mouse.ThreadFlowchartMouse;
-import com.dododo.ariadne.thread.mouse.strategy.ThreadParentFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
     }
 
     private void prepareMenus(Block root) {
-        ThreadFlowchartContract callback = new ThreadFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
             @Override
             public void accept(MenuBlock block) {
                 block.setWidth(block.branchesStream()
@@ -69,7 +69,7 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
     }
 
     private void collectBlocks(Block root, Collection<Block> blocks) {
-        ThreadFlowchartContract callback = new ThreadSimpleFlowchartContract() {
+        BlockFlowchartContract callback = new BlockSimpleFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 if (block.getRoots().length != 1) {
@@ -82,7 +82,7 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
     }
 
     private void collectLoopBlocks(Block root, Map<Block, Map<Block, SwitchBranch>> map) {
-        ThreadFlowchartContract callback = new ThreadFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
 
             private final Set<Block> visited = new HashSet<>();
 
@@ -144,7 +144,7 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
 
     private void unwrapLoops(Map<Block, Map<Block, SwitchBranch>> map) {
         map.forEach((mainBlock, roots) -> roots.keySet().forEach(root -> {
-            ThreadFlowchartContract callback = new ThreadFlowchartContractAdapter() {
+            BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
                 @Override
                 public void accept(EntryBlock block) {
                     block.setNext(null);
@@ -187,7 +187,7 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
     }
 
     private void applyLayout(Block root) {
-        ThreadFlowchartContract callback = new ThreadFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
 
             @Override
             public void accept(EntryBlock block) {
@@ -266,7 +266,7 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
 
     private void wrapLoops(Map<Block, Map<Block, SwitchBranch>> map) {
         map.forEach((b, roots) -> roots.forEach((root, branch) -> {
-            ThreadFlowchartContract callback = new ThreadFlowchartContractAdapter() {
+            BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
                 @Override
                 public void accept(EntryBlock block) {
                     block.setNext(b);
@@ -312,7 +312,7 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
                                       Set<Block> visited) {
         AtomicBoolean result = new AtomicBoolean();
 
-        ThreadFlowchartContract callback = new ThreadFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
 
             @Override
             public void accept(EntryBlock block) {
@@ -363,9 +363,9 @@ public final class ApplyLayoutJob extends ThreadAbstractJob {
         return result.get();
     }
 
-    private void runMouse(Block block, ThreadFlowchartContract contract) {
-        ThreadFlowchartContract mouse = new ThreadFlowchartMouse(contract,
-                new ThreadParentFirstFlowchartMouseStrategy());
+    private void runMouse(Block block, BlockFlowchartContract contract) {
+        BlockFlowchartContract mouse = new BlockFlowchartMouse(contract,
+                new ParentFirstBlockFlowchartMouseStrategy());
 
         block.accept(mouse);
     }

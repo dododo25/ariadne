@@ -1,5 +1,7 @@
 package com.dododo.ariadne.core.factory;
 
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
@@ -22,6 +24,8 @@ class FlowchartMouseFactoryTest {
     @Test
     void testCreateForShouldDoneWell() {
         testCreateFor(new EntryState());
+        testCreateFor(new CycleMarker("test"));
+        testCreateFor(new CycleEntryState("test"));
         testCreateFor(new Text("test"));
         testCreateFor(new Switch("test"));
         testCreateFor(new EndPoint());

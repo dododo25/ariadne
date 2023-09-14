@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.thread.model.MenuBlock" x="0" y="0" />
-    <node id="2" type="com.dododo.ariadne.thread.model.OptionBlock" x="0" y="0" value="option1" />
-    <node id="3" type="com.dododo.ariadne.thread.model.TextBlock" x="0" y="0" value="assignment1" />
-    <node id="4" type="com.dododo.ariadne.thread.model.ConditionalOptionBlock" x="0" y="0" value="option2" condition="condition" />
-    <node id="5" type="com.dododo.ariadne.thread.model.TextBlock" x="0" y="0" value="assignment2" />
-    <node id="6" type="com.dododo.ariadne.thread.model.EndBlock" x="0" y="0" />
+    <node id="1" type="com.dododo.ariadne.block.model.MenuBlock" x="0" y="0" />
+    <node id="2" type="com.dododo.ariadne.block.model.OptionBlock" x="0" y="0" value="option1" />
+    <node id="3" type="com.dododo.ariadne.block.model.TextBlock" x="0" y="0" value="assignment1" />
+    <node id="4" type="com.dododo.ariadne.block.model.ConditionalOptionBlock" x="0" y="0" value="option2" condition="condition" />
+    <node id="5" type="com.dododo.ariadne.block.model.TextBlock" x="0" y="0" value="assignment2" />
+    <node id="6" type="com.dododo.ariadne.block.model.EndBlock" x="0" y="0" />
 
     <edge from="1" to="2" />
     <edge from="1" to="4" />

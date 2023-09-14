@@ -1,7 +1,7 @@
 package com.dododo.ariadne.thread.job;
 
+import com.dododo.ariadne.block.model.Block;
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.thread.model.Block;
 import com.dododo.ariadne.mxg.Diagram;
 import com.dododo.ariadne.mxg.DiagramRoot;
 import com.dododo.ariadne.mxg.MxFile;

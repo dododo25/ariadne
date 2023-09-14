@@ -1,5 +1,15 @@
 package com.dododo.ariadne.thread.job;
 
+import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.block.model.ChainBlock;
+import com.dododo.ariadne.block.model.ConditionalOptionBlock;
+import com.dododo.ariadne.block.model.EndBlock;
+import com.dododo.ariadne.block.model.EntryBlock;
+import com.dododo.ariadne.block.model.MenuBlock;
+import com.dododo.ariadne.block.model.OptionBlock;
+import com.dododo.ariadne.block.model.ReplyBlock;
+import com.dododo.ariadne.block.model.SwitchBlock;
+import com.dododo.ariadne.block.model.TextBlock;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ConditionalOption;
@@ -15,16 +25,6 @@ import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.thread.model.TextBlock;
-import com.dododo.ariadne.thread.model.Block;
-import com.dododo.ariadne.thread.model.ChainBlock;
-import com.dododo.ariadne.thread.model.EndBlock;
-import com.dododo.ariadne.thread.model.EntryBlock;
-import com.dododo.ariadne.thread.model.MenuBlock;
-import com.dododo.ariadne.thread.model.OptionBlock;
-import com.dododo.ariadne.thread.model.ConditionalOptionBlock;
-import com.dododo.ariadne.thread.model.ReplyBlock;
-import com.dododo.ariadne.thread.model.SwitchBlock;
 import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public final class PrepareRootBlockJob extends ThreadAbstractJob {
     private void collectBlocks(Map<State, Block> blocks, State flowchart) {
         AtomicInteger ref = new AtomicInteger();
 
-        FlowchartContract contract = new FlowchartContract() {
+        FlowchartContract contract = new FlowchartContractAdapter() {
 
             @Override
             public void accept(EntryState state) {

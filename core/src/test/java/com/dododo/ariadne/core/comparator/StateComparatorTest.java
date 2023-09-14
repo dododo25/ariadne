@@ -1,5 +1,7 @@
 package com.dododo.ariadne.core.comparator;
 
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
@@ -22,10 +24,15 @@ class StateComparatorTest {
     void testIsEqualShouldReturnBoolean() {
         Assertions.assertEquals(0, comparator.compare(new EntryState(), new EntryState()));
         Assertions.assertEquals(0, comparator.compare(new EndPoint(), new EndPoint()));
+        Assertions.assertEquals(0, comparator.compare(new CycleMarker("test"), new CycleMarker("test")));
+        Assertions.assertEquals(0, comparator.compare(new CycleEntryState("test"), new CycleEntryState("test")));
         Assertions.assertEquals(0, comparator.compare(new Text("test"), new Text("test")));
 
         Assertions.assertEquals(0, comparator.compare(new Switch("test"), new Switch("test")));
 
+        Assertions.assertNotEquals(0, comparator.compare(new CycleMarker("test"), new CycleMarker("__INVALID")));
+        Assertions.assertNotEquals(0, comparator.compare(new CycleEntryState("test"),
+                new CycleEntryState("__INVALID")));
         Assertions.assertNotEquals(0, comparator.compare(new Text("test"), new Text("__INVALID")));
         Assertions.assertNotEquals(0, comparator.compare(new Switch("test"), new Switch("__INVALID")));
     }

@@ -1,6 +1,6 @@
 package com.dododo.ariadne.drawio.job;
 
-import com.dododo.ariadne.drawio.model.Block;
+import com.dododo.ariadne.block.model.Block;
 import com.dododo.ariadne.mxg.Diagram;
 import com.dododo.ariadne.mxg.DiagramRoot;
 import com.dododo.ariadne.mxg.MxFile;

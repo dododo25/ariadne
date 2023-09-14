@@ -16,8 +16,7 @@ class PrepareJaxbStateJobTest {
     @Test
     void testRunShouldDoneWell(@InputParam("PrepareJaxbStateJob.expected.xml") JaxbState expected,
                                @InputParam("PrepareJaxbStateJob.setup.xml") State setup) {
-        PrepareJaxbStateJob job = new PrepareJaxbStateJob(new AtomicReference<>(), new AtomicReference<>(),
-                new AtomicReference<>());
+        PrepareJaxbStateJob job = new PrepareJaxbStateJob(new AtomicReference<>());
 
         job.setFlowchart(setup);
         job.run();

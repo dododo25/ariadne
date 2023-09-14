@@ -1,19 +1,19 @@
 package com.dododo.ariadne.drawio.job;
 
-import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContract;
-import com.dododo.ariadne.drawio.contract.DrawIoFlowchartContractAdapter;
-import com.dododo.ariadne.drawio.contract.DrawIoSimpleFlowchartContract;
-import com.dododo.ariadne.drawio.model.Block;
-import com.dododo.ariadne.drawio.model.ChainBlock;
-import com.dododo.ariadne.drawio.model.ConditionalOptionBlock;
-import com.dododo.ariadne.drawio.model.EntryBlock;
-import com.dododo.ariadne.drawio.model.MenuBlock;
-import com.dododo.ariadne.drawio.model.OptionBlock;
-import com.dododo.ariadne.drawio.model.ReplyBlock;
-import com.dododo.ariadne.drawio.model.TextBlock;
-import com.dododo.ariadne.drawio.model.SwitchBlock;
-import com.dododo.ariadne.drawio.mouse.DrawIoFlowchartMouse;
-import com.dododo.ariadne.drawio.mouse.strategy.DrawIoParentFirstFlowchartMouseStrategy;
+import com.dododo.ariadne.block.contract.BlockFlowchartContract;
+import com.dododo.ariadne.block.contract.BlockFlowchartContractAdapter;
+import com.dododo.ariadne.block.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.block.model.ChainBlock;
+import com.dododo.ariadne.block.model.ConditionalOptionBlock;
+import com.dododo.ariadne.block.model.EntryBlock;
+import com.dododo.ariadne.block.model.MenuBlock;
+import com.dododo.ariadne.block.model.OptionBlock;
+import com.dododo.ariadne.block.model.ReplyBlock;
+import com.dododo.ariadne.block.model.SwitchBlock;
+import com.dododo.ariadne.block.model.TextBlock;
+import com.dododo.ariadne.block.mouse.BlockFlowchartMouse;
+import com.dododo.ariadne.block.mouse.strategy.ParentFirstBlockFlowchartMouseStrategy;
 import com.dododo.ariadne.mxg.MxFile;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
     }
 
     private void prepareMenus(Block root) {
-        DrawIoFlowchartContract callback = new DrawIoFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
             @Override
             public void accept(MenuBlock block) {
                 block.setWidth(block.branchesStream()
@@ -66,7 +66,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
     }
 
     private void collectBlocks(Block root, Collection<Block> blocks) {
-        DrawIoFlowchartContract callback = new DrawIoSimpleFlowchartContract() {
+        BlockFlowchartContract callback = new BlockSimpleFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 if (block.getRoots().length != 1) {
@@ -79,7 +79,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
     }
 
     private void collectLoopBlocks(Block root, Map<Block, Map<Block, SwitchBranch>> map) {
-        DrawIoFlowchartContract callback = new DrawIoFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
 
             private final Set<Block> visited = new HashSet<>();
 
@@ -141,7 +141,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
 
     private void unwrapLoops(Map<Block, Map<Block, SwitchBranch>> map) {
         map.forEach((mainBlock, roots) -> roots.keySet().forEach(root -> {
-            DrawIoFlowchartContract callback = new DrawIoFlowchartContractAdapter() {
+            BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
                 @Override
                 public void accept(EntryBlock block) {
                     block.setNext(null);
@@ -184,7 +184,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
     }
 
     private void applyLayout(Block root) {
-        DrawIoFlowchartContract callback = new DrawIoFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
 
             @Override
             public void accept(EntryBlock block) {
@@ -263,7 +263,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
 
     private void wrapLoops(Map<Block, Map<Block, SwitchBranch>> map) {
         map.forEach((b, roots) -> roots.forEach((root, branch) -> {
-            DrawIoFlowchartContract callback = new DrawIoFlowchartContractAdapter() {
+            BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
                 @Override
                 public void accept(EntryBlock block) {
                     block.setNext(b);
@@ -309,7 +309,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
                                       Set<Block> visited) {
         AtomicBoolean result = new AtomicBoolean();
 
-        DrawIoFlowchartContract callback = new DrawIoFlowchartContractAdapter() {
+        BlockFlowchartContract callback = new BlockFlowchartContractAdapter() {
 
             @Override
             public void accept(EntryBlock block) {
@@ -360,9 +360,9 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
         return result.get();
     }
 
-    private void runMouse(Block block, DrawIoFlowchartContract contract) {
-        DrawIoFlowchartContract mouse = new DrawIoFlowchartMouse(contract,
-                new DrawIoParentFirstFlowchartMouseStrategy());
+    private void runMouse(Block block, BlockFlowchartContract contract) {
+        BlockFlowchartContract mouse = new BlockFlowchartMouse(contract,
+                new ParentFirstBlockFlowchartMouseStrategy());
 
         block.accept(mouse);
     }

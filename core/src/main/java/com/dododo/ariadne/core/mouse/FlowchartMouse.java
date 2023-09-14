@@ -2,6 +2,8 @@ package com.dododo.ariadne.core.mouse;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -31,6 +33,16 @@ public class FlowchartMouse implements FlowchartContract {
 
     @Override
     public void accept(EntryState state) {
+        strategy.acceptChainState(state, this, callback, visited);
+    }
+
+    @Override
+    public void accept(CycleMarker marker) {
+        strategy.acceptChainState(marker, this, callback, visited);
+    }
+
+    @Override
+    public void accept(CycleEntryState state) {
         strategy.acceptChainState(state, this, callback, visited);
     }
 

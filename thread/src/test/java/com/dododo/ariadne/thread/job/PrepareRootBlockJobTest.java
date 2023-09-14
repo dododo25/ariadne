@@ -1,9 +1,9 @@
 package com.dododo.ariadne.thread.job;
 
+import com.dododo.ariadne.block.factory.BlockComparatorFactory;
+import com.dododo.ariadne.block.model.Block;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.thread.factory.BlockComparatorFactory;
-import com.dododo.ariadne.thread.model.Block;
-import com.dododo.ariadne.thread.test.assertions.BlockAssertions;
+import com.dododo.ariadne.mt.assertions.BlockAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
 import org.junit.jupiter.api.Test;

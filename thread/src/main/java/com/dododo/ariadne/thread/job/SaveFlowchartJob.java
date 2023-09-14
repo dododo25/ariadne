@@ -1,17 +1,20 @@
 package com.dododo.ariadne.thread.job;
 
+import com.dododo.ariadne.block.model.Block;
 import com.dododo.ariadne.common.configuration.Configuration;
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.thread.model.Block;
 import com.dododo.ariadne.mxg.MxFile;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.validation.SchemaFactory;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -72,12 +75,15 @@ public final class SaveFlowchartJob extends ThreadAbstractJob {
 
     private void prepareFlowchartFile() {
         try {
+            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
             JAXBContext context = JAXBContext.newInstance(JaxbRootState.class);
             Marshaller mar = context.createMarshaller();
 
+            mar.setSchema(factory.newSchema(SaveFlowchartJob.class.getClassLoader().getResource("./global.xsd")));
             mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             mar.marshal(getJaxbState(), new File("flowchart"));
-        } catch (JAXBException e) {
+        } catch (JAXBException | SAXException e) {
             throw new AriadneException(e);
         }
     }

@@ -10,9 +10,13 @@ import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.jaxb.model.JaxbReply;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.jaxb.model.JaxbText;
 import com.dododo.ariadne.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class JaxbFlowchartMouse implements JaxbFlowchartContract {
 
@@ -20,34 +24,37 @@ public class JaxbFlowchartMouse implements JaxbFlowchartContract {
 
     private final JaxbFlowchartMouseStrategy strategy;
 
+    private final Set<JaxbState> visited;
+
     public JaxbFlowchartMouse(JaxbFlowchartContract callback, JaxbFlowchartMouseStrategy strategy) {
         this.callback = callback;
         this.strategy = strategy;
+        this.visited = new HashSet<>();
     }
 
     @Override
     public void accept(JaxbRootState state) {
-        strategy.acceptComplexState(state, callback, this);
+        strategy.acceptComplexState(state, callback, this, visited);
     }
 
     @Override
     public void accept(JaxbMenu menu) {
-        strategy.acceptComplexState(menu, callback, this);
+        strategy.acceptComplexState(menu, callback, this, visited);
     }
 
     @Override
     public void accept(JaxbOption option) {
-        strategy.acceptComplexState(option, callback, this);
+        strategy.acceptComplexState(option, callback, this, visited);
     }
 
     @Override
     public void accept(JaxbComplexSwitch complexSwitch) {
-        strategy.acceptComplexState(complexSwitch, callback, this);
+        strategy.acceptComplexState(complexSwitch, callback, this, visited);
     }
 
     @Override
     public void accept(JaxbSwitchBranch switchBranch) {
-        strategy.acceptComplexState(switchBranch, callback, this);
+        strategy.acceptComplexState(switchBranch, callback, this, visited);
     }
 
     @Override

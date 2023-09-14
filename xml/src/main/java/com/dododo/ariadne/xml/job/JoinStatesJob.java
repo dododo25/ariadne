@@ -61,7 +61,7 @@ public final class JoinStatesJob extends AbstractJob {
     }
 
     private void collectStates(Map<JaxbState, State> map) {
-        JaxbFlowchartContract callback = new JaxbFlowchartContract() {
+        JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
             @Override
             public void accept(JaxbRootState state) {
                 map.put(state, new ComplexState());

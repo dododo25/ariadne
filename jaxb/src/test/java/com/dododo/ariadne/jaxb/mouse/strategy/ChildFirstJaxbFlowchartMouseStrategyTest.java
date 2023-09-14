@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -34,7 +35,7 @@ class ChildFirstJaxbFlowchartMouseStrategyTest {
         rootState.addChild(statement);
 
         testAccept(expected, (callback, mouse) ->
-                strategy.acceptComplexState(rootState, callback, mouse));
+                strategy.acceptComplexState(rootState, callback, mouse, new HashSet<>()));
     }
 
     private void testAccept(List<JaxbState> expected, BiConsumer<JaxbFlowchartContract, JaxbFlowchartMouse> consumer) {

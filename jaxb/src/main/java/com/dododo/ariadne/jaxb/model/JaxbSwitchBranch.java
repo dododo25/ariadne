@@ -17,10 +17,10 @@ import java.util.stream.Stream;
 public class JaxbSwitchBranch implements JaxbComplexState, JaxbSimpleState {
 
     @XmlTransient
-    private final JaxbSingleFieldStateComparator comparator;
+    protected final JaxbSingleFieldStateComparator comparator;
 
     @XmlAttribute(name = "condition")
-    private String value;
+    protected String value;
 
     @XmlElements({
             @XmlElement(name = "text", type = JaxbText.class),
@@ -31,7 +31,7 @@ public class JaxbSwitchBranch implements JaxbComplexState, JaxbSimpleState {
             @XmlElement(name = "switch", type = JaxbComplexSwitch.class),
             @XmlElement(name = "end", type = JaxbEndState.class)
     })
-    private final List<JaxbState> children;
+    protected final List<JaxbState> children;
 
     public JaxbSwitchBranch() {
         this(null);

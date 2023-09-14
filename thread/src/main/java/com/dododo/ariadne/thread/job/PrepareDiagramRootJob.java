@@ -1,11 +1,11 @@
 package com.dododo.ariadne.thread.job;
 
+import com.dododo.ariadne.block.contract.BlockFlowchartContract;
+import com.dododo.ariadne.block.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.block.mouse.BlockFlowchartMouse;
+import com.dododo.ariadne.block.mouse.strategy.ParentFirstBlockFlowchartMouseStrategy;
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.thread.contract.ThreadFlowchartContract;
-import com.dododo.ariadne.thread.contract.ThreadSimpleFlowchartContract;
-import com.dododo.ariadne.thread.model.Block;
-import com.dododo.ariadne.thread.mouse.ThreadFlowchartMouse;
-import com.dododo.ariadne.thread.mouse.strategy.ThreadParentFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.mxg.DiagramRoot;
 import com.dododo.ariadne.mxg.MxFile;
 
@@ -23,14 +23,14 @@ public final class PrepareDiagramRootJob extends ThreadAbstractJob {
     public void run() {
         DiagramRoot diagramRoot = getMxFile().getDiagram().getModel().getRoot();
 
-        ThreadFlowchartContract callback = new ThreadSimpleFlowchartContract() {
+        BlockFlowchartContract callback = new BlockSimpleFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 block.accept(diagramRoot);
             }
         };
-        ThreadFlowchartMouse mouse = new ThreadFlowchartMouse(callback,
-                new ThreadParentFirstFlowchartMouseStrategy());
+        BlockFlowchartMouse mouse = new BlockFlowchartMouse(callback,
+                new ParentFirstBlockFlowchartMouseStrategy());
 
         getRootBlock().accept(mouse);
     }

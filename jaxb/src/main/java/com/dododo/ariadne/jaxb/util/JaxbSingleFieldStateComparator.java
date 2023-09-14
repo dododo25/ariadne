@@ -15,7 +15,7 @@ public class JaxbSingleFieldStateComparator implements Comparator<JaxbState> {
 
     @Override
     public int compare(JaxbState o1, JaxbState o2) {
-        if (o1.getClass() != o2.getClass()) {
+        if (!o1.getClass().isAssignableFrom(o2.getClass())) {
             return 1;
         }
 

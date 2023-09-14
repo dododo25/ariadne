@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.drawio.model.EntryBlock" />
-    <node id="2" type="com.dododo.ariadne.drawio.model.ReplyBlock" line="reply1" />
-    <node id="3" type="com.dododo.ariadne.drawio.model.MenuBlock" />
-    <node id="4" type="com.dododo.ariadne.drawio.model.OptionBlock" value="option1" />
-    <node id="5" type="com.dododo.ariadne.drawio.model.TextBlock" value="text1" />
-    <node id="6" type="com.dododo.ariadne.drawio.model.ConditionalOptionBlock" value="option2" condition="condition" />
-    <node id="7" type="com.dododo.ariadne.drawio.model.TextBlock" value="text2" />
-    <node id="8" type="com.dododo.ariadne.drawio.model.SwitchBlock" condition="switch" />
-    <node id="9" type="com.dododo.ariadne.drawio.model.TextBlock" value="text3" />
-    <node id="10" type="com.dododo.ariadne.drawio.model.TextBlock" value="text4" />
-    <node id="11" type="com.dododo.ariadne.drawio.model.EndBlock" />
+    <node id="1" type="com.dododo.ariadne.block.model.EntryBlock" />
+    <node id="2" type="com.dododo.ariadne.block.model.ReplyBlock" line="reply1" />
+    <node id="3" type="com.dododo.ariadne.block.model.MenuBlock" />
+    <node id="4" type="com.dododo.ariadne.block.model.OptionBlock" value="option1" />
+    <node id="5" type="com.dododo.ariadne.block.model.TextBlock" value="text1" />
+    <node id="6" type="com.dododo.ariadne.block.model.ConditionalOptionBlock" value="option2" condition="condition" />
+    <node id="7" type="com.dododo.ariadne.block.model.TextBlock" value="text2" />
+    <node id="8" type="com.dododo.ariadne.block.model.SwitchBlock" condition="switch" />
+    <node id="9" type="com.dododo.ariadne.block.model.TextBlock" value="text3" />
+    <node id="10" type="com.dododo.ariadne.block.model.TextBlock" value="text4" />
+    <node id="11" type="com.dododo.ariadne.block.model.EndBlock" />
 
     <edge from="1" to="2" />
     <edge from="2" to="3" />

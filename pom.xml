@@ -5,7 +5,7 @@
 
     <groupId>com.dododo</groupId>
     <artifactId>ariadne</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.3</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -16,6 +16,7 @@
         <module>jaxb</module>
         <module>jaxb-test</module>
         <module>mxg</module>
+        <module>mxg-test</module>
         <module>renpy</module>
         <module>test</module>
         <module>thread</module>

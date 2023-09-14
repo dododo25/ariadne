@@ -4,6 +4,8 @@ import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -17,6 +19,8 @@ import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
+import com.dododo.ariadne.jaxb.model.JaxbGoToState;
+import com.dododo.ariadne.jaxb.model.JaxbMarker;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbReply;
@@ -24,38 +28,229 @@ import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.jaxb.model.JaxbText;
-import com.dododo.ariadne.mxg.MxFile;
-import com.dododo.ariadne.thread.model.Block;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public final class PrepareJaxbStateJob extends ThreadAbstractJob {
 
-    public PrepareJaxbStateJob(AtomicReference<MxFile> mxFileRef,
-                               AtomicReference<JaxbState> jaxbStateRef,
-                               AtomicReference<Block> rootBlockRef) {
-        super(mxFileRef, jaxbStateRef, rootBlockRef);
+    public PrepareJaxbStateJob(AtomicReference<JaxbState> jaxbStateRef) {
+        super(null, jaxbStateRef, null);
     }
 
     @Override
     public void run() {
         Map<State, JaxbState> stateMap = new HashMap<>();
+        Map<State, Collection<State>> statesToSplit = new HashMap<>();
+
         State flowchart = getFlowchart();
 
-        collectBlocks(stateMap, flowchart);
+        collectLoopStates(statesToSplit, flowchart);
+        markLoops(statesToSplit);
+
+        collectStates(stateMap, flowchart);
         prepareSwitchBlocks(stateMap, flowchart);
         combineBlocks(stateMap, flowchart);
+
         setJaxbState(stateMap.get(flowchart));
     }
 
-    private void collectBlocks(Map<State, JaxbState> stateMap, State flowchart) {
-        FlowchartContract contract = new FlowchartContract() {
+    private void collectLoopStates(Map<State, Collection<State>> map, State root) {
+        FlowchartContract callback = new FlowchartContractAdapter() {
+
+            private final Set<State> visited = new HashSet<>();
 
             @Override
             public void accept(EntryState state) {
+                acceptChainBlock(state);
+            }
+
+            @Override
+            public void accept(Text text) {
+                acceptChainBlock(text);
+            }
+
+            @Override
+            public void accept(Reply reply) {
+                acceptChainBlock(reply);
+            }
+
+            @Override
+            public void accept(Option option) {
+                acceptChainBlock(option);
+            }
+
+            @Override
+            public void accept(ConditionalOption option) {
+                acceptChainBlock(option);
+            }
+
+            @Override
+            public void accept(Menu menu) {
+                menu.branchesStream()
+                        .forEach(option -> acceptBlock(menu, option));
+            }
+
+            @Override
+            public void accept(Switch aSwitch) {
+                acceptBlock(aSwitch, aSwitch.getTrueBranch());
+                acceptBlock(aSwitch, aSwitch.getFalseBranch());
+            }
+
+            private void acceptChainBlock(ChainState state) {
+                acceptBlock(state, state.getNext());
+            }
+
+            private void acceptBlock(State root, State child) {
+                if (root.getRoots().length > 1 && !visited.contains(child)) {
+                    Set<State> visitedState = new HashSet<>(visited);
+                    boolean res = collectLoopStates(root, child, map, visitedState);
+
+                    if (res) {
+                        visited.addAll(visitedState);
+                    }
+                }
+            }
+        };
+
+        runMouse(root, callback);
+    }
+
+    private void markLoops(Map<State, Collection<State>> map) {
+        AtomicInteger ref = new AtomicInteger();
+
+        map.forEach((mainState, roots) -> {
+            int index = ref.getAndIncrement();
+
+            roots.forEach(root -> {
+                CycleEntryState entryState = new CycleEntryState(String.format("#%d", index));
+
+                FlowchartContract callback = new FlowchartContractAdapter() {
+                    @Override
+                    public void accept(EntryState state) {
+                        acceptChainState(state);
+                    }
+
+                    @Override
+                    public void accept(Text text) {
+                        acceptChainState(text);
+                    }
+
+                    @Override
+                    public void accept(Reply reply) {
+                        acceptChainState(reply);
+                    }
+
+                    @Override
+                    public void accept(Option option) {
+                        acceptChainState(option);
+                    }
+
+                    @Override
+                    public void accept(ConditionalOption option) {
+                        acceptChainState(option);
+                    }
+
+                    @Override
+                    public void accept(Switch aSwitch) {
+                        if (aSwitch.getTrueBranch() == mainState) {
+                            acceptState(aSwitch::setTrueBranch);
+                        }
+
+                        if (aSwitch.getFalseBranch() == mainState) {
+                            acceptState(aSwitch::setFalseBranch);
+                        }
+                    }
+
+                    private void acceptChainState(ChainState state) {
+                        acceptState(state::setNext);
+                    }
+
+                    private void acceptState(Consumer<State> consumer) {
+                        consumer.accept(entryState);
+                    }
+                };
+
+                root.accept(callback);
+            });
+
+            FlowchartContract callback = new FlowchartContractAdapter() {
+                @Override
+                public void accept(EntryState state) {
+                    acceptChainState(state);
+                }
+
+                @Override
+                public void accept(Text text) {
+                    acceptChainState(text);
+                }
+
+                @Override
+                public void accept(Reply reply) {
+                    acceptChainState(reply);
+                }
+
+                @Override
+                public void accept(Option option) {
+                    acceptChainState(option);
+                }
+
+                @Override
+                public void accept(ConditionalOption option) {
+                    acceptChainState(option);
+                }
+
+                @Override
+                public void accept(Switch aSwitch) {
+                    if (aSwitch.getTrueBranch() == mainState) {
+                        acceptState(aSwitch.getTrueBranch(), aSwitch::setTrueBranch);
+                    }
+
+                    if (aSwitch.getFalseBranch() == mainState) {
+                        acceptState(aSwitch.getFalseBranch(), aSwitch::setFalseBranch);
+                    }
+                }
+
+                private void acceptChainState(ChainState state) {
+                    acceptState(state.getNext(), state::setNext);
+                }
+
+                private void acceptState(State state, Consumer<State> consumer) {
+                    CycleMarker marker = new CycleMarker(String.format("#%d", index));
+
+                    consumer.accept(marker);
+                    marker.setNext(state);
+                }
+            };
+
+            Stream.of(mainState.getRoots())
+                    .forEach(root -> root.accept(callback));
+        });
+    }
+
+    private void collectStates(Map<State, JaxbState> stateMap, State flowchart) {
+        FlowchartContract contract = new FlowchartContract() {
+            @Override
+            public void accept(EntryState state) {
                 stateMap.put(state, new JaxbRootState());
+            }
+
+            @Override
+            public void accept(CycleMarker marker) {
+                stateMap.put(marker, new JaxbMarker(marker.getValue()));
+            }
+
+            @Override
+            public void accept(CycleEntryState state) {
+                stateMap.put(state, new JaxbGoToState(state.getValue()));
             }
 
             @Override
@@ -93,8 +288,8 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
                 stateMap.put(point, new JaxbEndState());
             }
         };
-        FlowchartMouse mouse = new FlowchartMouse(contract, new ParentFirstFlowchartMouseStrategy());
-        flowchart.accept(mouse);
+
+        runMouse(flowchart, contract);
     }
 
     private void prepareSwitchBlocks(Map<State, JaxbState> stateMap, State flowchart) {
@@ -108,8 +303,8 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
                 jaxbComplexSwitch.addChild(new JaxbSwitchBranch());
             }
         };
-        FlowchartMouse mouse = new FlowchartMouse(contract, new ParentFirstFlowchartMouseStrategy());
-        flowchart.accept(mouse);
+
+        runMouse(flowchart, contract);
     }
 
     private void combineBlocks(Map<State, JaxbState> stateMap, State flowchart) {
@@ -169,10 +364,74 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
                     next = ((ChainState) next).getNext();
                 }
 
-                complexState.addChild(stateMap.get(next));
+                if (next != null) {
+                    complexState.addChild(stateMap.get(next));
+                }
             }
         };
-        FlowchartMouse mouse = new FlowchartMouse(contract, new ParentFirstFlowchartMouseStrategy());
-        flowchart.accept(mouse);
+
+        runMouse(flowchart, contract);
+    }
+
+    private boolean collectLoopStates(State root, State child, Map<State, Collection<State>> map,
+                                      Set<State> visited) {
+        AtomicBoolean result = new AtomicBoolean();
+
+        FlowchartContract callback = new FlowchartContractAdapter() {
+
+            @Override
+            public void accept(EntryState state) {
+                acceptChainBlock(state);
+            }
+
+            @Override
+            public void accept(Text text) {
+                acceptChainBlock(text);
+            }
+
+            @Override
+            public void accept(Reply reply) {
+                acceptChainBlock(reply);
+            }
+
+            @Override
+            public void accept(Option option) {
+                acceptChainBlock(option);
+            }
+
+            @Override
+            public void accept(ConditionalOption option) {
+                acceptChainBlock(option);
+            }
+
+            @Override
+            public void accept(Switch aSwitch) {
+                accept(aSwitch, aSwitch.getTrueBranch());
+                accept(aSwitch, aSwitch.getFalseBranch());
+            }
+
+            private void acceptChainBlock(ChainState block) {
+                accept(block, block.getNext());
+            }
+
+            private void accept(State rootState, State childBlock) {
+                if (childBlock == root) {
+                    map.computeIfAbsent(root, i -> new HashSet<>()).add(rootState);
+                    result.set(true);
+                }
+
+                visited.add(rootState);
+            }
+        };
+
+        runMouse(child, callback);
+        return result.get();
+    }
+
+    private void runMouse(State state, FlowchartContract contract) {
+        FlowchartContract mouse = new FlowchartMouse(contract,
+                new ParentFirstFlowchartMouseStrategy());
+
+        state.accept(mouse);
     }
 }
