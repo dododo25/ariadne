@@ -2,6 +2,7 @@ package com.dododo.ariadne.thread.job;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
+import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.CycleEntryState;
@@ -29,11 +30,13 @@ import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.jaxb.model.JaxbText;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -49,11 +52,12 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
     @Override
     public void run() {
         Map<State, JaxbState> stateMap = new HashMap<>();
-        Map<State, Collection<State>> statesToSplit = new HashMap<>();
+        Map<State, Collection<State>> statesToSplit = new TreeMap<>();
 
         State flowchart = getFlowchart();
 
         collectLoopStates(statesToSplit, flowchart);
+        collectMultipleRootStates(statesToSplit, flowchart);
         markLoops(statesToSplit);
 
         collectStates(stateMap, flowchart);
@@ -117,6 +121,31 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
                     if (res) {
                         visited.addAll(visitedState);
                     }
+                }
+            }
+        };
+
+        runMouse(root, callback);
+    }
+
+    private void collectMultipleRootStates(Map<State, Collection<State>> map, State root) {
+        FlowchartContract callback = new SimpleFlowchartContract() {
+
+            @Override
+            public void acceptState(State state) {
+                State[] roots = state.getRoots();
+
+                if (roots.length > 1) {
+                    map.putIfAbsent(state, new HashSet<>());
+                    Collection<State> mappedRoots = map.get(state);
+
+                    State randomFixedRoot = Stream.of(roots)
+                            .filter(root -> !mappedRoots.contains(root))
+                            .findAny()
+                            .orElse(null);
+
+                    mappedRoots.addAll(Arrays.asList(roots));
+                    mappedRoots.remove(randomFixedRoot);
                 }
             }
         };
