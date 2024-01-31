@@ -3,6 +3,7 @@ package com.dododo.ariadne.renpy.rpy.job;
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbSingleLineComment;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import com.dododo.ariadne.renpy.rpy.processor.LineProcessorFactory;
@@ -12,6 +13,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class CollectStatesJob extends AbstractJob {
 
@@ -25,6 +29,8 @@ public final class CollectStatesJob extends AbstractJob {
 
     private LineProcessor processor;
 
+    private LinkedList<Integer> levels;
+
     public CollectStatesJob(int index, JaxbComplexState rootState) {
         super(String.format("%s_%d", CollectStatesJob.class.getSimpleName(), index));
         this.index = index;
@@ -34,6 +40,8 @@ public final class CollectStatesJob extends AbstractJob {
     @Override
     public void run() {
         processor = LineProcessorFactory.create(getConfiguration());
+        levels = new LinkedList<>();
+
         Path path = Paths.get(getConfiguration().getInputFiles().get(index));
 
         try (BufferedReader reader = Files.newBufferedReader(path)) {
@@ -56,39 +64,43 @@ public final class CollectStatesJob extends AbstractJob {
 
         if (state == null) {
             throw new IllegalArgumentException(String.format("Unable to parse '%s' at line %s", line, index));
+        } else if (state instanceof JaxbSingleLineComment) {
+            return;
         }
 
-        int level = getLevel(index, line);
-        JaxbComplexState complexState = getLastComplexStateAt(rootState, level, index);
-
-        complexState.addChild(state);
+        processLineLevel(line);
+        addState(rootState, state, index);
     }
 
-    private static int getLevel(int index, String line) {
-        int spacesLength = line.length() - line.replaceFirst("^\\s+", "").length();
+    private void processLineLevel(String line) {
+        Matcher matcher = Pattern.compile("^(\\s+).*$").matcher(line);
 
-        if (spacesLength % INDENT != 0) {
-            throw new AriadneException(String.format("Illegal indent at line %d", index));
+        int spacesCount = matcher.find() ? matcher.group(1).length() : 0;
+
+        while (!levels.isEmpty() && levels.getLast() >= spacesCount) {
+            levels.removeLast();
         }
 
-        return spacesLength / INDENT;
+        levels.add(spacesCount);
     }
 
-    private static JaxbComplexState getLastComplexStateAt(JaxbComplexState rootState, int level, int index) {
-        if (rootState == null) {
-            throw new AriadneException(String.format("Illegal level %s at line %d", level, index));
+    private void addState(JaxbComplexState rootState, JaxbState state, int index) {
+        JaxbComplexState currentComplexState = rootState;
+
+        for (int i = 0; i < levels.size() - 1; i++) {
+            if (currentComplexState.childrenCount() == 0) {
+                throw new AriadneException(String.format("Illegal indent at line %d", index));
+            }
+
+            JaxbState nextState = currentComplexState.childAt(currentComplexState.childrenCount() - 1);
+
+            if (!(nextState instanceof JaxbComplexState)) {
+                throw new AriadneException(String.format("Illegal indent at line %d", index));
+            }
+
+            currentComplexState = (JaxbComplexState) nextState;
         }
 
-        if (level == 0) {
-            return rootState;
-        }
-
-        JaxbState state = rootState.childAt(rootState.childrenCount() - 1);
-
-        if (state instanceof JaxbComplexState) {
-            return getLastComplexStateAt((JaxbComplexState) state, level - 1, index);
-        }
-
-        throw new AriadneException(String.format("Illegal level %s at line %d", level, index));
+        currentComplexState.addChild(state);
     }
 }

@@ -11,6 +11,7 @@ import com.dododo.ariadne.renpy.processor.OptionLineProcessor;
 import com.dododo.ariadne.renpy.processor.PassLineProcessor;
 import com.dododo.ariadne.renpy.processor.ReplaceBracketsInTextLineProcessor;
 import com.dododo.ariadne.renpy.processor.ReturnLineProcessor;
+import com.dododo.ariadne.renpy.processor.SingleLineCommentLineProcessor;
 import com.dododo.ariadne.renpy.processor.StatementLineProcessor;
 import com.dododo.ariadne.renpy.processor.SwitchElseIfLineProcessor;
 import com.dododo.ariadne.renpy.processor.SwitchElseLineProcessor;
@@ -69,6 +70,7 @@ public final class LineProcessorFactory {
         processors.add(new JumpLineProcessor());
         processors.add(new LabelLineProcessor());
         processors.add(new MenuLineProcessor());
+        processors.add(new SingleLineCommentLineProcessor());
         processors.add(new ReplaceBracketsInTextLineProcessor(new ConditionalOptionLineProcessor()));
         processors.add(new ReplaceBracketsInTextLineProcessor(new OptionLineProcessor()));
         processors.add(new PassLineProcessor());
