@@ -7,28 +7,27 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 
-import java.util.LinkedList;
 import java.util.Set;
 
 public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy {
 
     @Override
     public void acceptChainState(ChainState state, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited) {
-        if (!visited.contains(state)) {
-            LinkedList<ChainState> states = prepareChain(state);
+        State current = state;
 
-            for (State s : states) {
-                if (visited.contains(s)) {
-                    break;
-                }
-
-                visited.add(s);
-                s.accept(callback);
+        while (current instanceof ChainState) {
+            if (visited.contains(current)) {
+                break;
             }
 
-            if (states.getLast().getNext() != null) {
-                states.getLast().getNext().accept(mouse);
-            }
+            visited.add(current);
+            current.accept(callback);
+
+            current = ((ChainState) current).getNext();
+        }
+
+        if (current != null && !visited.contains(current)) {
+            current.accept(mouse);
         }
     }
 
@@ -38,8 +37,8 @@ public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy
             visited.add(menu);
             callback.accept(menu);
 
-            menu.branchesStream()
-                    .forEach(mouse::accept);
+            menu.branchesStream().forEach(option ->
+                    acceptChainState(option, mouse, callback, visited));
         }
     }
 
@@ -57,21 +56,5 @@ public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy
                 aSwitch.getFalseBranch().accept(mouse);
             }
         }
-    }
-
-    private static LinkedList<ChainState> prepareChain(ChainState state) {
-        LinkedList<ChainState> result = new LinkedList<>();
-        State s = state;
-
-        while (s instanceof ChainState) {
-            if (result.contains(s)) {
-                break;
-            }
-
-            result.addLast((ChainState) s);
-            s = ((ChainState) s).getNext();
-        }
-
-        return result;
     }
 }

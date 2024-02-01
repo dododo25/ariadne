@@ -14,29 +14,26 @@ public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy 
 
     @Override
     public void acceptChainState(ChainState state, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited) {
-        if (!visited.contains(state)) {
-            visited.add(state);
+        LinkedList<ChainState> states = new LinkedList<>();
 
-            LinkedList<ChainState> states = prepareChain(state);
+        State current = state;
 
-            if (!states.isEmpty()) {
-                if (states.getFirst().getNext() != null) {
-                    states.getFirst().getNext().accept(mouse);
-                }
-
-                for (State s : states) {
-                    if (visited.contains(s)) {
-                        break;
-                    }
-
-                    visited.add(s);
-                    s.accept(callback);
-                }
-            } else if (state.getNext() != null) {
-                state.getNext().accept(mouse);
+        while (current instanceof ChainState) {
+            if (states.contains(current)) {
+                break;
             }
 
-            state.accept(callback);
+            states.addFirst((ChainState) current);
+            current = ((ChainState) current).getNext();
+        }
+
+        if (current != null && !visited.contains(current)) {
+            current.accept(mouse);
+        }
+
+        for (State s : states) {
+            visited.add(s);
+            s.accept(callback);
         }
     }
 
@@ -45,8 +42,8 @@ public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy 
         if (!visited.contains(menu)) {
             visited.add(menu);
 
-            menu.branchesStream()
-                    .forEach(mouse::accept);
+            menu.branchesStream().forEach(option ->
+                    acceptChainState(option, mouse, callback, visited));
 
             callback.accept(menu);
         }
@@ -67,21 +64,5 @@ public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy 
 
             callback.accept(aSwitch);
         }
-    }
-
-    private static LinkedList<ChainState> prepareChain(ChainState state) {
-        LinkedList<ChainState> result = new LinkedList<>();
-        State s = state.getNext();
-
-        while (s instanceof ChainState) {
-            if (result.contains(s)) {
-                break;
-            }
-
-            result.addFirst((ChainState) s);
-            s = ((ChainState) s).getNext();
-        }
-
-        return result;
     }
 }
