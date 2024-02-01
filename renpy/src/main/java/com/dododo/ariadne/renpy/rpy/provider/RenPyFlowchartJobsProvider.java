@@ -8,6 +8,7 @@ import com.dododo.ariadne.renpy.common.job.JoinStatesJob;
 import com.dododo.ariadne.renpy.common.job.PrepareJaxbComplexSwitchStatesJob;
 import com.dododo.ariadne.renpy.common.job.PrepareSingleEntryFlowchartJob;
 import com.dododo.ariadne.renpy.common.job.PrepareSwitchStatesJob;
+import com.dododo.ariadne.renpy.common.job.RearrangeLabelledGroupsJob;
 import com.dododo.ariadne.renpy.common.job.RemoveComplexStatesJob;
 import com.dododo.ariadne.renpy.common.job.RemoveJumpToPointRemaindersJob;
 import com.dododo.ariadne.renpy.common.job.RemoveSkipComplexStatesJob;
@@ -38,6 +39,7 @@ public final class RenPyFlowchartJobsProvider extends FlowchartJobsProvider {
         jobs.add(new PrepareJaxbComplexSwitchStatesJob(rootState));
         jobs.add(new AddMissingSwitchFalseBranchComplexStateJob(rootState));
         jobs.add(new RearrangeInitGroupStatesJob(rootState));
+        jobs.add(new RearrangeLabelledGroupsJob(rootState));
         jobs.add(new JoinStatesJob(rootState));
 
         jobs.add(new PrepareSwitchStatesJob());
