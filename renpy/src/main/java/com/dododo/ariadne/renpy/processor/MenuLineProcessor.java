@@ -8,11 +8,17 @@ import java.util.regex.Matcher;
 public final class MenuLineProcessor extends GenericLineProcessor {
 
     public MenuLineProcessor() {
-        super("^menu(\\(.*\\))? *:$");
+        super("^menu(\\s+(.*))?\\s*:$");
     }
 
     @Override
     public JaxbState prepareState(Matcher matcher) {
-        return new JaxbMenu();
+        String value = matcher.group(2);
+
+        if (value == null || value.isEmpty()) {
+            return new JaxbMenu();
+        }
+
+        return new JaxbMenu(value);
     }
 }

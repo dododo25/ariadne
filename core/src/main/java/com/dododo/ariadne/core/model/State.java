@@ -53,7 +53,7 @@ public abstract class State implements Comparable<State> {
     }
 
     protected int compareByValuesPair(State state, Function<State, String> f1, Function<State, String> f2) {
-        if (!(state.getClass().isInstance(this))) {
+        if (this.getClass() != state.getClass()) {
             return 1;
         }
 

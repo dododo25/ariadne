@@ -88,7 +88,7 @@ public final class JoinStatesJob extends AbstractJob {
 
             @Override
             public void accept(JaxbMenu menu) {
-                map.put(menu, new Menu());
+                map.put(menu, new Menu(menu.getValue()));
             }
 
             @Override

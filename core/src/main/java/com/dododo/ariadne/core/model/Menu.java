@@ -8,10 +8,21 @@ import java.util.stream.Stream;
 
 public final class Menu extends State {
 
+    private final String value;
+
     private final List<Option> branches;
 
     public Menu() {
+        this(null);
+    }
+
+    public Menu(String value) {
+        this.value = value;
         this.branches = new ArrayList<>();
+    }
+
+    public String getValue() {
+        return value;
     }
 
     public int branchesCount() {
@@ -43,6 +54,15 @@ public final class Menu extends State {
 
     @Override
     public int compareTo(State o) {
-        return compareByClass(o);
+        return compareBySingleValue(o, s -> ((Menu) s).getValue());
+    }
+
+    @Override
+    public String toString() {
+        if (value == null) {
+            return String.format("%s(value=null)", getClass().getSimpleName());
+        }
+
+        return String.format("%s(value='%s')", getClass().getSimpleName(), value);
     }
 }

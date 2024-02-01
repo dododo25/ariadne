@@ -3,47 +3,48 @@ package com.dododo.ariadne.renpy.common.job;
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.model.SimpleState;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
-import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
+import com.dododo.ariadne.core.model.Menu;
+import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartMouseFactory;
 import com.dododo.ariadne.renpy.common.model.JumpToPoint;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
-import com.dododo.ariadne.renpy.common.mouse.RenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.common.mouse.strategy.ParentFirstRenPyFlowchartMouseStrategy;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public final class JoinLinkJumpPointsJob extends AbstractJob {
 
-    @Override
-    public void run() {
-        StateCollector<LabelledGroup> collector = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), LabelledGroup.class);
+    private final StateCollector<LabelledGroup> subGroupCollector;
 
-        Map<String, LabelledGroup> links = collector.collect(getFlowchart())
-                .stream()
-                .collect(Collectors.toMap(SimpleState::getValue, Function.identity()));
+    private final StateCollector<Menu> menuCollector;
 
-        links.values().forEach(link -> process(link, links));
+    private final StateCollector<JumpToPoint> jumpToPointCollector;
+
+    public JoinLinkJumpPointsJob() {
+        subGroupCollector = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), LabelledGroup.class);
+        menuCollector = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), Menu.class);
+        jumpToPointCollector = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), JumpToPoint.class);
     }
 
-    private void process(LabelledGroup group, Map<String, LabelledGroup> links) {
-        RenPyFlowchartContract contract = new RenPyFlowchartContractAdapter() {
-            @Override
-            public void accept(JumpToPoint point) {
-                LabelledGroup labelledGroup = links.get(point.getValue());
+    @Override
+    public void run() {
+        Map<String, State> links = new HashMap<>();
 
-                if (labelledGroup != null) {
-                    RenPyStateManipulatorUtil.replace(point, labelledGroup);
-                }
+        subGroupCollector.collect(getFlowchart())
+                .forEach(state -> links.put(state.getValue(), state));
+
+        menuCollector.collect(getFlowchart())
+                .stream()
+                .filter(menu -> menu.getValue() != null)
+                .forEach(menu -> links.put(menu.getValue(), menu));
+
+        jumpToPointCollector.collect(getFlowchart()).forEach(point -> {
+            State link = links.get(point.getValue());
+
+            if (link != null) {
+                RenPyStateManipulatorUtil.replace(point, link);
             }
-        };
-
-        FlowchartMouse mouse = new RenPyFlowchartMouse(contract, new ParentFirstRenPyFlowchartMouseStrategy());
-        group.accept(mouse);
+        });
     }
 }

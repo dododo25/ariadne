@@ -16,12 +16,12 @@ class MenuLineProcessorTest {
 
     @Test
     void testAcceptShouldReturnObject() {
-        JaxbMenu expected = new JaxbMenu();
+        JaxbMenu e1 = new JaxbMenu();
+        JaxbMenu e2 = new JaxbMenu("test_value");
 
-        Assertions.assertEquals(0, processor.accept("menu:").compareTo(expected));
-        Assertions.assertEquals(0, processor.accept("menu   :").compareTo(expected));
-        Assertions.assertEquals(0, processor.accept("menu():").compareTo(expected));
-        Assertions.assertEquals(0, processor.accept("menu(test_value):").compareTo(expected));
+        Assertions.assertEquals(0, processor.accept("menu:").compareTo(e1));
+        Assertions.assertEquals(0, processor.accept("menu   :").compareTo(e1));
+        Assertions.assertEquals(0, processor.accept("menu test_value:").compareTo(e2));
 
         Assertions.assertNull(processor.accept("menu"));
         Assertions.assertNull(processor.accept("men:"));
