@@ -1,12 +1,12 @@
 package com.dododo.ariadne.renpy.common.job;
 
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.common.factory.ParentFirstRenPyLargeTreeFlowchartContractFactory;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
+import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
 import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
 import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
@@ -15,9 +15,9 @@ public final class PrepareSwitchStatesJob extends RenPyAbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractFactory(),
-                new RenPyFlowchartContractFactory()
+        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
+                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
+                new RenPyFlowchartContractComposer()
         );
 
         RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
@@ -27,7 +27,7 @@ public final class PrepareSwitchStatesJob extends RenPyAbstractJob {
             }
         };
 
-        factory.process(getFlowchart(), callback);
+        composer.process(getFlowchart(), callback);
     }
 
     private void process(ComplexSwitch state) {

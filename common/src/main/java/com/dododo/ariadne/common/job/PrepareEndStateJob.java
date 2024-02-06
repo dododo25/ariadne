@@ -4,8 +4,8 @@ import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
-import com.dododo.ariadne.core.factory.ParentFirstLargeTreeFlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.composer.ParentFirstLargeTreeFlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.State;
@@ -17,11 +17,11 @@ public final class PrepareEndStateJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
-                new ParentFirstLargeTreeFlowchartContractFactory(),
-                new FlowchartContractFactory());
+        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
+                new ParentFirstLargeTreeFlowchartContractComposer(),
+                new FlowchartContractComposer());
 
-        StateCollector<ChainState> leafChainStateCollector = new LeafChainStateCollector(factory);
+        StateCollector<ChainState> leafChainStateCollector = new LeafChainStateCollector(composer);
         State flowchart = getFlowchart();
 
         leafChainStateCollector.collect(flowchart)

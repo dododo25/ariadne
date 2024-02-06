@@ -1,7 +1,7 @@
-package com.dododo.ariadne.renpy.common.factory;
+package com.dododo.ariadne.renpy.common.composer;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
-import com.dododo.ariadne.core.factory.LargeTreeFlowchartContractFactory;
+import com.dododo.ariadne.core.composer.LargeTreeFlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPySimpleFlowchartContract;
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 import static com.dododo.ariadne.core.mouse.strategy.large.LargeTreeFlowchartMouseStrategy.DEFAULT_DEPTH;
 
-public abstract class RenPyLargeTreeFlowchartContractFactory extends LargeTreeFlowchartContractFactory {
+public abstract class RenPyLargeTreeFlowchartContractComposer extends LargeTreeFlowchartContractComposer {
 
     @Override
     public void process(State state, Consumer<State> consumer) {

@@ -2,7 +2,7 @@ package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
+import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
 import org.junit.jupiter.api.Test;
@@ -19,6 +19,6 @@ class PrepareSingleEntryFlowchartJobTest {
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, job.getFlowchart(), new RenPyFlowchartContractFactory());
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new RenPyFlowchartContractComposer());
     }
 }

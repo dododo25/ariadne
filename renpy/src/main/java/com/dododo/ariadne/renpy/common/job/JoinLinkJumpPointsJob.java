@@ -2,11 +2,11 @@ package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.renpy.common.factory.ParentFirstRenPyLargeTreeFlowchartContractFactory;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
+import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
 import com.dododo.ariadne.renpy.common.model.JumpToPoint;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
@@ -18,13 +18,13 @@ public final class JoinLinkJumpPointsJob extends RenPyAbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractFactory(),
-                new RenPyFlowchartContractFactory());
+        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
+                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
+                new RenPyFlowchartContractComposer());
 
-        StateCollector<LabelledGroup> subGroupCollector = new GenericStateCollector<>(factory, LabelledGroup.class);
-        StateCollector<Menu> menuCollector = new GenericStateCollector<>(factory, Menu.class);
-        StateCollector<JumpToPoint> jumpToPointCollector = new GenericStateCollector<>(factory, JumpToPoint.class);
+        StateCollector<LabelledGroup> subGroupCollector = new GenericStateCollector<>(composer, LabelledGroup.class);
+        StateCollector<Menu> menuCollector = new GenericStateCollector<>(composer, Menu.class);
+        StateCollector<JumpToPoint> jumpToPointCollector = new GenericStateCollector<>(composer, JumpToPoint.class);
 
         Map<String, State> links = new HashMap<>();
 

@@ -1,6 +1,6 @@
-package com.dododo.ariadne.renpy.common.factory;
+package com.dododo.ariadne.renpy.common.composer;
 
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
@@ -21,13 +21,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class RenPyFlowchartContractFactoryTest {
+class RenPyFlowchartContractComposerTest {
 
-    private static FlowchartContractFactory factory;
+    private static FlowchartContractComposer composer;
 
     @BeforeAll
     static void setUp() {
-        factory = new RenPyFlowchartContractFactory();
+        composer = new RenPyFlowchartContractComposer();
     }
 
     @Test
@@ -53,6 +53,6 @@ class RenPyFlowchartContractFactoryTest {
     }
 
     private void testCreateFor(State state) {
-        factory.process(state, s -> Assertions.assertSame(s, state));
+        composer.process(state, s -> Assertions.assertSame(s, state));
     }
 }

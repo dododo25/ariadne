@@ -3,7 +3,7 @@ package com.dododo.ariadne.core.collector;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -20,8 +20,8 @@ class GenericStateCollectorTest {
 
     @BeforeAll
     static void setUp() {
-        stateCollector = new GenericStateCollector<>(new FlowchartContractFactory(), State.class);
-        textCollector = new GenericStateCollector<>(new FlowchartContractFactory(), Text.class);
+        stateCollector = new GenericStateCollector<>(new FlowchartContractComposer(), State.class);
+        textCollector = new GenericStateCollector<>(new FlowchartContractComposer(), Text.class);
     }
 
     @Test

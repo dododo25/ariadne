@@ -1,4 +1,4 @@
-package com.dododo.ariadne.core.factory;
+package com.dododo.ariadne.core.composer;
 
 import com.dododo.ariadne.core.model.CycleEntryState;
 import com.dododo.ariadne.core.model.CycleMarker;
@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class FlowchartContractFactoryTest {
+class FlowchartContractComposerTest {
 
-    private static FlowchartContractFactory factory;
+    private static FlowchartContractComposer composer;
 
     @BeforeAll
     static void setUp() {
-        factory = new FlowchartContractFactory();
+        composer = new FlowchartContractComposer();
     }
 
     @Test
@@ -31,6 +31,6 @@ class FlowchartContractFactoryTest {
     }
 
     private void testCreateFor(State state) {
-        factory.process(state, s -> Assertions.assertSame(s, state));
+        composer.process(state, s -> Assertions.assertSame(s, state));
     }
 }

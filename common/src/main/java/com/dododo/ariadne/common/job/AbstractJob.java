@@ -1,7 +1,7 @@
 package com.dododo.ariadne.common.job;
 
 import com.dododo.ariadne.common.configuration.Configuration;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.util.FlowchartTreeUtil;
 import org.slf4j.Logger;
@@ -49,13 +49,13 @@ public abstract class AbstractJob {
         this.configuration = configuration;
     }
 
-    protected FlowchartContractFactory selectFactoryBasedOnFlowchartTreeSize(
-            FlowchartContractFactory f1,
-            FlowchartContractFactory f2) {
+    protected FlowchartContractComposer selectComposerBasedOnFlowchartTreeSize(
+            FlowchartContractComposer c1,
+            FlowchartContractComposer c2) {
         if (!configuration.isLarge()) {
-            return f2;
+            return c2;
         }
 
-        return FlowchartTreeUtil.isLarge(getFlowchart()) ? f1 : f2;
+        return FlowchartTreeUtil.isLarge(getFlowchart()) ? c1 : c2;
     }
 }

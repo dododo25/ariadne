@@ -1,4 +1,4 @@
-package com.dododo.ariadne.core.factory;
+package com.dododo.ariadne.core.composer;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
@@ -12,9 +12,9 @@ import java.util.function.Consumer;
 
 import static com.dododo.ariadne.core.mouse.strategy.large.LargeTreeFlowchartMouseStrategy.DEFAULT_DEPTH;
 
-public abstract class LargeTreeFlowchartContractFactory extends FlowchartContractFactory {
+public abstract class LargeTreeFlowchartContractComposer extends FlowchartContractComposer {
 
-    protected LargeTreeFlowchartContractFactory() {
+    protected LargeTreeFlowchartContractComposer() {
         super(null);
     }
 

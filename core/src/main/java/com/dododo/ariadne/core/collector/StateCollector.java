@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.collector;
 
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.HashSet;
@@ -8,15 +8,15 @@ import java.util.Set;
 
 public abstract class StateCollector<S extends State> {
 
-    private final FlowchartContractFactory factory;
+    private final FlowchartContractComposer composer;
 
-    protected StateCollector(FlowchartContractFactory factory) {
-        this.factory = factory;
+    protected StateCollector(FlowchartContractComposer composer) {
+        this.composer = composer;
     }
 
     public Set<S> collect(State flowchart) {
         Set<S> result = new HashSet<>();
-        factory.process(flowchart, state -> accept(result, state));
+        composer.process(flowchart, state -> accept(result, state));
         return result;
     }
 

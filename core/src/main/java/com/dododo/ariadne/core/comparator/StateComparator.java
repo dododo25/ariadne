@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.comparator;
 
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import java.util.function.Consumer;
 
 public class StateComparator implements Comparator<State> {
 
-    private final FlowchartContractFactory factory;
+    private final FlowchartContractComposer composer;
 
-    public StateComparator(FlowchartContractFactory factory) {
-        this.factory = factory;
+    public StateComparator(FlowchartContractComposer composer) {
+        this.composer = composer;
     }
 
     @Override
@@ -51,8 +51,8 @@ public class StateComparator implements Comparator<State> {
             return -1;
         }
 
-        factory.process(s1, c1);
-        factory.process(s2, c2);
+        composer.process(s1, c1);
+        composer.process(s2, c2);
 
         return result.get() % 2;
     }

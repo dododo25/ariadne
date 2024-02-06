@@ -7,7 +7,7 @@ import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.common.factory.XmlFlowchartContractFactory;
+import com.dododo.ariadne.xml.common.composer.XmlFlowchartContractComposer;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.mouse.XmlFlowchartMouse;
 import com.dododo.ariadne.xml.common.mouse.strategy.ChildFirstXmlFlowchartMouseStrategy;
@@ -18,7 +18,7 @@ public final class RemoveComplexStatesJob extends AbstractJob {
     private final StateCollector<ChainState> leafChainStateCollector;
 
     public RemoveComplexStatesJob() {
-        leafChainStateCollector = new LeafChainStateCollector(new XmlFlowchartContractFactory());
+        leafChainStateCollector = new LeafChainStateCollector(new XmlFlowchartContractComposer());
     }
 
     @Override

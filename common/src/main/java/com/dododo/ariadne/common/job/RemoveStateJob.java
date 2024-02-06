@@ -2,7 +2,7 @@ package com.dododo.ariadne.common.job;
 
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 
@@ -16,7 +16,7 @@ public abstract class RemoveStateJob<T extends ChainState> extends AbstractJob {
 
     @Override
     public void run() {
-        StateCollector<T> collector = new GenericStateCollector<>(prepareFactory(), type);
+        StateCollector<T> collector = new GenericStateCollector<>(prepareComposer(), type);
 
         State flowchart = getFlowchart();
 
@@ -30,7 +30,7 @@ public abstract class RemoveStateJob<T extends ChainState> extends AbstractJob {
         }
     }
 
-    protected abstract FlowchartContractFactory prepareFactory();
+    protected abstract FlowchartContractComposer prepareComposer();
 
     protected abstract void process(T state);
 }

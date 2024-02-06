@@ -2,14 +2,14 @@ package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.common.factory.ChildFirstRenPyLargeTreeFlowchartContractFactory;
-import com.dododo.ariadne.renpy.common.factory.ParentFirstRenPyLargeTreeFlowchartContractFactory;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
+import com.dododo.ariadne.renpy.common.composer.ChildFirstRenPyLargeTreeFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
 import com.dododo.ariadne.renpy.common.model.ComplexState;
 import com.dododo.ariadne.renpy.common.mouse.strategy.ChildFirstRenPyFlowchartMouseStrategy;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
@@ -18,16 +18,16 @@ public final class RemoveComplexStatesJob extends RenPyAbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractFactory parentFirstFactory = selectFactoryBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractFactory(),
-                new RenPyFlowchartContractFactory());
+        FlowchartContractComposer parentFirstComposer = selectComposerBasedOnFlowchartTreeSize(
+                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
+                new RenPyFlowchartContractComposer());
 
-        FlowchartContractFactory childFirstFactory = selectFactoryBasedOnFlowchartTreeSize(
-                new ChildFirstRenPyLargeTreeFlowchartContractFactory(),
-                new RenPyFlowchartContractFactory(new ChildFirstRenPyFlowchartMouseStrategy())
+        FlowchartContractComposer childFirstComposer = selectComposerBasedOnFlowchartTreeSize(
+                new ChildFirstRenPyLargeTreeFlowchartContractComposer(),
+                new RenPyFlowchartContractComposer(new ChildFirstRenPyFlowchartMouseStrategy())
         );
 
-        StateCollector<ChainState> leafChainStateCollector = new LeafChainStateCollector(parentFirstFactory);
+        StateCollector<ChainState> leafChainStateCollector = new LeafChainStateCollector(parentFirstComposer);
 
         RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
@@ -48,7 +48,7 @@ public final class RemoveComplexStatesJob extends RenPyAbstractJob {
 
         State rootState = getFlowchart();
 
-        childFirstFactory.process(rootState, callback);
+        childFirstComposer.process(rootState, callback);
 
         if (rootState instanceof ComplexState) {
             State newRootState = ((ComplexState) rootState).childAt(0);

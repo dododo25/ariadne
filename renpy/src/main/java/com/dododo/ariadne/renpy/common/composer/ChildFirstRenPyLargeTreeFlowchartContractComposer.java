@@ -1,4 +1,4 @@
-package com.dododo.ariadne.renpy.common.factory;
+package com.dododo.ariadne.renpy.common.composer;
 
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.strategy.large.LargeTreeFlowchartMouseStrategy;
@@ -6,7 +6,7 @@ import com.dododo.ariadne.renpy.common.mouse.strategy.large.ChildFirstRenPyLarge
 
 import java.util.Collection;
 
-public class ChildFirstRenPyLargeTreeFlowchartContractFactory extends RenPyLargeTreeFlowchartContractFactory {
+public class ChildFirstRenPyLargeTreeFlowchartContractComposer extends RenPyLargeTreeFlowchartContractComposer {
 
     @Override
     protected LargeTreeFlowchartMouseStrategy prepareStrategy(Collection<State> states, int depth) {

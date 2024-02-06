@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.collector;
 
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 
@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class LeafChainStateCollector extends StateCollector<ChainState> {
 
-    public LeafChainStateCollector(FlowchartContractFactory factory) {
-        super(factory);
+    public LeafChainStateCollector(FlowchartContractComposer composer) {
+        super(composer);
     }
 
     @Override

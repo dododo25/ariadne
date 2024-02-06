@@ -1,7 +1,7 @@
-package com.dododo.ariadne.xml.common.factory;
+package com.dododo.ariadne.xml.common.composer;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 import com.dododo.ariadne.xml.common.contract.XmlSimpleFlowchartContract;
@@ -11,13 +11,13 @@ import com.dododo.ariadne.xml.common.mouse.strategy.XmlFlowchartMouseStrategy;
 
 import java.util.function.Consumer;
 
-public class XmlFlowchartContractFactory extends FlowchartContractFactory {
+public class XmlFlowchartContractComposer extends FlowchartContractComposer {
 
-    public XmlFlowchartContractFactory() {
+    public XmlFlowchartContractComposer() {
         this(new ParentFirstXmlFlowchartMouseStrategy());
     }
 
-    public XmlFlowchartContractFactory(XmlFlowchartMouseStrategy strategy) {
+    public XmlFlowchartContractComposer(XmlFlowchartMouseStrategy strategy) {
         super(strategy);
     }
 

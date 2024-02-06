@@ -1,7 +1,7 @@
 package com.dododo.ariadne.common.job;
 
 import com.dododo.ariadne.common.configuration.Configuration;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
@@ -22,6 +22,6 @@ class RemoveStateDuplicatesJobTest {
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, job.getFlowchart(), new FlowchartContractFactory());
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new FlowchartContractComposer());
     }
 }

@@ -2,9 +2,9 @@ package com.dododo.ariadne.common.job;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
-import com.dododo.ariadne.core.factory.ChildFirstLargeTreeFlowchartContractFactory;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
-import com.dododo.ariadne.core.factory.ParentFirstLargeTreeFlowchartContractFactory;
+import com.dododo.ariadne.core.composer.ChildFirstLargeTreeFlowchartContractComposer;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.composer.ParentFirstLargeTreeFlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.Menu;
@@ -19,13 +19,13 @@ public final class OptimizeFlowchartJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractFactory parentFirstFactory = selectFactoryBasedOnFlowchartTreeSize(
-                new ParentFirstLargeTreeFlowchartContractFactory(),
-                new FlowchartContractFactory());
+        FlowchartContractComposer parentFirstComposer = selectComposerBasedOnFlowchartTreeSize(
+                new ParentFirstLargeTreeFlowchartContractComposer(),
+                new FlowchartContractComposer());
 
-        FlowchartContractFactory childFirstFactory = selectFactoryBasedOnFlowchartTreeSize(
-                new ChildFirstLargeTreeFlowchartContractFactory(),
-                new FlowchartContractFactory(new ChildFirstFlowchartMouseStrategy()));
+        FlowchartContractComposer childFirstComposer = selectComposerBasedOnFlowchartTreeSize(
+                new ChildFirstLargeTreeFlowchartContractComposer(),
+                new FlowchartContractComposer(new ChildFirstFlowchartMouseStrategy()));
 
         FlowchartContract callback = new FlowchartContractAdapter() {
             @Override
@@ -59,11 +59,11 @@ public final class OptimizeFlowchartJob extends AbstractJob {
                     StateManipulatorUtil.replace(menu, ref.get());
 
                     menu.branchesStream().forEach(option ->
-                            parentFirstFactory.process(getFlowchart(), state -> state.removeRoot(option)));
+                            parentFirstComposer.process(getFlowchart(), state -> state.removeRoot(option)));
                 }
             }
         };
 
-        childFirstFactory.process(getFlowchart(), callback);
+        childFirstComposer.process(getFlowchart(), callback);
     }
 }

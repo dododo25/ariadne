@@ -1,7 +1,7 @@
-package com.dododo.ariadne.renpy.common.factory;
+package com.dododo.ariadne.renpy.common.composer;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPySimpleFlowchartContract;
@@ -11,13 +11,13 @@ import com.dododo.ariadne.renpy.common.mouse.strategy.RenPyFlowchartMouseStrateg
 
 import java.util.function.Consumer;
 
-public class RenPyFlowchartContractFactory extends FlowchartContractFactory {
+public class RenPyFlowchartContractComposer extends FlowchartContractComposer {
 
-    public RenPyFlowchartContractFactory() {
+    public RenPyFlowchartContractComposer() {
         this(new ParentFirstRenPyFlowchartMouseStrategy());
     }
 
-    public RenPyFlowchartContractFactory(RenPyFlowchartMouseStrategy strategy) {
+    public RenPyFlowchartContractComposer(RenPyFlowchartMouseStrategy strategy) {
         super(strategy);
     }
 

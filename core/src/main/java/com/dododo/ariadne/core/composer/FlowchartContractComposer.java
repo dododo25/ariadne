@@ -1,4 +1,4 @@
-package com.dododo.ariadne.core.factory;
+package com.dododo.ariadne.core.composer;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
@@ -9,15 +9,15 @@ import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
 
 import java.util.function.Consumer;
 
-public class FlowchartContractFactory {
+public class FlowchartContractComposer {
 
     protected final FlowchartMouseStrategy strategy;
 
-    public FlowchartContractFactory() {
+    public FlowchartContractComposer() {
         this(new ParentFirstFlowchartMouseStrategy());
     }
 
-    public FlowchartContractFactory(FlowchartMouseStrategy strategy) {
+    public FlowchartContractComposer(FlowchartMouseStrategy strategy) {
         this.strategy = strategy;
     }
 

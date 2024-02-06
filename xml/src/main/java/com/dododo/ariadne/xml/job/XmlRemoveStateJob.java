@@ -1,9 +1,9 @@
 package com.dododo.ariadne.xml.job;
 
 import com.dododo.ariadne.common.job.RemoveStateJob;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
-import com.dododo.ariadne.xml.common.factory.XmlFlowchartContractFactory;
+import com.dododo.ariadne.xml.common.composer.XmlFlowchartContractComposer;
 import com.dododo.ariadne.xml.common.util.XmlStateManipulatorUtil;
 
 public final class XmlRemoveStateJob<T extends ChainState> extends RemoveStateJob<T> {
@@ -13,8 +13,8 @@ public final class XmlRemoveStateJob<T extends ChainState> extends RemoveStateJo
     }
 
     @Override
-    protected FlowchartContractFactory prepareFactory() {
-        return new XmlFlowchartContractFactory();
+    protected FlowchartContractComposer prepareComposer() {
+        return new XmlFlowchartContractComposer();
     }
 
     @Override

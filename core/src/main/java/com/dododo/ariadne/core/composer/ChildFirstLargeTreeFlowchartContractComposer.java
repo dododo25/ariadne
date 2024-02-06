@@ -1,4 +1,4 @@
-package com.dododo.ariadne.core.factory;
+package com.dododo.ariadne.core.composer;
 
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.strategy.large.ChildFirstLargeTreeFlowchartMouseStrategy;
@@ -6,7 +6,7 @@ import com.dododo.ariadne.core.mouse.strategy.large.LargeTreeFlowchartMouseStrat
 
 import java.util.Collection;
 
-public class ChildFirstLargeTreeFlowchartContractFactory extends LargeTreeFlowchartContractFactory {
+public class ChildFirstLargeTreeFlowchartContractComposer extends LargeTreeFlowchartContractComposer {
 
     @Override
     protected LargeTreeFlowchartMouseStrategy prepareStrategy(Collection<State> states, int depth) {

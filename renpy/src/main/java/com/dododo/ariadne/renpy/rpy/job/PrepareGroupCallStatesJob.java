@@ -3,13 +3,13 @@ package com.dododo.ariadne.renpy.rpy.job;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.renpy.common.factory.ParentFirstRenPyLargeTreeFlowchartContractFactory;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
+import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
 import com.dododo.ariadne.renpy.common.job.RenPyAbstractJob;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
@@ -34,14 +34,14 @@ public final class PrepareGroupCallStatesJob extends RenPyAbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractFactory(),
-                new RenPyFlowchartContractFactory());
+        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
+                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
+                new RenPyFlowchartContractComposer());
 
-        subGroupCollector = new GenericStateCollector<>(factory, LabelledGroup.class);
-        linkCallStateCollector = new GenericStateCollector<>(factory, CallToState.class);
-        endPointStateCollector = new GenericStateCollector<>(factory, EndPoint.class);
-        leafChainStateCollector = new LeafChainStateCollector(factory);
+        subGroupCollector = new GenericStateCollector<>(composer, LabelledGroup.class);
+        linkCallStateCollector = new GenericStateCollector<>(composer, CallToState.class);
+        endPointStateCollector = new GenericStateCollector<>(composer, EndPoint.class);
+        leafChainStateCollector = new LeafChainStateCollector(composer);
 
         Map<String, LabelledGroup> links = subGroupCollector.collect(getFlowchart())
                 .stream()

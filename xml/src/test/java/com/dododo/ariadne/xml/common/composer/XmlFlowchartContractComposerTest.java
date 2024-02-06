@@ -1,6 +1,6 @@
-package com.dododo.ariadne.xml.common.factory;
+package com.dododo.ariadne.xml.common.composer;
 
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
@@ -16,13 +16,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class XmlFlowchartContractFactoryTest {
+class XmlFlowchartContractComposerTest {
 
-    private static FlowchartContractFactory factory;
+    private static FlowchartContractComposer composer;
 
     @BeforeAll
     static void setUp() {
-        factory = new XmlFlowchartContractFactory();
+        composer = new XmlFlowchartContractComposer();
     }
 
     @Test
@@ -41,6 +41,6 @@ class XmlFlowchartContractFactoryTest {
     }
 
     private void testCreateFor(State state) {
-        factory.process(state, s -> Assertions.assertSame(s, state));
+        composer.process(state, s -> Assertions.assertSame(s, state));
     }
 }

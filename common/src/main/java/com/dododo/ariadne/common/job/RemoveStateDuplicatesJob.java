@@ -3,8 +3,8 @@ package com.dododo.ariadne.common.job;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.comparator.StateComparator;
-import com.dododo.ariadne.core.factory.FlowchartContractFactory;
-import com.dododo.ariadne.core.factory.ParentFirstLargeTreeFlowchartContractFactory;
+import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.composer.ParentFirstLargeTreeFlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
@@ -22,15 +22,15 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
-                new ParentFirstLargeTreeFlowchartContractFactory(),
-                new FlowchartContractFactory());
+        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
+                new ParentFirstLargeTreeFlowchartContractComposer(),
+                new FlowchartContractComposer());
 
-        removeChainStateDuplicates(factory);
-        removeOptionDuplicates(factory);
+        removeChainStateDuplicates(composer);
+        removeOptionDuplicates(composer);
     }
 
-    private void removeChainStateDuplicates(FlowchartContractFactory factory) {
+    private void removeChainStateDuplicates(FlowchartContractComposer factory) {
         StateCollector<ChainState> chainStateCollector = new GenericStateCollector<>(factory, ChainState.class);
         StateComparator comparator = new StateComparator(factory);
 
@@ -65,7 +65,7 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
                 .forEach(s -> StateManipulatorUtil.replace(s, key)));
     }
 
-    private void removeOptionDuplicates(FlowchartContractFactory factory) {
+    private void removeOptionDuplicates(FlowchartContractComposer factory) {
         StateCollector<Menu> menuStateCollector = new GenericStateCollector<>(factory, Menu.class);
         StateComparator comparator = new StateComparator(factory);
 
