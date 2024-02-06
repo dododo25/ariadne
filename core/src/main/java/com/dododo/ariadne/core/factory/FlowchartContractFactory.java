@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class FlowchartContractFactory {
 
-    protected FlowchartMouseStrategy strategy;
+    protected final FlowchartMouseStrategy strategy;
 
     public FlowchartContractFactory() {
         this(new ParentFirstFlowchartMouseStrategy());
@@ -21,7 +21,7 @@ public class FlowchartContractFactory {
         this.strategy = strategy;
     }
 
-    public FlowchartContract createFor(Consumer<State> consumer) {
+    public void process(State state, Consumer<State> consumer) {
         FlowchartContract callback = new SimpleFlowchartContract() {
             @Override
             public void acceptState(State state) {
@@ -29,10 +29,10 @@ public class FlowchartContractFactory {
             }
         };
 
-        return createFor(callback);
+        process(state, callback);
     }
 
-    public FlowchartContract createFor(FlowchartContract callback) {
-        return new FlowchartMouse(callback, strategy);
+    public void process(State state, FlowchartContract callback) {
+        state.accept(new FlowchartMouse(callback, strategy));
     }
 }

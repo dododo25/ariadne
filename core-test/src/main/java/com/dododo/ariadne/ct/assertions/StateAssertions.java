@@ -45,7 +45,7 @@ public class StateAssertions {
             throw new AssertionError(String.format("Expected %s, got %s", s1, s2));
         }
 
-        s1.accept(factory.createFor(c1));
-        s2.accept(factory.createFor(c2));
+        factory.process(s1, c1);
+        factory.process(s2, c2);
     }
 }

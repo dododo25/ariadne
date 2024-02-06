@@ -10,15 +10,14 @@ public abstract class RemoveStateJob<T extends ChainState> extends AbstractJob {
 
     private final Class<T> type;
 
-    private final StateCollector<T> collector;
-
-    protected RemoveStateJob(Class<T> type, FlowchartContractFactory factory) {
+    protected RemoveStateJob(Class<T> type) {
         this.type = type;
-        this.collector = new GenericStateCollector<>(factory, type);
     }
 
     @Override
     public void run() {
+        StateCollector<T> collector = new GenericStateCollector<>(prepareFactory(), type);
+
         State flowchart = getFlowchart();
 
         collector.collect(flowchart)
@@ -30,6 +29,8 @@ public abstract class RemoveStateJob<T extends ChainState> extends AbstractJob {
             setFlowchart(newRoot);
         }
     }
+
+    protected abstract FlowchartContractFactory prepareFactory();
 
     protected abstract void process(T state);
 }

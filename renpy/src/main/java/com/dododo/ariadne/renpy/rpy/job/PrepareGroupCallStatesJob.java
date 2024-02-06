@@ -1,6 +1,5 @@
 package com.dododo.ariadne.renpy.rpy.job;
 
-import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
@@ -9,7 +8,9 @@ import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.renpy.common.factory.ParentFirstRenPyLargeTreeFlowchartContractFactory;
 import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
+import com.dododo.ariadne.renpy.common.job.RenPyAbstractJob;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateCopyUtil;
@@ -20,27 +21,28 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public final class PrepareGroupCallStatesJob extends AbstractJob {
+public final class PrepareGroupCallStatesJob extends RenPyAbstractJob {
 
-    private final StateCollector<LabelledGroup> subGroupCollector;
+    @SuppressWarnings("FieldCanBeLocal")
+    private StateCollector<LabelledGroup> subGroupCollector;
 
-    private final StateCollector<CallToState> linkCallStateCollector;
+    private StateCollector<CallToState> linkCallStateCollector;
 
-    private final StateCollector<EndPoint> endPointStateCollector;
+    private StateCollector<EndPoint> endPointStateCollector;
 
-    private final StateCollector<ChainState> leafChainStateCollector;
+    private StateCollector<ChainState> leafChainStateCollector;
 
-    public PrepareGroupCallStatesJob() {
-        FlowchartContractFactory factory = new RenPyFlowchartContractFactory();
+    @Override
+    public void run() {
+        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
+                new ParentFirstRenPyLargeTreeFlowchartContractFactory(),
+                new RenPyFlowchartContractFactory());
 
         subGroupCollector = new GenericStateCollector<>(factory, LabelledGroup.class);
         linkCallStateCollector = new GenericStateCollector<>(factory, CallToState.class);
         endPointStateCollector = new GenericStateCollector<>(factory, EndPoint.class);
         leafChainStateCollector = new LeafChainStateCollector(factory);
-    }
 
-    @Override
-    public void run() {
         Map<String, LabelledGroup> links = subGroupCollector.collect(getFlowchart())
                 .stream()
                 .collect(Collectors.toMap(SimpleState::getValue, Function.identity()));

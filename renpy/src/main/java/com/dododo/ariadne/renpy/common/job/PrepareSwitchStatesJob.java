@@ -1,29 +1,33 @@
 package com.dododo.ariadne.renpy.common.job;
 
-import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
+import com.dododo.ariadne.renpy.common.factory.ParentFirstRenPyLargeTreeFlowchartContractFactory;
+import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
 import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
 import com.dododo.ariadne.renpy.common.model.SwitchBranch;
-import com.dododo.ariadne.renpy.common.mouse.RenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.common.mouse.strategy.ParentFirstRenPyFlowchartMouseStrategy;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
-public final class PrepareSwitchStatesJob extends AbstractJob {
+public final class PrepareSwitchStatesJob extends RenPyAbstractJob {
 
     @Override
     public void run() {
+        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
+                new ParentFirstRenPyLargeTreeFlowchartContractFactory(),
+                new RenPyFlowchartContractFactory()
+        );
+
         RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
             public void accept(ComplexSwitch complexSwitch) {
                 process(complexSwitch);
             }
         };
-        RenPyFlowchartMouse mouse = new RenPyFlowchartMouse(callback, new ParentFirstRenPyFlowchartMouseStrategy());
 
-        getFlowchart().accept(mouse);
+        factory.process(getFlowchart(), callback);
     }
 
     private void process(ComplexSwitch state) {

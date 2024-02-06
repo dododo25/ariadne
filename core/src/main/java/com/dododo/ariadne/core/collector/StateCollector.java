@@ -16,7 +16,7 @@ public abstract class StateCollector<S extends State> {
 
     public Set<S> collect(State flowchart) {
         Set<S> result = new HashSet<>();
-        flowchart.accept(factory.createFor(state -> accept(result, state)));
+        factory.process(flowchart, state -> accept(result, state));
         return result;
     }
 

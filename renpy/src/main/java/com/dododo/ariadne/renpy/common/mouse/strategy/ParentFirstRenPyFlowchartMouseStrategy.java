@@ -13,12 +13,14 @@ public class ParentFirstRenPyFlowchartMouseStrategy extends ParentFirstFlowchart
 
     @Override
     public void acceptComplexState(ComplexState state, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited) {
-        if (!visited.contains(state)) {
-            visited.add(state);
-            state.accept(callback);
-
-            state.childrenStream()
-                    .forEach(s -> s.accept(mouse));
+        if (visited.contains(state)) {
+            return;
         }
+
+        visited.add(state);
+        state.accept(callback);
+
+        state.childrenStream()
+                .forEach(s -> s.accept(mouse));
     }
 }

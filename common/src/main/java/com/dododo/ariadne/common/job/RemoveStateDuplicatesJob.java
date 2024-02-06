@@ -4,6 +4,7 @@ import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.comparator.StateComparator;
 import com.dododo.ariadne.core.factory.FlowchartContractFactory;
+import com.dododo.ariadne.core.factory.ParentFirstLargeTreeFlowchartContractFactory;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
@@ -21,14 +22,17 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        removeChainStateDuplicates();
-        removeOptionDuplicates();
+        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
+                new ParentFirstLargeTreeFlowchartContractFactory(),
+                new FlowchartContractFactory());
+
+        removeChainStateDuplicates(factory);
+        removeOptionDuplicates(factory);
     }
 
-    private void removeChainStateDuplicates() {
-        StateCollector<ChainState> chainStateCollector
-                = new GenericStateCollector<>(new FlowchartContractFactory(), ChainState.class);
-        StateComparator comparator = new StateComparator(new FlowchartContractFactory());
+    private void removeChainStateDuplicates(FlowchartContractFactory factory) {
+        StateCollector<ChainState> chainStateCollector = new GenericStateCollector<>(factory, ChainState.class);
+        StateComparator comparator = new StateComparator(factory);
 
         Map<State, Set<State>> map = new HashMap<>();
         List<ChainState> states = new ArrayList<>(chainStateCollector.collect(getFlowchart()));
@@ -61,10 +65,9 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
                 .forEach(s -> StateManipulatorUtil.replace(s, key)));
     }
 
-    private void removeOptionDuplicates() {
-        StateCollector<Menu> menuStateCollector
-                = new GenericStateCollector<>(new FlowchartContractFactory(), Menu.class);
-        StateComparator comparator = new StateComparator(new FlowchartContractFactory());
+    private void removeOptionDuplicates(FlowchartContractFactory factory) {
+        StateCollector<Menu> menuStateCollector = new GenericStateCollector<>(factory, Menu.class);
+        StateComparator comparator = new StateComparator(factory);
 
         Map<Menu, Set<Option>> map = new HashMap<>();
         Set<Menu> menus = menuStateCollector.collect(getFlowchart());

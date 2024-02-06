@@ -22,7 +22,7 @@ public class XmlFlowchartContractFactory extends FlowchartContractFactory {
     }
 
     @Override
-    public XmlFlowchartMouse createFor(Consumer<State> consumer) {
+    public void process(State state, Consumer<State> consumer) {
         XmlFlowchartContract contract = new XmlSimpleFlowchartContract() {
             @Override
             public void acceptState(State state) {
@@ -30,11 +30,11 @@ public class XmlFlowchartContractFactory extends FlowchartContractFactory {
             }
         };
 
-        return createFor(contract);
+        process(state, contract);
     }
 
     @Override
-    public XmlFlowchartMouse createFor(FlowchartContract callback) {
-        return new XmlFlowchartMouse((XmlFlowchartContract) callback, (XmlFlowchartMouseStrategy) strategy);
+    public void process(State state, FlowchartContract callback) {
+        state.accept(new XmlFlowchartMouse((XmlFlowchartContract) callback, (XmlFlowchartMouseStrategy) strategy));
     }
 }

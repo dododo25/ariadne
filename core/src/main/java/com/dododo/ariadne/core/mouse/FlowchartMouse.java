@@ -1,6 +1,7 @@
 package com.dododo.ariadne.core.mouse;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
 import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.CycleEntryState;
 import com.dododo.ariadne.core.model.CycleMarker;
@@ -19,11 +20,23 @@ import java.util.Set;
 
 public class FlowchartMouse implements FlowchartContract {
 
-    protected final FlowchartContract callback;
-
     protected final FlowchartMouseStrategy strategy;
 
     protected final Set<State> visited;
+
+    protected FlowchartContract callback;
+
+    public FlowchartMouse(FlowchartMouseStrategy strategy) {
+        this.strategy = strategy;
+        this.visited = new HashSet<>();
+
+        this.callback = new SimpleFlowchartContract() {
+            @Override
+            public void acceptState(State state) {
+                // no processing
+            }
+        };
+    }
 
     public FlowchartMouse(FlowchartContract callback, FlowchartMouseStrategy strategy) {
         this.callback = callback;

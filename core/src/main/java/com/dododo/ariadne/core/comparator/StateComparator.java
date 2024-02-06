@@ -51,8 +51,8 @@ public class StateComparator implements Comparator<State> {
             return -1;
         }
 
-        s1.accept(factory.createFor(c1));
-        s2.accept(factory.createFor(c2));
+        factory.process(s1, c1);
+        factory.process(s2, c2);
 
         return result.get() % 2;
     }

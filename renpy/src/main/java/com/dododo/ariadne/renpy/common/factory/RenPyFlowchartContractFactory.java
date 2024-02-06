@@ -22,19 +22,21 @@ public class RenPyFlowchartContractFactory extends FlowchartContractFactory {
     }
 
     @Override
-    public RenPyFlowchartMouse createFor(Consumer<State> consumer) {
-        RenPyFlowchartContract contract = new RenPySimpleFlowchartContract() {
+    public void process(State state, Consumer<State> consumer) {
+        RenPyFlowchartContract callback = new RenPySimpleFlowchartContract() {
             @Override
             public void acceptState(State state) {
                 consumer.accept(state);
             }
         };
 
-        return createFor(contract);
+        process(state, callback);
     }
 
     @Override
-    public RenPyFlowchartMouse createFor(FlowchartContract callback) {
-        return new RenPyFlowchartMouse((RenPyFlowchartContract) callback, (RenPyFlowchartMouseStrategy) strategy);
+    public void process(State state, FlowchartContract callback) {
+        state.accept(new RenPyFlowchartMouse(
+                (RenPyFlowchartContract) callback,
+                (RenPyFlowchartMouseStrategy) strategy));
     }
 }

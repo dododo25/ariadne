@@ -1,6 +1,5 @@
 package com.dododo.ariadne.renpy.common.factory;
 
-import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
@@ -54,7 +53,6 @@ class RenPyFlowchartContractFactoryTest {
     }
 
     private void testCreateFor(State state) {
-        FlowchartContract mouse = factory.createFor(s -> Assertions.assertSame(s, state));
-        state.accept(mouse);
+        factory.process(state, s -> Assertions.assertSame(s, state));
     }
 }

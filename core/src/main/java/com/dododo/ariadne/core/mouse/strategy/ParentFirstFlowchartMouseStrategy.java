@@ -33,28 +33,32 @@ public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy
 
     @Override
     public void acceptMenu(Menu menu, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited) {
-        if (!visited.contains(menu)) {
-            visited.add(menu);
-            callback.accept(menu);
-
-            menu.branchesStream().forEach(option ->
-                    acceptChainState(option, mouse, callback, visited));
+        if (visited.contains(menu)) {
+            return;
         }
+
+        visited.add(menu);
+        callback.accept(menu);
+
+        menu.branchesStream().forEach(option ->
+                acceptChainState(option, mouse, callback, visited));
     }
 
     @Override
     public void acceptSwitch(Switch aSwitch, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited) {
-        if (!visited.contains(aSwitch)) {
-            visited.add(aSwitch);
-            callback.accept(aSwitch);
+        if (visited.contains(aSwitch)) {
+            return;
+        }
 
-            if (aSwitch.getTrueBranch() != null) {
-                aSwitch.getTrueBranch().accept(mouse);
-            }
+        visited.add(aSwitch);
+        callback.accept(aSwitch);
 
-            if (aSwitch.getFalseBranch() != null) {
-                aSwitch.getFalseBranch().accept(mouse);
-            }
+        if (aSwitch.getTrueBranch() != null) {
+            aSwitch.getTrueBranch().accept(mouse);
+        }
+
+        if (aSwitch.getFalseBranch() != null) {
+            aSwitch.getFalseBranch().accept(mouse);
         }
     }
 }

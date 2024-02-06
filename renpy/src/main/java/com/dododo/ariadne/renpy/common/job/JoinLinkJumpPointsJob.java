@@ -1,10 +1,11 @@
 package com.dododo.ariadne.renpy.common.job;
 
-import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.renpy.common.factory.ParentFirstRenPyLargeTreeFlowchartContractFactory;
 import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
 import com.dododo.ariadne.renpy.common.model.JumpToPoint;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
@@ -13,22 +14,18 @@ import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class JoinLinkJumpPointsJob extends AbstractJob {
-
-    private final StateCollector<LabelledGroup> subGroupCollector;
-
-    private final StateCollector<Menu> menuCollector;
-
-    private final StateCollector<JumpToPoint> jumpToPointCollector;
-
-    public JoinLinkJumpPointsJob() {
-        subGroupCollector = new GenericStateCollector<>(new RenPyFlowchartContractFactory(), LabelledGroup.class);
-        menuCollector = new GenericStateCollector<>(new RenPyFlowchartContractFactory(), Menu.class);
-        jumpToPointCollector = new GenericStateCollector<>(new RenPyFlowchartContractFactory(), JumpToPoint.class);
-    }
+public final class JoinLinkJumpPointsJob extends RenPyAbstractJob {
 
     @Override
     public void run() {
+        FlowchartContractFactory factory = selectFactoryBasedOnFlowchartTreeSize(
+                new ParentFirstRenPyLargeTreeFlowchartContractFactory(),
+                new RenPyFlowchartContractFactory());
+
+        StateCollector<LabelledGroup> subGroupCollector = new GenericStateCollector<>(factory, LabelledGroup.class);
+        StateCollector<Menu> menuCollector = new GenericStateCollector<>(factory, Menu.class);
+        StateCollector<JumpToPoint> jumpToPointCollector = new GenericStateCollector<>(factory, JumpToPoint.class);
+
         Map<String, State> links = new HashMap<>();
 
         subGroupCollector.collect(getFlowchart())

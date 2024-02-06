@@ -1,6 +1,5 @@
 package com.dododo.ariadne.core.factory;
 
-import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.CycleEntryState;
 import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.Text;
@@ -32,7 +31,6 @@ class FlowchartContractFactoryTest {
     }
 
     private void testCreateFor(State state) {
-        FlowchartContract mouse = factory.createFor(s -> Assertions.assertSame(s, state));
-        state.accept(mouse);
+        factory.process(state, s -> Assertions.assertSame(s, state));
     }
 }
