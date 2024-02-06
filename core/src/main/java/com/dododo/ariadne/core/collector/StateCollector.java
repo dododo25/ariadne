@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.collector;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.HashSet;
@@ -8,9 +8,9 @@ import java.util.Set;
 
 public abstract class StateCollector<S extends State> {
 
-    private final FlowchartMouseFactory factory;
+    private final FlowchartContractFactory factory;
 
-    protected StateCollector(FlowchartMouseFactory factory) {
+    protected StateCollector(FlowchartContractFactory factory) {
         this.factory = factory;
     }
 

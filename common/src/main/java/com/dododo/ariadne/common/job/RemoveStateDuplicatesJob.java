@@ -3,7 +3,7 @@ package com.dododo.ariadne.common.job;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.comparator.StateComparator;
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
@@ -27,8 +27,8 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
 
     private void removeChainStateDuplicates() {
         StateCollector<ChainState> chainStateCollector
-                = new GenericStateCollector<>(new FlowchartMouseFactory(), ChainState.class);
-        StateComparator comparator = new StateComparator(new FlowchartMouseFactory());
+                = new GenericStateCollector<>(new FlowchartContractFactory(), ChainState.class);
+        StateComparator comparator = new StateComparator(new FlowchartContractFactory());
 
         Map<State, Set<State>> map = new HashMap<>();
         List<ChainState> states = new ArrayList<>(chainStateCollector.collect(getFlowchart()));
@@ -63,8 +63,8 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
 
     private void removeOptionDuplicates() {
         StateCollector<Menu> menuStateCollector
-                = new GenericStateCollector<>(new FlowchartMouseFactory(), Menu.class);
-        StateComparator comparator = new StateComparator(new FlowchartMouseFactory());
+                = new GenericStateCollector<>(new FlowchartContractFactory(), Menu.class);
+        StateComparator comparator = new StateComparator(new FlowchartContractFactory());
 
         Map<Menu, Set<Option>> map = new HashMap<>();
         Set<Menu> menus = menuStateCollector.collect(getFlowchart());

@@ -5,7 +5,7 @@ import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartMouseFactory;
+import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
 import com.dododo.ariadne.renpy.common.model.JumpToPoint;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
@@ -22,9 +22,9 @@ public final class JoinLinkJumpPointsJob extends AbstractJob {
     private final StateCollector<JumpToPoint> jumpToPointCollector;
 
     public JoinLinkJumpPointsJob() {
-        subGroupCollector = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), LabelledGroup.class);
-        menuCollector = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), Menu.class);
-        jumpToPointCollector = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), JumpToPoint.class);
+        subGroupCollector = new GenericStateCollector<>(new RenPyFlowchartContractFactory(), LabelledGroup.class);
+        menuCollector = new GenericStateCollector<>(new RenPyFlowchartContractFactory(), Menu.class);
+        jumpToPointCollector = new GenericStateCollector<>(new RenPyFlowchartContractFactory(), JumpToPoint.class);
     }
 
     @Override

@@ -4,12 +4,12 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartMouseFactory;
+import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateCopyUtil;
@@ -31,7 +31,7 @@ public final class PrepareGroupCallStatesJob extends AbstractJob {
     private final StateCollector<ChainState> leafChainStateCollector;
 
     public PrepareGroupCallStatesJob() {
-        FlowchartMouseFactory factory = new RenPyFlowchartMouseFactory();
+        FlowchartContractFactory factory = new RenPyFlowchartContractFactory();
 
         subGroupCollector = new GenericStateCollector<>(factory, LabelledGroup.class);
         linkCallStateCollector = new GenericStateCollector<>(factory, CallToState.class);

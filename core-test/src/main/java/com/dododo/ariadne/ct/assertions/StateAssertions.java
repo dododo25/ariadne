@@ -1,6 +1,6 @@
 package com.dododo.ariadne.ct.assertions;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class StateAssertions {
 
     private StateAssertions() {}
 
-    public static void assertEquals(State s1, State s2, FlowchartMouseFactory factory) throws AssertionError {
+    public static void assertEquals(State s1, State s2, FlowchartContractFactory factory) throws AssertionError {
         AtomicBoolean stopProcessingRef = new AtomicBoolean();
 
         List<State> states = new ArrayList<>();

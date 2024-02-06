@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.comparator;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.function.Consumer;
 
 public class StateComparator implements Comparator<State> {
 
-    private final FlowchartMouseFactory factory;
+    private final FlowchartContractFactory factory;
 
-    public StateComparator(FlowchartMouseFactory factory) {
+    public StateComparator(FlowchartContractFactory factory) {
         this.factory = factory;
     }
 

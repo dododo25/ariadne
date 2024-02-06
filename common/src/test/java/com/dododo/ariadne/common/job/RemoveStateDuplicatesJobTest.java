@@ -1,6 +1,6 @@
 package com.dododo.ariadne.common.job;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
@@ -19,6 +19,6 @@ class RemoveStateDuplicatesJobTest {
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, job.getFlowchart(), new FlowchartMouseFactory());
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new FlowchartContractFactory());
     }
 }

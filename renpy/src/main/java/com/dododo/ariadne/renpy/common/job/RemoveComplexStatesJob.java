@@ -7,7 +7,7 @@ import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartMouseFactory;
+import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartContractFactory;
 import com.dododo.ariadne.renpy.common.model.ComplexState;
 import com.dododo.ariadne.renpy.common.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.mouse.strategy.ChildFirstRenPyFlowchartMouseStrategy;
@@ -18,7 +18,7 @@ public final class RemoveComplexStatesJob extends AbstractJob {
     private final StateCollector<ChainState> leafChainStateCollector;
 
     public RemoveComplexStatesJob() {
-        leafChainStateCollector = new LeafChainStateCollector(new RenPyFlowchartMouseFactory());
+        leafChainStateCollector = new LeafChainStateCollector(new RenPyFlowchartContractFactory());
     }
 
     @Override

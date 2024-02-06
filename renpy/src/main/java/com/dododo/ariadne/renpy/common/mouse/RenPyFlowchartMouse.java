@@ -1,7 +1,6 @@
 package com.dododo.ariadne.renpy.common.mouse;
 
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.core.mouse.strategy.FlowchartMouseStrategy;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
@@ -14,7 +13,7 @@ import com.dododo.ariadne.renpy.common.mouse.strategy.RenPyFlowchartMouseStrateg
 
 public final class RenPyFlowchartMouse extends FlowchartMouse implements RenPyFlowchartContract {
 
-    public RenPyFlowchartMouse(RenPyFlowchartContract contract, FlowchartMouseStrategy strategy) {
+    public RenPyFlowchartMouse(RenPyFlowchartContract contract, RenPyFlowchartMouseStrategy strategy) {
         super(contract, strategy);
     }
 

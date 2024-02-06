@@ -6,7 +6,7 @@ import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.factory.FlowchartContractFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ class StateComparatorTest {
 
     @BeforeAll
     static void setUp() {
-        comparator = new StateComparator(new FlowchartMouseFactory());
+        comparator = new StateComparator(new FlowchartContractFactory());
     }
 
     @Test
