@@ -107,7 +107,7 @@ public final class MenuBlock extends Block {
                 .addStyleParam(BooleanStyleParam.createAsTrue(BooleanStyleParam.Key.TREE_MOVING))
                 .addStyleParam(BooleanStyleParam.createAsTrue(BooleanStyleParam.Key.HTML))
                 .addStyleParam(BooleanStyleParam.createAsFalse(BooleanStyleParam.Key.ROUNDED))
-                .setGeometry(EdgeGeometry.create(0, height / 2, width, height))
+                .setGeometry(EdgeGeometry.create(0, height / 2, width, height / 2))
                 .build();
 
         diagramRoot.getCells().addAll(Arrays.asList(groupNodeCell, firstPartNodeCell, secondPartEdgeCell));

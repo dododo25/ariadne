@@ -1,6 +1,6 @@
-package com.dododo.ariadne.renpy.common.composer;
+package com.dododo.ariadne.renpy.common.mouse;
 
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
@@ -21,13 +21,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class RenPyFlowchartContractComposerTest {
+class ParentFirstRenPyFlowchartMouseTest {
 
-    private static FlowchartContractComposer composer;
+    private static FlowchartMouse mouse;
 
     @BeforeAll
     static void setUp() {
-        composer = new RenPyFlowchartContractComposer();
+        mouse = new ParentFirstRenPyFlowchartMouse();
     }
 
     @Test
@@ -53,6 +53,6 @@ class RenPyFlowchartContractComposerTest {
     }
 
     private void testCreateFor(State state) {
-        composer.process(state, s -> Assertions.assertSame(s, state));
+        mouse.accept(state, s -> Assertions.assertSame(s, state));
     }
 }

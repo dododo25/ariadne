@@ -11,7 +11,7 @@ import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Text;
-import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.ComplexState;
 import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
@@ -52,7 +52,7 @@ public final class JoinStatesJob extends AbstractJob {
 
     public JoinStatesJob(JaxbState rootState) {
         this.rootState = rootState;
-        this.leafChainStateCollector = new LeafChainStateCollector(new RenPyFlowchartContractComposer());
+        this.leafChainStateCollector = new LeafChainStateCollector(new ParentFirstRenPyFlowchartMouse());
     }
 
     @Override

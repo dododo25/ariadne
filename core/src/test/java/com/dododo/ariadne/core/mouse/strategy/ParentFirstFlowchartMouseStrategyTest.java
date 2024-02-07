@@ -8,16 +8,16 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.core.model.Text;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 class ParentFirstFlowchartMouseStrategyTest {
 
@@ -32,69 +32,80 @@ class ParentFirstFlowchartMouseStrategyTest {
     void testAcceptChainStateShouldDoneWell() {
         EntryState first = new EntryState();
         EntryState second = new EntryState();
-        EndPoint point = new EndPoint();
 
-        List<State> expected = Arrays.asList(first, second, point);
+        List<State> expectedGray = Collections.emptyList();
+        List<State> expectedBlack = Arrays.asList(first, second);
 
         first.setNext(second);
-        second.setNext(point);
 
-        testAccept(expected, (callback, mouse) ->
-                strategy.acceptChainState(first, mouse, callback, new HashSet<>()));
+        testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
+                strategy.acceptChainState(first, callback, grayStates, blackStates));
     }
 
     @Test
     void testAcceptMenuShouldDoneWell() {
         Menu menu = new Menu();
-        Option option = new Option("test");
+        Option o1 = new Option("o1");
+        Option o2 = new Option("o2");
 
-        List<State> expected = Arrays.asList(menu, option);
+        List<State> expectedGray = Collections.emptyList();
+        List<State> expectedBlack = Arrays.asList(menu, o1, o2);
 
-        menu.addBranch(option);
+        menu.addBranch(o1);
+        menu.addBranch(o2);
 
-        testAccept(expected, (callback, mouse) ->
-                strategy.acceptMenu(menu, mouse, callback, new HashSet<>()));
+        testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
+                strategy.acceptMenu(menu, callback, grayStates, blackStates));
     }
 
     @Test
-    void testAcceptWhenTrueBranchExistsSwitchShouldDoneWel() {
+    void testAcceptSwitchShouldDoneWel() {
         Switch aSwitch = new Switch("test");
-        EntryState state = new EntryState();
 
-        List<State> expected = Arrays.asList(aSwitch, state);
+        Text t1 = new Text("t1");
+        Text t2 = new Text("t2");
 
-        aSwitch.setTrueBranch(state);
+        List<State> expectedGray = Arrays.asList(t1, t2);
+        List<State> expectedBlack = Collections.singletonList(aSwitch);
 
-        testAccept(expected, (callback, mouse) ->
-                strategy.acceptSwitch(aSwitch, mouse, callback, new HashSet<>()));
+        aSwitch.setTrueBranch(t1);
+        aSwitch.setFalseBranch(t2);
+
+        testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
+                strategy.acceptSwitch(aSwitch, callback, grayStates, blackStates));
     }
 
     @Test
-    void testAcceptWhenFalseBranchExistsSwitchShouldDoneWell() {
-        Switch aSwitch = new Switch("test");
-        EntryState state = new EntryState();
+    void testAcceptPointShouldDoneWel() {
+        EndPoint point = new EndPoint();
 
-        List<State> expected = Arrays.asList(aSwitch, state);
+        List<State> expectedGray = Collections.emptyList();
+        List<State> expectedBlack = Collections.singletonList(point);
 
-        aSwitch.setFalseBranch(state);
-
-        testAccept(expected, (callback, mouse) ->
-                strategy.acceptSwitch(aSwitch, mouse, callback, new HashSet<>()));
+        testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
+                strategy.acceptPoint(point, callback, grayStates, blackStates));
     }
 
-    private void testAccept(List<State> expected, BiConsumer<FlowchartContract, FlowchartMouse> consumer) {
-        List<State> actual = new ArrayList<>();
+    private void testAccept(Collection<State> expectedGray, Collection<State> expectedBlack, TestConsumer consumer) {
+        Collection<State> grayStates = new ArrayList<>();
+        Collection<State> blackStates = new ArrayList<>();
 
         FlowchartContract callback = new SimpleFlowchartContract() {
             @Override
             public void acceptState(State state) {
-                actual.add(state);
+                // test
             }
         };
 
-        FlowchartMouse mouse = new FlowchartMouse(callback, strategy);
+        consumer.accept(callback, grayStates, blackStates);
 
-        consumer.accept(callback, mouse);
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertIterableEquals(expectedGray, grayStates);
+        Assertions.assertIterableEquals(expectedBlack, blackStates);
+    }
+
+    interface TestConsumer {
+
+        void accept(FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
+
     }
 }

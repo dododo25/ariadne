@@ -10,6 +10,8 @@ import com.dododo.ariadne.block.model.OptionBlock;
 import com.dododo.ariadne.block.model.ReplyBlock;
 import com.dododo.ariadne.block.model.SwitchBlock;
 import com.dododo.ariadne.block.model.TextBlock;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ConditionalOption;
@@ -22,8 +24,6 @@ import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.model.Text;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.mxg.MxFile;
 
@@ -34,10 +34,13 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public final class PrepareRootBlockJob extends ThreadAbstractJob {
 
+    private final FlowchartMouse mouse;
+
     public PrepareRootBlockJob(AtomicReference<MxFile> mxFileRef,
                                AtomicReference<JaxbState> jaxbStateRef,
                                AtomicReference<Block> rootBlockRef) {
         super(mxFileRef, jaxbStateRef, rootBlockRef);
+        this.mouse = new ParentFirstFlowchartMouse();
     }
 
     @Override
@@ -54,7 +57,7 @@ public final class PrepareRootBlockJob extends ThreadAbstractJob {
     private void collectBlocks(Map<State, Block> blocks, State flowchart) {
         AtomicInteger ref = new AtomicInteger();
 
-        FlowchartContract contract = new FlowchartContractAdapter() {
+        FlowchartContract callback = new FlowchartContractAdapter() {
 
             @Override
             public void accept(EntryState state) {
@@ -97,12 +100,12 @@ public final class PrepareRootBlockJob extends ThreadAbstractJob {
                 blocks.put(point, new EndBlock(ref.getAndIncrement()));
             }
         };
-        FlowchartMouse mouse = new FlowchartMouse(contract, new ParentFirstFlowchartMouseStrategy());
-        flowchart.accept(mouse);
+
+        process(flowchart, callback);
     }
 
     private void combineBlocks(Map<State, Block> blocks, State flowchart) {
-        FlowchartContract contract = new FlowchartContractAdapter() {
+        FlowchartContract callback = new FlowchartContractAdapter() {
 
             @Override
             public void accept(EntryState state) {
@@ -161,7 +164,11 @@ public final class PrepareRootBlockJob extends ThreadAbstractJob {
                 }
             }
         };
-        FlowchartMouse mouse = new FlowchartMouse(contract, new ParentFirstFlowchartMouseStrategy());
-        flowchart.accept(mouse);
+
+        process(flowchart, callback);
+    }
+
+    private void process(State state, FlowchartContract callback) {
+        mouse.accept(state, callback);
     }
 }

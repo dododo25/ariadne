@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.comparator;
 
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import java.util.function.Consumer;
 
 public class StateComparator implements Comparator<State> {
 
-    private final FlowchartContractComposer composer;
+    private final ParentFirstFlowchartMouse mouse;
 
-    public StateComparator(FlowchartContractComposer composer) {
-        this.composer = composer;
+    public StateComparator(ParentFirstFlowchartMouse mouse) {
+        this.mouse = mouse;
     }
 
     @Override
@@ -37,8 +37,6 @@ public class StateComparator implements Comparator<State> {
 
                 if (s.compareTo(state) != 0) {
                     result.set(-1);
-                } else if (s == state) {
-                    result.set(2);
                 }
             }
         };
@@ -51,8 +49,8 @@ public class StateComparator implements Comparator<State> {
             return -1;
         }
 
-        composer.process(s1, c1);
-        composer.process(s2, c2);
+        mouse.accept(s1, c1);
+        mouse.accept(s2, c2);
 
         return result.get() % 2;
     }

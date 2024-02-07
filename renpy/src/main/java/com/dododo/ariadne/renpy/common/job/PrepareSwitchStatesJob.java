@@ -1,33 +1,29 @@
 package com.dododo.ariadne.renpy.common.job;
 
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
 import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
-public final class PrepareSwitchStatesJob extends RenPyAbstractJob {
+public final class PrepareSwitchStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
-                new RenPyFlowchartContractComposer()
-        );
-
         RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
             public void accept(ComplexSwitch complexSwitch) {
                 process(complexSwitch);
             }
         };
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
-        composer.process(getFlowchart(), callback);
+        mouse.accept(getFlowchart(), callback);
     }
 
     private void process(ComplexSwitch state) {

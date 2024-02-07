@@ -1,6 +1,6 @@
 package com.dododo.ariadne.xml.common.composer;
 
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
@@ -12,17 +12,18 @@ import com.dododo.ariadne.xml.common.model.GoToPoint;
 import com.dododo.ariadne.xml.common.model.Marker;
 import com.dododo.ariadne.xml.common.model.PassState;
 import com.dododo.ariadne.xml.common.model.SwitchBranch;
+import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class XmlFlowchartContractComposerTest {
+class ParentFirstXmlFlowchartMouseTest {
 
-    private static FlowchartContractComposer composer;
+    private static FlowchartMouse mouse;
 
     @BeforeAll
     static void setUp() {
-        composer = new XmlFlowchartContractComposer();
+        mouse = new ParentFirstXmlFlowchartMouse();
     }
 
     @Test
@@ -41,6 +42,6 @@ class XmlFlowchartContractComposerTest {
     }
 
     private void testCreateFor(State state) {
-        composer.process(state, s -> Assertions.assertSame(s, state));
+        mouse.accept(state, s -> Assertions.assertSame(s, state));
     }
 }

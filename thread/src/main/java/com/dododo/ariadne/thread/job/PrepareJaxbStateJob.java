@@ -1,5 +1,7 @@
 package com.dododo.ariadne.thread.job;
 
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
@@ -15,8 +17,6 @@ import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.model.Text;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
 import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
@@ -45,8 +45,11 @@ import java.util.stream.Stream;
 
 public final class PrepareJaxbStateJob extends ThreadAbstractJob {
 
+    private final FlowchartMouse mouse;
+
     public PrepareJaxbStateJob(AtomicReference<JaxbState> jaxbStateRef) {
         super(null, jaxbStateRef, null);
+        this.mouse = new ParentFirstFlowchartMouse();
     }
 
     @Override
@@ -125,7 +128,7 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
             }
         };
 
-        runMouse(root, callback);
+        process(root, callback);
     }
 
     private void collectMultipleRootStates(Map<State, Collection<State>> map, State root) {
@@ -150,7 +153,7 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
             }
         };
 
-        runMouse(root, callback);
+        process(root, callback);
     }
 
     private void markLoops(Map<State, Collection<State>> map) {
@@ -318,7 +321,7 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
             }
         };
 
-        runMouse(flowchart, contract);
+        process(flowchart, contract);
     }
 
     private void prepareSwitchBlocks(Map<State, JaxbState> stateMap, State flowchart) {
@@ -333,7 +336,7 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
             }
         };
 
-        runMouse(flowchart, contract);
+        process(flowchart, contract);
     }
 
     private void combineBlocks(Map<State, JaxbState> stateMap, State flowchart) {
@@ -399,7 +402,7 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
             }
         };
 
-        runMouse(flowchart, contract);
+        process(flowchart, contract);
     }
 
     private boolean collectLoopStates(State root, State child, Map<State, Collection<State>> map,
@@ -453,14 +456,11 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
             }
         };
 
-        runMouse(child, callback);
+        process(child, callback);
         return result.get();
     }
 
-    private void runMouse(State state, FlowchartContract contract) {
-        FlowchartContract mouse = new FlowchartMouse(contract,
-                new ParentFirstFlowchartMouseStrategy());
-
-        state.accept(mouse);
+    private void process(State state, FlowchartContract callback) {
+        mouse.accept(state, callback);
     }
 }

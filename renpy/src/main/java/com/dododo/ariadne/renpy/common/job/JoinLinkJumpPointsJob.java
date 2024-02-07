@@ -1,12 +1,12 @@
 package com.dododo.ariadne.renpy.common.job;
 
+import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.JumpToPoint;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
@@ -14,17 +14,15 @@ import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class JoinLinkJumpPointsJob extends RenPyAbstractJob {
+public final class JoinLinkJumpPointsJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
-                new RenPyFlowchartContractComposer());
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
-        StateCollector<LabelledGroup> subGroupCollector = new GenericStateCollector<>(composer, LabelledGroup.class);
-        StateCollector<Menu> menuCollector = new GenericStateCollector<>(composer, Menu.class);
-        StateCollector<JumpToPoint> jumpToPointCollector = new GenericStateCollector<>(composer, JumpToPoint.class);
+        StateCollector<LabelledGroup> subGroupCollector = new GenericStateCollector<>(mouse, LabelledGroup.class);
+        StateCollector<Menu> menuCollector = new GenericStateCollector<>(mouse, Menu.class);
+        StateCollector<JumpToPoint> jumpToPointCollector = new GenericStateCollector<>(mouse, JumpToPoint.class);
 
         Map<String, State> links = new HashMap<>();
 

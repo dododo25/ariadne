@@ -2,7 +2,9 @@ package com.dododo.ariadne.core.model;
 
 import com.dododo.ariadne.core.comparator.NullableStringComparator;
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.mouse.strategy.FlowchartMouseStrategy;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -32,6 +34,8 @@ public abstract class State implements Comparable<State> {
     }
 
     public abstract void accept(FlowchartContract contract);
+
+    public abstract void accept(FlowchartMouseStrategy strategy, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
 
     protected int compareByClass(State state) {
         if (!(this.getClass().isInstance(state))) {

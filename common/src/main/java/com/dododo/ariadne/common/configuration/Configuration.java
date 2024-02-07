@@ -15,8 +15,6 @@ public class Configuration {
 
     private String outputProfile;
 
-    private boolean large;
-
     private List<String> inputFiles;
 
     private String outputDir;
@@ -33,10 +31,6 @@ public class Configuration {
 
     public String getOutputProfile() {
         return outputProfile;
-    }
-
-    public boolean isLarge() {
-        return large;
     }
 
     public List<String> getInputFiles() {
@@ -60,7 +54,6 @@ public class Configuration {
 
         configuration.inputProfile  = properties.getProperty("flowchart.input.profile");
         configuration.outputProfile = properties.getProperty("flowchart.output.profile");
-        configuration.large         = Boolean.parseBoolean(properties.getProperty("flowchart.large", "true"));
         configuration.outputDir     = properties.getProperty("flowchart.output.directory");
         configuration.inputFiles    = prepareSortedInputFilesList(properties);
         configuration.loadReply     = Boolean.parseBoolean(properties.getProperty("flowchart.loadReply", "true"));

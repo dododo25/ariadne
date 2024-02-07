@@ -2,30 +2,24 @@ package com.dododo.ariadne.common.job;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
-import com.dododo.ariadne.core.composer.ChildFirstLargeTreeFlowchartContractComposer;
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
-import com.dododo.ariadne.core.composer.ParentFirstLargeTreeFlowchartContractComposer;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.core.mouse.strategy.ChildFirstFlowchartMouseStrategy;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.util.StateManipulatorUtil;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class OptimizeFlowchartJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractComposer parentFirstComposer = selectComposerBasedOnFlowchartTreeSize(
-                new ParentFirstLargeTreeFlowchartContractComposer(),
-                new FlowchartContractComposer());
-
-        FlowchartContractComposer childFirstComposer = selectComposerBasedOnFlowchartTreeSize(
-                new ChildFirstLargeTreeFlowchartContractComposer(),
-                new FlowchartContractComposer(new ChildFirstFlowchartMouseStrategy()));
+        Map<Switch, State> switchToStateMap = new HashMap<>();
+        Map<Menu, State> menuToStateMap = new HashMap<>();
 
         FlowchartContract callback = new FlowchartContractAdapter() {
             @Override
@@ -35,35 +29,51 @@ public final class OptimizeFlowchartJob extends AbstractJob {
 
                 if (trueBranch == falseBranch) {
                     if (aSwitch == trueBranch) {
-                        StateManipulatorUtil.replace(aSwitch, new EndPoint());
+                        switchToStateMap.put(aSwitch, new EndPoint());
                     } else {
-                        StateManipulatorUtil.replace(aSwitch, trueBranch);
+                        switchToStateMap.put(aSwitch, trueBranch);
                     }
                 } else if (aSwitch == trueBranch) {
-                    StateManipulatorUtil.replace(aSwitch, falseBranch);
+                    switchToStateMap.put(aSwitch, falseBranch);
                 } else if (aSwitch == falseBranch) {
-                    StateManipulatorUtil.replace(aSwitch, trueBranch);
+                    switchToStateMap.put(aSwitch, trueBranch);
                 }
             }
 
             @Override
             public void accept(Menu menu) {
-                AtomicReference<State> ref = new AtomicReference<>(menu.branchAt(0).getNext());
+                State child = menu.branchAt(0).getNext();
 
-                if (menu.branchesStream().skip(1).map(ChainState::getNext)
-                        .allMatch(state -> state == ref.get())) {
-                    if (ref.get() == menu) {
-                        ref.set(new EndPoint());
-                    }
+                boolean res = menu.branchesStream()
+                        .skip(1)
+                        .map(ChainState::getNext)
+                        .allMatch(state -> state == child);
 
-                    StateManipulatorUtil.replace(menu, ref.get());
+                if (!res) {
+                    return;
+                }
 
-                    menu.branchesStream().forEach(option ->
-                            parentFirstComposer.process(getFlowchart(), state -> state.removeRoot(option)));
+                if (child == menu) {
+                    menuToStateMap.put(menu, new EndPoint());
+                } else {
+                    menuToStateMap.put(menu, child);
                 }
             }
         };
+        FlowchartMouse mouse = new ParentFirstFlowchartMouse();
 
-        childFirstComposer.process(getFlowchart(), callback);
+        mouse.accept(getFlowchart(), callback);
+
+        switchToStateMap.forEach(StateManipulatorUtil::replace);
+        menuToStateMap.forEach((menu, state) ->  {
+            StateManipulatorUtil.replace(menu, state);
+
+            menu.branchesStream()
+                    .forEach(option -> option.getNext().removeRoot(option));
+        });
+
+        if (!switchToStateMap.isEmpty() || !menuToStateMap.isEmpty()) {
+            run();
+        }
     }
 }

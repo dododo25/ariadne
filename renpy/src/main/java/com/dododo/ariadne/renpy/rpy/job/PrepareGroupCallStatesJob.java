@@ -1,16 +1,15 @@
 package com.dododo.ariadne.renpy.rpy.job;
 
+import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.job.RenPyAbstractJob;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateCopyUtil;
@@ -21,7 +20,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public final class PrepareGroupCallStatesJob extends RenPyAbstractJob {
+public final class PrepareGroupCallStatesJob extends AbstractJob {
 
     @SuppressWarnings("FieldCanBeLocal")
     private StateCollector<LabelledGroup> subGroupCollector;
@@ -34,14 +33,12 @@ public final class PrepareGroupCallStatesJob extends RenPyAbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
-                new RenPyFlowchartContractComposer());
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
-        subGroupCollector = new GenericStateCollector<>(composer, LabelledGroup.class);
-        linkCallStateCollector = new GenericStateCollector<>(composer, CallToState.class);
-        endPointStateCollector = new GenericStateCollector<>(composer, EndPoint.class);
-        leafChainStateCollector = new LeafChainStateCollector(composer);
+        subGroupCollector = new GenericStateCollector<>(mouse, LabelledGroup.class);
+        linkCallStateCollector = new GenericStateCollector<>(mouse, CallToState.class);
+        endPointStateCollector = new GenericStateCollector<>(mouse, EndPoint.class);
+        leafChainStateCollector = new LeafChainStateCollector(mouse);
 
         Map<String, LabelledGroup> links = subGroupCollector.collect(getFlowchart())
                 .stream()

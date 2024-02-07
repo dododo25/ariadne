@@ -1,21 +1,18 @@
 package com.dododo.ariadne.renpy.rpy.job;
 
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.job.RenPyAbstractJob;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
-public final class RemoveUnknownGroupCallStatesJob extends RenPyAbstractJob {
+public final class RemoveUnknownGroupCallStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
-                new ParentFirstRenPyLargeTreeFlowchartContractComposer(),
-                new RenPyFlowchartContractComposer());
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
         RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
@@ -24,6 +21,6 @@ public final class RemoveUnknownGroupCallStatesJob extends RenPyAbstractJob {
             }
         };
 
-        composer.process(getFlowchart(), callback);
+        mouse.accept(getFlowchart(), callback);
     }
 }

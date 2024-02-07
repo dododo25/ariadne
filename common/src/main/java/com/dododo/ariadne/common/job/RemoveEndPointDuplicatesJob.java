@@ -1,9 +1,9 @@
 package com.dododo.ariadne.common.job;
 
-import com.dododo.ariadne.core.collector.GenericStateCollector;
-import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
-import com.dododo.ariadne.core.composer.ParentFirstLargeTreeFlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
+import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.util.StateManipulatorUtil;
 
@@ -11,14 +11,17 @@ public final class RemoveEndPointDuplicatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContractComposer composer = selectComposerBasedOnFlowchartTreeSize(
-                new ParentFirstLargeTreeFlowchartContractComposer(),
-                new FlowchartContractComposer());
+        FlowchartMouse mouse = new ParentFirstFlowchartMouse();
 
         EndPoint commonEndPoint = new EndPoint();
-        StateCollector<EndPoint> endPointStateCollector = new GenericStateCollector<>(composer, EndPoint.class);
 
-        endPointStateCollector.collect(getFlowchart())
-                .forEach(point -> StateManipulatorUtil.replace(point, commonEndPoint));
+        FlowchartContract callback = new FlowchartContractAdapter() {
+            @Override
+            public void accept(EndPoint point) {
+                StateManipulatorUtil.replace(point, commonEndPoint);
+            }
+        };
+
+        mouse.accept(getFlowchart(), callback);
     }
 }

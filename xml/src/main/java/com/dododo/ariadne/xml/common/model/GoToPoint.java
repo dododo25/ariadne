@@ -1,12 +1,13 @@
 package com.dododo.ariadne.xml.common.model;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.model.AbstractPoint;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 
 import java.util.Objects;
 
-public final class GoToPoint extends State {
+public final class GoToPoint extends AbstractPoint {
 
     private final String value;
 

@@ -5,7 +5,7 @@ import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
-import com.dododo.ariadne.xml.common.composer.XmlFlowchartContractComposer;
+import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -20,6 +20,6 @@ class XmlRemoveStateJobTest {
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, job.getFlowchart(), new XmlFlowchartContractComposer());
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new ParentFirstXmlFlowchartMouse());
     }
 }

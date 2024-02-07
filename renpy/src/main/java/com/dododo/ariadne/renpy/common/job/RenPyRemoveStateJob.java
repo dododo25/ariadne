@@ -1,11 +1,9 @@
 package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.common.job.RemoveStateJob;
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
-import com.dododo.ariadne.renpy.common.composer.ParentFirstRenPyLargeTreeFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.composer.RenPyFlowchartContractComposer;
-import com.dododo.ariadne.renpy.common.util.RenPyFlowchartTreeUtil;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
 public final class RenPyRemoveStateJob<T extends ChainState> extends RemoveStateJob<T> {
@@ -15,10 +13,8 @@ public final class RenPyRemoveStateJob<T extends ChainState> extends RemoveState
     }
 
     @Override
-    protected FlowchartContractComposer prepareComposer() {
-        return RenPyFlowchartTreeUtil.isLarge(getFlowchart())
-                ? new ParentFirstRenPyLargeTreeFlowchartContractComposer()
-                : new RenPyFlowchartContractComposer();
+    protected ParentFirstFlowchartMouse prepareMouse() {
+        return new ParentFirstRenPyFlowchartMouse();
     }
 
     @Override

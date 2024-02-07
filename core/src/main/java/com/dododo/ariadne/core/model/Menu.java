@@ -1,8 +1,10 @@
 package com.dododo.ariadne.core.model;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.mouse.strategy.FlowchartMouseStrategy;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -50,6 +52,11 @@ public final class Menu extends State {
     @Override
     public void accept(FlowchartContract contract) {
         contract.accept(this);
+    }
+
+    @Override
+    public void accept(FlowchartMouseStrategy strategy, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+        strategy.acceptMenu(this, callback, grayStates, blackStates);
     }
 
     @Override

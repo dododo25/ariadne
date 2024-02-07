@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.collector;
 
-import com.dododo.ariadne.core.composer.FlowchartContractComposer;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.Set;
@@ -9,8 +9,8 @@ public class GenericStateCollector<S extends State> extends StateCollector<S> {
 
     private final Class<S> type;
 
-    public GenericStateCollector(FlowchartContractComposer composer, Class<S> type) {
-        super(composer);
+    public GenericStateCollector(FlowchartMouse mouse, Class<S> type) {
+        super(mouse);
         this.type = type;
     }
 
