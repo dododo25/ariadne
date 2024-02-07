@@ -1,6 +1,6 @@
-package com.dododo.ariadne.renpy.common.factory;
+package com.dododo.ariadne.renpy.common.mouse;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
@@ -10,7 +10,6 @@ import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
 import com.dododo.ariadne.renpy.common.model.JumpToPoint;
@@ -22,13 +21,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class RenPyFlowchartMouseFactoryTest {
+class ParentFirstRenPyFlowchartMouseTest {
 
-    private static FlowchartMouseFactory factory;
+    private static FlowchartMouse mouse;
 
     @BeforeAll
     static void setUp() {
-        factory = new RenPyFlowchartMouseFactory();
+        mouse = new ParentFirstRenPyFlowchartMouse();
     }
 
     @Test
@@ -54,7 +53,6 @@ class RenPyFlowchartMouseFactoryTest {
     }
 
     private void testCreateFor(State state) {
-        FlowchartMouse mouse = factory.createFor(s -> Assertions.assertSame(s, state));
-        state.accept(mouse);
+        mouse.accept(state, s -> Assertions.assertSame(s, state));
     }
 }

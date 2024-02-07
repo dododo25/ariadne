@@ -1,19 +1,21 @@
-package com.dododo.ariadne.xml.common.factory;
+package com.dododo.ariadne.xml.common.mouse;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 import com.dododo.ariadne.xml.common.contract.XmlSimpleFlowchartContract;
-import com.dododo.ariadne.xml.common.mouse.XmlFlowchartMouse;
 import com.dododo.ariadne.xml.common.mouse.strategy.ParentFirstXmlFlowchartMouseStrategy;
 
 import java.util.function.Consumer;
 
-public class XmlFlowchartMouseFactory extends FlowchartMouseFactory {
+public class ParentFirstXmlFlowchartMouse extends ParentFirstFlowchartMouse {
+
+    public ParentFirstXmlFlowchartMouse() {
+        super(new ParentFirstXmlFlowchartMouseStrategy());
+    }
 
     @Override
-    public FlowchartMouse createFor(Consumer<State> consumer) {
+    public void accept(State state, Consumer<State> consumer) {
         XmlFlowchartContract contract = new XmlSimpleFlowchartContract() {
             @Override
             public void acceptState(State state) {
@@ -21,6 +23,6 @@ public class XmlFlowchartMouseFactory extends FlowchartMouseFactory {
             }
         };
 
-        return new XmlFlowchartMouse(contract, new ParentFirstXmlFlowchartMouseStrategy());
+        accept(state, contract);
     }
 }

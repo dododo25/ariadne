@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.collector;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 
@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class LeafChainStateCollector extends StateCollector<ChainState> {
 
-    public LeafChainStateCollector(FlowchartMouseFactory factory) {
-        super(factory);
+    public LeafChainStateCollector(FlowchartMouse mouse) {
+        super(mouse);
     }
 
     @Override

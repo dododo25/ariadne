@@ -1,10 +1,11 @@
 package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.core.collector.GenericStateCollector;
-import com.dododo.ariadne.core.collector.StateCollector;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.EndPoint;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartMouseFactory;
+import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
+import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.JumpToPoint;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
@@ -12,13 +13,14 @@ public final class RemoveJumpToPointRemaindersJob extends AbstractJob {
 
     @Override
     public void run() {
-        StateCollector<JumpToPoint> linkJumpPointStateCollector
-                = new GenericStateCollector<>(new RenPyFlowchartMouseFactory(), JumpToPoint.class);
-        linkJumpPointStateCollector.collect(getFlowchart())
-                .forEach(this::process);
-    }
+        RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
+            @Override
+            public void accept(JumpToPoint point) {
+                RenPyStateManipulatorUtil.replace(point, new EndPoint());
+            }
+        };
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
-    private void process(JumpToPoint point) {
-        RenPyStateManipulatorUtil.replace(point, new EndPoint());
+        mouse.accept(getFlowchart(), callback);
     }
 }

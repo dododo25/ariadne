@@ -1,7 +1,7 @@
 package com.dododo.ariadne.core.collector;
 
 import com.dododo.ariadne.core.model.ChainState;
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
@@ -17,7 +17,7 @@ class LeafChainStateCollectorTest {
 
     @BeforeAll
     static void setUp() {
-        collector = new LeafChainStateCollector(new FlowchartMouseFactory());
+        collector = new LeafChainStateCollector(new ParentFirstFlowchartMouse());
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.dododo.ariadne.common.job;
 
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 
@@ -10,15 +10,14 @@ public abstract class RemoveStateJob<T extends ChainState> extends AbstractJob {
 
     private final Class<T> type;
 
-    private final StateCollector<T> collector;
-
-    protected RemoveStateJob(Class<T> type, FlowchartMouseFactory factory) {
+    protected RemoveStateJob(Class<T> type) {
         this.type = type;
-        this.collector = new GenericStateCollector<>(factory, type);
     }
 
     @Override
     public void run() {
+        StateCollector<T> collector = new GenericStateCollector<>(prepareMouse(), type);
+
         State flowchart = getFlowchart();
 
         collector.collect(flowchart)
@@ -30,6 +29,8 @@ public abstract class RemoveStateJob<T extends ChainState> extends AbstractJob {
             setFlowchart(newRoot);
         }
     }
+
+    protected abstract ParentFirstFlowchartMouse prepareMouse();
 
     protected abstract void process(T state);
 }

@@ -1,6 +1,6 @@
 package com.dododo.ariadne.core.collector;
 
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.State;
 
 import java.util.HashSet;
@@ -8,15 +8,15 @@ import java.util.Set;
 
 public abstract class StateCollector<S extends State> {
 
-    private final FlowchartMouseFactory factory;
+    private final FlowchartMouse mouse;
 
-    protected StateCollector(FlowchartMouseFactory factory) {
-        this.factory = factory;
+    protected StateCollector(FlowchartMouse mouse) {
+        this.mouse = mouse;
     }
 
     public Set<S> collect(State flowchart) {
         Set<S> result = new HashSet<>();
-        flowchart.accept(factory.createFor(state -> accept(result, state)));
+        mouse.accept(flowchart, state -> accept(result, state));
         return result;
     }
 

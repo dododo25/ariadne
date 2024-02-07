@@ -4,14 +4,26 @@ import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class JaxbMenu implements JaxbComplexState {
 
+    private final String value;
+
     private final List<JaxbState> children;
 
     public JaxbMenu() {
+        this(null);
+    }
+
+    public JaxbMenu(String value) {
+        this.value = value;
         this.children = new ArrayList<>();
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override
@@ -51,6 +63,15 @@ public class JaxbMenu implements JaxbComplexState {
 
     @Override
     public int compareTo(JaxbState o) {
-        return o instanceof JaxbMenu ? 0 : 1;
+        return o instanceof JaxbMenu && Objects.equals(((JaxbMenu) o).value, this.value) ? 0 : 1;
+    }
+
+    @Override
+    public String toString() {
+        if (value == null) {
+            return super.toString();
+        }
+
+        return String.format("%s(value='%s')", getClass().getSimpleName(), value);
     }
 }

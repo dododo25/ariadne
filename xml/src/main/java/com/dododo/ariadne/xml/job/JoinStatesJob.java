@@ -14,7 +14,7 @@ import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbReply;
-import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
+import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.model.GoToPoint;
 import com.dododo.ariadne.xml.common.model.Marker;
@@ -48,7 +48,7 @@ public final class JoinStatesJob extends AbstractJob {
 
     public JoinStatesJob(JaxbState rootState) {
         this.rootState = rootState;
-        this.leafChainStateCollector = new LeafChainStateCollector(new XmlFlowchartMouseFactory());
+        this.leafChainStateCollector = new LeafChainStateCollector(new ParentFirstXmlFlowchartMouse());
     }
 
     @Override

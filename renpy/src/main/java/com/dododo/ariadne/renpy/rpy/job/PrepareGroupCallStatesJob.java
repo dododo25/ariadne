@@ -4,12 +4,12 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
-import com.dododo.ariadne.core.factory.FlowchartMouseFactory;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.renpy.common.factory.RenPyFlowchartMouseFactory;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateCopyUtil;
@@ -22,25 +22,24 @@ import java.util.stream.Collectors;
 
 public final class PrepareGroupCallStatesJob extends AbstractJob {
 
-    private final StateCollector<LabelledGroup> subGroupCollector;
+    @SuppressWarnings("FieldCanBeLocal")
+    private StateCollector<LabelledGroup> subGroupCollector;
 
-    private final StateCollector<CallToState> linkCallStateCollector;
+    private StateCollector<CallToState> linkCallStateCollector;
 
-    private final StateCollector<EndPoint> endPointStateCollector;
+    private StateCollector<EndPoint> endPointStateCollector;
 
-    private final StateCollector<ChainState> leafChainStateCollector;
-
-    public PrepareGroupCallStatesJob() {
-        FlowchartMouseFactory factory = new RenPyFlowchartMouseFactory();
-
-        subGroupCollector = new GenericStateCollector<>(factory, LabelledGroup.class);
-        linkCallStateCollector = new GenericStateCollector<>(factory, CallToState.class);
-        endPointStateCollector = new GenericStateCollector<>(factory, EndPoint.class);
-        leafChainStateCollector = new LeafChainStateCollector(factory);
-    }
+    private StateCollector<ChainState> leafChainStateCollector;
 
     @Override
     public void run() {
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
+
+        subGroupCollector = new GenericStateCollector<>(mouse, LabelledGroup.class);
+        linkCallStateCollector = new GenericStateCollector<>(mouse, CallToState.class);
+        endPointStateCollector = new GenericStateCollector<>(mouse, EndPoint.class);
+        leafChainStateCollector = new LeafChainStateCollector(mouse);
+
         Map<String, LabelledGroup> links = subGroupCollector.collect(getFlowchart())
                 .stream()
                 .collect(Collectors.toMap(SimpleState::getValue, Function.identity()));

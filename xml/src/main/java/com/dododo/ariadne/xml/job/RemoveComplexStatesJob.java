@@ -5,25 +5,20 @@ import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.xml.common.mouse.ChildFirstXmlFlowchartMouse;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
+import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import com.dododo.ariadne.xml.common.model.ComplexState;
-import com.dododo.ariadne.xml.common.mouse.XmlFlowchartMouse;
-import com.dododo.ariadne.xml.common.mouse.strategy.ChildFirstXmlFlowchartMouseStrategy;
 import com.dododo.ariadne.xml.common.util.XmlStateManipulatorUtil;
 
 public final class RemoveComplexStatesJob extends AbstractJob {
 
-    private final StateCollector<ChainState> leafChainStateCollector;
-
-    public RemoveComplexStatesJob() {
-        leafChainStateCollector = new LeafChainStateCollector(new XmlFlowchartMouseFactory());
-    }
-
     @Override
     public void run() {
-        State rootState = getFlowchart();
+        StateCollector<ChainState> leafChainStateCollector =
+                new LeafChainStateCollector(new ParentFirstXmlFlowchartMouse());
 
         XmlFlowchartContract callback = new XmlFlowchartContractAdapter() {
             @Override
@@ -41,15 +36,18 @@ public final class RemoveComplexStatesJob extends AbstractJob {
                 XmlStateManipulatorUtil.replace(state, state.childAt(0));
             }
         };
-        XmlFlowchartMouse mouse = new XmlFlowchartMouse(callback, new ChildFirstXmlFlowchartMouseStrategy());
+        FlowchartMouse mouse = new ChildFirstXmlFlowchartMouse();
 
-        rootState.accept(mouse);
+        State rootState = getFlowchart();
+        State newRootState = rootState;
 
-        if (rootState instanceof ComplexState) {
-            State newRootState = ((ComplexState) rootState).childAt(0);
+        mouse.accept(rootState, callback);
 
-            setFlowchart(newRootState);
-            newRootState.removeRoot(rootState);
+        while (newRootState instanceof ComplexState) {
+            newRootState = ((ComplexState) newRootState).childAt(0);
         }
+
+        setFlowchart(newRootState);
+        newRootState.removeRoot(rootState);
     }
 }

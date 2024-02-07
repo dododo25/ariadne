@@ -4,7 +4,7 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
-import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
+import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -19,6 +19,6 @@ class PrepareSwitchStatesJobTest {
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, job.getFlowchart(), new XmlFlowchartMouseFactory());
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new ParentFirstXmlFlowchartMouse());
     }
 }

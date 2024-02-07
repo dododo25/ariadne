@@ -13,6 +13,7 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.common.model.CallToState;
@@ -22,8 +23,6 @@ import com.dododo.ariadne.renpy.common.model.JumpToPoint;
 import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.model.PassState;
 import com.dododo.ariadne.renpy.common.model.SwitchBranch;
-import com.dododo.ariadne.renpy.common.mouse.RenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.common.mouse.strategy.ParentFirstRenPyFlowchartMouseStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -130,9 +129,9 @@ public final class RenPyStateCopyUtil {
                 map.put(branch, new SwitchBranch(branch.getValue()));
             }
         };
-        FlowchartMouse mouse = new RenPyFlowchartMouse(callback, new ParentFirstRenPyFlowchartMouseStrategy());
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
-        flowchart.accept(mouse);
+        mouse.accept(flowchart, callback);
     }
 
     private static void copyEdges(State flowchart, Map<State, State> map) {
@@ -234,8 +233,8 @@ public final class RenPyStateCopyUtil {
                 }
             }
         };
-        FlowchartMouse mouse = new RenPyFlowchartMouse(callback, new ParentFirstRenPyFlowchartMouseStrategy());
+        FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
-        flowchart.accept(mouse);
+        mouse.accept(flowchart, callback);
     }
 }

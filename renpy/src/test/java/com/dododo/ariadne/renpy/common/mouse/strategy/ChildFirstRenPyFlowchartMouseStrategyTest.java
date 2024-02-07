@@ -3,20 +3,16 @@ package com.dododo.ariadne.renpy.common.mouse.strategy;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPySimpleFlowchartContract;
 import com.dododo.ariadne.renpy.common.model.ComplexState;
-import com.dododo.ariadne.renpy.common.mouse.RenPyFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 class ChildFirstRenPyFlowchartMouseStrategyTest {
 
@@ -32,27 +28,35 @@ class ChildFirstRenPyFlowchartMouseStrategyTest {
         ComplexState first = new ComplexState();
         EndPoint point = new EndPoint();
 
-        List<State> expected = Arrays.asList(point, first);
+        List<State> expectedGray = Collections.singletonList(first);
+        List<State> expectedBlack = Collections.singletonList(point);
 
         first.addChild(point);
 
-        testAccept(expected, (callback, mouse) ->
-                strategy.acceptComplexState(first, mouse, callback, new HashSet<>()));
+        testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
+                strategy.acceptPoint(point, callback, grayStates, blackStates));
     }
 
-    private void testAccept(List<State> expected, BiConsumer<FlowchartContract, FlowchartMouse> consumer) {
-        List<State> actual = new ArrayList<>();
+    private void testAccept(Collection<State> expectedGray, Collection<State> expectedBlack, TestConsumer consumer) {
+        Collection<State> grayStates = new ArrayList<>();
+        Collection<State> blackStates = new ArrayList<>();
 
-        RenPyFlowchartContract callback = new RenPySimpleFlowchartContract() {
+        FlowchartContract callback = new RenPySimpleFlowchartContract() {
             @Override
             public void acceptState(State state) {
-                actual.add(state);
+                // test
             }
         };
 
-        FlowchartMouse mouse = new RenPyFlowchartMouse(callback, strategy);
+        consumer.accept(callback, grayStates, blackStates);
 
-        consumer.accept(callback, mouse);
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertIterableEquals(expectedGray, grayStates);
+        Assertions.assertIterableEquals(expectedBlack, blackStates);
+    }
+
+    interface TestConsumer {
+
+        void accept(FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
+
     }
 }

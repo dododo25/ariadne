@@ -197,7 +197,7 @@ class PrepareDiagramRootJobTest {
                 .setId(0)
                 .setIdSuffix(".2")
                 .setParent(0)
-                .setGeometry(EdgeGeometry.create(0, 2, width, 4))
+                .setGeometry(EdgeGeometry.create(0, 2, width, 2))
                 .build();
 
         MxEdgeCell edgeCell2 = new MxEdgeCell.Builder()

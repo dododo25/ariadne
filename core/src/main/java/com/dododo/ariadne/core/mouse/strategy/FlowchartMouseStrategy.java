@@ -1,19 +1,21 @@
 package com.dododo.ariadne.core.mouse.strategy;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.model.AbstractPoint;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface FlowchartMouseStrategy {
 
-    void acceptChainState(ChainState state, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited);
+    void acceptChainState(ChainState state, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
 
-    void acceptMenu(Menu menu, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited);
+    void acceptMenu(Menu menu, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
 
-    void acceptSwitch(Switch aSwitch, FlowchartMouse mouse, FlowchartContract callback, Set<State> visited);
+    void acceptSwitch(Switch aSwitch, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
+
+    void acceptPoint(AbstractPoint point, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
 }

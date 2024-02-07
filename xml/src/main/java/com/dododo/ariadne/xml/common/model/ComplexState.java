@@ -2,8 +2,11 @@ package com.dododo.ariadne.xml.common.model;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.core.mouse.strategy.FlowchartMouseStrategy;
 import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
+import com.dododo.ariadne.xml.common.mouse.strategy.XmlFlowchartMouseStrategy;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
@@ -51,6 +54,11 @@ public class ComplexState extends State {
     @Override
     public void accept(FlowchartContract contract) {
         ((XmlFlowchartContract) contract).accept(this);
+    }
+
+    @Override
+    public final void accept(FlowchartMouseStrategy strategy, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+        ((XmlFlowchartMouseStrategy) strategy).acceptComplexState(this, callback, grayStates, blackStates);
     }
 
     @Override

@@ -1,22 +1,18 @@
 package com.dododo.ariadne.xml.common.mouse.strategy;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
-import com.dododo.ariadne.core.model.EntryState;
+import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
 import com.dododo.ariadne.xml.common.contract.XmlSimpleFlowchartContract;
 import com.dododo.ariadne.xml.common.model.ComplexState;
-import com.dododo.ariadne.xml.common.mouse.XmlFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 class ParentFirstXmlFlowchartMouseStrategyTest {
 
@@ -29,30 +25,38 @@ class ParentFirstXmlFlowchartMouseStrategyTest {
 
     @Test
     void testAcceptComplexStateShouldDoneWell() {
-        ComplexState complexState = new ComplexState();
-        EntryState state = new EntryState();
+        ComplexState first = new ComplexState();
+        EndPoint point = new EndPoint();
 
-        List<State> expected = Arrays.asList(complexState, state);
+        List<State> expectedGray = Collections.singletonList(point);
+        List<State> expectedBlack = Collections.singletonList(first);
 
-        complexState.addChild(state);
+        first.addChild(point);
 
-        testAccept(expected, (callback, mouse) ->
-                strategy.acceptComplexState(complexState, mouse, callback, new HashSet<>()));
+        testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
+                strategy.acceptComplexState(first, callback, grayStates, blackStates));
     }
 
-    private void testAccept(List<State> expected, BiConsumer<FlowchartContract, FlowchartMouse> consumer) {
-        List<State> actual = new ArrayList<>();
+    private void testAccept(Collection<State> expectedGray, Collection<State> expectedBlack, TestConsumer consumer) {
+        Collection<State> grayStates = new ArrayList<>();
+        Collection<State> blackStates = new ArrayList<>();
 
-        XmlFlowchartContract callback = new XmlSimpleFlowchartContract() {
+        FlowchartContract callback = new XmlSimpleFlowchartContract() {
             @Override
             public void acceptState(State state) {
-                actual.add(state);
+                // test
             }
         };
 
-        XmlFlowchartMouse mouse = new XmlFlowchartMouse(callback, strategy);
+        consumer.accept(callback, grayStates, blackStates);
 
-        consumer.accept(callback, mouse);
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertIterableEquals(expectedGray, grayStates);
+        Assertions.assertIterableEquals(expectedBlack, blackStates);
+    }
+
+    interface TestConsumer {
+
+        void accept(FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
+
     }
 }

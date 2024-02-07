@@ -20,12 +20,12 @@ public abstract class SimpleFlowchartContract implements FlowchartContract {
     }
 
     @Override
-    public void accept(CycleMarker marker) {
+    public final void accept(CycleMarker marker) {
         acceptState(marker);
     }
 
     @Override
-    public void accept(CycleEntryState state) {
+    public final void accept(CycleEntryState state) {
         acceptState(state);
     }
 

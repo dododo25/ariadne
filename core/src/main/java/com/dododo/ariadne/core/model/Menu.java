@@ -1,17 +1,30 @@
 package com.dododo.ariadne.core.model;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.mouse.strategy.FlowchartMouseStrategy;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 public final class Menu extends State {
 
+    private final String value;
+
     private final List<Option> branches;
 
     public Menu() {
+        this(null);
+    }
+
+    public Menu(String value) {
+        this.value = value;
         this.branches = new ArrayList<>();
+    }
+
+    public String getValue() {
+        return value;
     }
 
     public int branchesCount() {
@@ -42,7 +55,21 @@ public final class Menu extends State {
     }
 
     @Override
+    public void accept(FlowchartMouseStrategy strategy, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+        strategy.acceptMenu(this, callback, grayStates, blackStates);
+    }
+
+    @Override
     public int compareTo(State o) {
-        return compareByClass(o);
+        return compareBySingleValue(o, s -> ((Menu) s).getValue());
+    }
+
+    @Override
+    public String toString() {
+        if (value == null) {
+            return String.format("%s(value=null)", getClass().getSimpleName());
+        }
+
+        return String.format("%s(value='%s')", getClass().getSimpleName(), value);
     }
 }

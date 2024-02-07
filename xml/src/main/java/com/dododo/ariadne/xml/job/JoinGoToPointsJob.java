@@ -4,7 +4,7 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.collector.GenericStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.SimpleState;
-import com.dododo.ariadne.xml.common.factory.XmlFlowchartMouseFactory;
+import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import com.dododo.ariadne.xml.common.model.GoToPoint;
 import com.dododo.ariadne.xml.common.model.Marker;
 import com.dododo.ariadne.xml.common.util.XmlStateManipulatorUtil;
@@ -17,8 +17,10 @@ public final class JoinGoToPointsJob extends AbstractJob {
 
     @Override
     public void run() {
-        StateCollector<Marker> markerCollector = new GenericStateCollector<>(new XmlFlowchartMouseFactory(), Marker.class);
-        StateCollector<GoToPoint> goToPointCollector = new GenericStateCollector<>(new XmlFlowchartMouseFactory(), GoToPoint.class);
+        StateCollector<Marker> markerCollector =
+                new GenericStateCollector<>(new ParentFirstXmlFlowchartMouse(), Marker.class);
+        StateCollector<GoToPoint> goToPointCollector =
+                new GenericStateCollector<>(new ParentFirstXmlFlowchartMouse(), GoToPoint.class);
 
         Map<String, Marker> markers = markerCollector.collect(getFlowchart())
                 .stream()

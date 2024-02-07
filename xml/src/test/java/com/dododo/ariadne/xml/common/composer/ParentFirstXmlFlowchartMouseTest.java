@@ -1,28 +1,29 @@
-package com.dododo.ariadne.xml.common.factory;
+package com.dododo.ariadne.xml.common.composer;
 
+import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.model.ComplexSwitch;
 import com.dododo.ariadne.xml.common.model.GoToPoint;
 import com.dododo.ariadne.xml.common.model.Marker;
 import com.dododo.ariadne.xml.common.model.PassState;
 import com.dododo.ariadne.xml.common.model.SwitchBranch;
+import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class XmlFlowchartMouseFactoryTest {
+class ParentFirstXmlFlowchartMouseTest {
 
-    private static XmlFlowchartMouseFactory factory;
+    private static FlowchartMouse mouse;
 
     @BeforeAll
     static void setUp() {
-        factory = new XmlFlowchartMouseFactory();
+        mouse = new ParentFirstXmlFlowchartMouse();
     }
 
     @Test
@@ -41,7 +42,6 @@ class XmlFlowchartMouseFactoryTest {
     }
 
     private void testCreateFor(State state) {
-        FlowchartMouse mouse = factory.createFor(s -> Assertions.assertSame(s, state));
-        state.accept(mouse);
+        mouse.accept(state, s -> Assertions.assertSame(s, state));
     }
 }

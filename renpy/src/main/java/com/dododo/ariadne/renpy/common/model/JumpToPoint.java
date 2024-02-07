@@ -1,10 +1,11 @@
 package com.dododo.ariadne.renpy.common.model;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.core.model.AbstractPoint;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 
-public class JumpToPoint extends State {
+public class JumpToPoint extends AbstractPoint {
 
     private final String value;
 
