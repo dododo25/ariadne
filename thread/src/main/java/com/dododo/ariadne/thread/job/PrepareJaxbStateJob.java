@@ -21,7 +21,7 @@ import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
-import com.dododo.ariadne.jaxb.model.JaxbMarker;
+import com.dododo.ariadne.jaxb.model.JaxbLabel;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbReply;
@@ -277,7 +277,7 @@ public final class PrepareJaxbStateJob extends ThreadAbstractJob {
 
             @Override
             public void accept(CycleMarker marker) {
-                stateMap.put(marker, new JaxbMarker(marker.getValue()));
+                stateMap.put(marker, new JaxbLabel(marker.getValue()));
             }
 
             @Override

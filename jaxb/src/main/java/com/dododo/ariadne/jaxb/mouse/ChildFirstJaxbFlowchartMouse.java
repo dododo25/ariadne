@@ -6,7 +6,7 @@ import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
-import com.dododo.ariadne.jaxb.model.JaxbMarker;
+import com.dododo.ariadne.jaxb.model.JaxbLabel;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
@@ -110,8 +110,8 @@ public class ChildFirstJaxbFlowchartMouse extends JaxbFlowchartMouse {
         }
 
         @Override
-        public void accept(JaxbMarker marker) {
-            acceptSingleState(marker);
+        public void accept(JaxbLabel label) {
+            acceptSingleState(label);
         }
 
         @Override

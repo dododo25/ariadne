@@ -2,11 +2,12 @@ package com.dododo.ariadne.xml.provider;
 
 import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.xml.common.model.PassState;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.xml.job.AddMissingSwitchFalseBranchComplexStateJob;
 import com.dododo.ariadne.xml.job.CollectStatesJob;
-import com.dododo.ariadne.xml.job.JoinGoToPointsJob;
+import com.dododo.ariadne.xml.job.JoinLabelWithGoToPointsJob;
 import com.dododo.ariadne.xml.job.JoinStatesJob;
 import com.dododo.ariadne.xml.job.PrepareSingleEntryFlowchartJob;
 import com.dododo.ariadne.xml.job.PrepareSwitchStatesJob;
@@ -14,7 +15,6 @@ import com.dododo.ariadne.xml.job.RemoveComplexStatesJob;
 import com.dododo.ariadne.xml.job.RemoveExcludedStatesJob;
 import com.dododo.ariadne.xml.job.RemoveGoToPointRemaindersJob;
 import com.dododo.ariadne.xml.job.XmlRemoveStateJob;
-import com.dododo.ariadne.xml.common.model.Marker;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -31,9 +31,9 @@ public class XmlFlowchartJobsProvider extends FlowchartJobsProvider {
         jobs.add(new JoinStatesJob(rootState));
 
         jobs.add(new PrepareSwitchStatesJob());
-        jobs.add(new JoinGoToPointsJob());
+        jobs.add(new JoinLabelWithGoToPointsJob());
         jobs.add(new RemoveComplexStatesJob());
-        jobs.add(new XmlRemoveStateJob<>(Marker.class));
+        jobs.add(new XmlRemoveStateJob<>(Label.class));
         jobs.add(new XmlRemoveStateJob<>(PassState.class));
         jobs.add(new RemoveGoToPointRemaindersJob());
         jobs.add(new PrepareSingleEntryFlowchartJob());

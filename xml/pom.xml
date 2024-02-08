@@ -25,12 +25,17 @@
         </dependency>
         <dependency>
             <groupId>com.dododo</groupId>
+            <artifactId>extended</artifactId>
+            <version>0.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dododo</groupId>
             <artifactId>jaxb</artifactId>
             <version>0.0.3</version>
         </dependency>
         <dependency>
             <groupId>com.dododo</groupId>
-            <artifactId>core-test</artifactId>
+            <artifactId>extended-test</artifactId>
             <version>0.0.3</version>
             <scope>test</scope>
         </dependency>

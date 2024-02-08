@@ -6,11 +6,11 @@ import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.renpy.common.mouse.ChildFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.common.model.ComplexState;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
 public final class RemoveComplexStatesJob extends AbstractJob {

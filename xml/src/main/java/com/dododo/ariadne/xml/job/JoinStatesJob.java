@@ -11,25 +11,25 @@ import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Text;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.SwitchBranch;
+import com.dododo.ariadne.extended.mouse.ParentFirstExtendedFlowchartMouse;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbReply;
 import com.dododo.ariadne.jaxb.mouse.ChildFirstJaxbFlowchartMouse;
 import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
-import com.dododo.ariadne.xml.common.model.ComplexState;
-import com.dododo.ariadne.xml.common.model.GoToPoint;
-import com.dododo.ariadne.xml.common.model.Marker;
-import com.dododo.ariadne.xml.common.model.PassState;
-import com.dododo.ariadne.xml.common.model.SwitchBranch;
-import com.dododo.ariadne.xml.common.model.ComplexSwitch;
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContractAdapter;
 import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
-import com.dododo.ariadne.jaxb.model.JaxbMarker;
+import com.dododo.ariadne.jaxb.model.JaxbLabel;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
@@ -48,7 +48,7 @@ public final class JoinStatesJob extends AbstractJob {
 
     public JoinStatesJob(JaxbState rootState) {
         this.rootState = rootState;
-        this.leafChainStateCollector = new LeafChainStateCollector(new ParentFirstXmlFlowchartMouse());
+        this.leafChainStateCollector = new LeafChainStateCollector(new ParentFirstExtendedFlowchartMouse());
     }
 
     @Override
@@ -102,8 +102,8 @@ public final class JoinStatesJob extends AbstractJob {
             }
 
             @Override
-            public void accept(JaxbMarker marker) {
-                map.put(marker, new Marker(marker.getValue()));
+            public void accept(JaxbLabel label) {
+                map.put(label, new Label(label.getValue()));
             }
 
             @Override

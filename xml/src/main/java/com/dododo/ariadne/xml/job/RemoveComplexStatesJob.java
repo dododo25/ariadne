@@ -6,21 +6,21 @@ import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.xml.common.mouse.ChildFirstXmlFlowchartMouse;
-import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
-import com.dododo.ariadne.xml.common.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
-import com.dododo.ariadne.xml.common.model.ComplexState;
-import com.dododo.ariadne.xml.common.util.XmlStateManipulatorUtil;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.mouse.ChildFirstExtendedFlowchartMouse;
+import com.dododo.ariadne.extended.mouse.ParentFirstExtendedFlowchartMouse;
+import com.dododo.ariadne.extended.util.ExtendedStateManipulatorUtil;
 
 public final class RemoveComplexStatesJob extends AbstractJob {
 
     @Override
     public void run() {
         StateCollector<ChainState> leafChainStateCollector =
-                new LeafChainStateCollector(new ParentFirstXmlFlowchartMouse());
+                new LeafChainStateCollector(new ParentFirstExtendedFlowchartMouse());
 
-        XmlFlowchartContract callback = new XmlFlowchartContractAdapter() {
+        ExtendedFlowchartContract callback = new ExtendedFlowchartContractAdapter() {
             @Override
             public void accept(ComplexState state) {
                 for (int i = state.childrenCount() - 1; i > 0; i--) {
@@ -33,10 +33,10 @@ public final class RemoveComplexStatesJob extends AbstractJob {
                     child.removeRoot(state);
                 }
 
-                XmlStateManipulatorUtil.replace(state, state.childAt(0));
+                ExtendedStateManipulatorUtil.replace(state, state.childAt(0));
             }
         };
-        FlowchartMouse mouse = new ChildFirstXmlFlowchartMouse();
+        FlowchartMouse mouse = new ChildFirstExtendedFlowchartMouse();
 
         State rootState = getFlowchart();
         State newRootState = rootState;

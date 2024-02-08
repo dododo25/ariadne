@@ -3,13 +3,13 @@ package com.dododo.ariadne.renpy.common.test.supplier;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.model.CallToState;
-import com.dododo.ariadne.renpy.common.model.ComplexState;
-import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
-import com.dododo.ariadne.renpy.common.model.JumpToPoint;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
-import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
 import com.dododo.ariadne.test.rule.NodeRule;
 import com.dododo.ariadne.test.rule.RuleSet;
@@ -34,8 +34,8 @@ public class RenPyFlowchartRulesSupplier {
 
     @RuleSetSupplier
     public RuleSet createRuleForLabelledGroup() {
-        return createRuleForChainState(LabelledGroup.class,
-                (id, attrs) -> new LabelledGroup(attrs.getValue("value")));
+        return createRuleForChainState(Label.class,
+                (id, attrs) -> new Label(attrs.getValue("value")));
     }
 
     @RuleSetSupplier
@@ -46,8 +46,8 @@ public class RenPyFlowchartRulesSupplier {
 
     @RuleSetSupplier
     public RuleSet createRuleForJumpToPoint() {
-        return new RuleSet.Builder(JumpToPoint.class)
-                .setNodeRule((id, attrs) -> new JumpToPoint(attrs.getValue("value")))
+        return new RuleSet.Builder(GoToPoint.class)
+                .setNodeRule((id, attrs) -> new GoToPoint(attrs.getValue("value")))
                 .build();
     }
 

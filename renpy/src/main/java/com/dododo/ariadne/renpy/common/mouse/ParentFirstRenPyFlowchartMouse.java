@@ -2,16 +2,16 @@ package com.dododo.ariadne.renpy.common.mouse;
 
 import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.extended.mouse.strategy.ParentFirstExtendedFlowchartMouseStrategy;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPySimpleFlowchartContract;
-import com.dododo.ariadne.renpy.common.mouse.strategy.ParentFirstRenPyFlowchartMouseStrategy;
 
 import java.util.function.Consumer;
 
 public class ParentFirstRenPyFlowchartMouse extends ParentFirstFlowchartMouse {
 
     public ParentFirstRenPyFlowchartMouse() {
-        super(new ParentFirstRenPyFlowchartMouseStrategy());
+        super(new ParentFirstExtendedFlowchartMouseStrategy());
     }
 
     @Override

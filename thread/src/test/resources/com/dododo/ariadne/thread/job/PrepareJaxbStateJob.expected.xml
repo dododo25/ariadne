@@ -5,11 +5,11 @@
     <node id="3" type="com.dododo.ariadne.jaxb.model.JaxbMenu" />
     <node id="4" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="option1" />
     <node id="5" type="com.dododo.ariadne.jaxb.model.JaxbText" value="text1" />
-    <node id="6" type="com.dododo.ariadne.jaxb.model.JaxbMarker" value="#0" />
+    <node id="6" type="com.dododo.ariadne.jaxb.model.JaxbLabel" value="#0" />
     <node id="7" type="com.dododo.ariadne.jaxb.model.JaxbComplexSwitch" />
     <node id="8" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" condition="switch" />
     <node id="9" type="com.dododo.ariadne.jaxb.model.JaxbText" value="text3" />
-    <node id="10" type="com.dododo.ariadne.jaxb.model.JaxbMarker" value="#1" />
+    <node id="10" type="com.dododo.ariadne.jaxb.model.JaxbLabel" value="#1" />
     <node id="11" type="com.dododo.ariadne.jaxb.model.JaxbEndState" />
     <node id="12" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" />
     <node id="13" type="com.dododo.ariadne.jaxb.model.JaxbText" value="text4" />

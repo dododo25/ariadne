@@ -10,13 +10,13 @@ import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.model.CallToState;
-import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
-import com.dododo.ariadne.renpy.common.model.JumpToPoint;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
-import com.dododo.ariadne.renpy.common.model.ComplexState;
-import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -44,9 +44,9 @@ class ParentFirstRenPyFlowchartMouseTest {
         testCreateFor(new ComplexState());
         testCreateFor(new PassState());
 
-        testCreateFor(new LabelledGroup("test"));
+        testCreateFor(new Label("test"));
         testCreateFor(new CallToState("test"));
-        testCreateFor(new JumpToPoint("test"));
+        testCreateFor(new GoToPoint("test"));
 
         testCreateFor(new ComplexSwitch());
         testCreateFor(new SwitchBranch("test"));

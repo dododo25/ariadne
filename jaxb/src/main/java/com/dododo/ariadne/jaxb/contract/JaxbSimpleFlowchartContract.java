@@ -3,7 +3,7 @@ package com.dododo.ariadne.jaxb.contract;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
-import com.dododo.ariadne.jaxb.model.JaxbMarker;
+import com.dododo.ariadne.jaxb.model.JaxbLabel;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
@@ -51,8 +51,8 @@ public abstract class JaxbSimpleFlowchartContract implements JaxbFlowchartContra
     }
 
     @Override
-    public final void accept(JaxbMarker marker) {
-        acceptState(marker);
+    public final void accept(JaxbLabel label) {
+        acceptState(label);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class JaxbRootState implements JaxbComplexState {
             @XmlElement(name = "text", type = JaxbText.class),
             @XmlElement(name = "reply", type = JaxbReply.class),
             @XmlElement(name = "menu", type = JaxbMenu.class),
-            @XmlElement(name = "marker", type = JaxbMarker.class),
+            @XmlElement(name = "label", type = JaxbLabel.class),
             @XmlElement(name = "goto", type = JaxbGoToState.class),
             @XmlElement(name = "switch", type = JaxbComplexSwitch.class),
             @XmlElement(name = "end", type = JaxbEndState.class)

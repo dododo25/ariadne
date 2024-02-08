@@ -3,8 +3,6 @@ package com.dododo.ariadne.renpy.jaxb.mouse;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbSimpleFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
@@ -59,18 +57,11 @@ class ParentFirstRenPyJaxbFlowchartMouseTest {
     void testAcceptShouldNotThrowException() {
         List<JaxbState> expected = Arrays.asList(rootState, text, complexSwitch, switchBranch1, switchBranch2, marker,
                 passState, endState, goToState);
-
         List<JaxbState> states = new ArrayList<>();
 
-        RenPyJaxbFlowchartContract contract = new RenPyJaxbSimpleFlowchartContract() {
-            @Override
-            public void acceptState(JaxbState state) {
-                states.add(state);
-            }
-        };
         JaxbFlowchartMouse mouse = new ParentFirstRenPyJaxbFlowchartMouse();
 
-        mouse.accept(rootState, contract);
+        mouse.accept(rootState, states::add);
         Assertions.assertEquals(expected, states);
     }
 }

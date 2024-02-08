@@ -11,17 +11,17 @@ import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Text;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.SwitchBranch;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
 import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.CallToState;
-import com.dododo.ariadne.renpy.common.model.ComplexState;
-import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
-import com.dododo.ariadne.renpy.common.model.JumpToPoint;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
-import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
 import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContractAdapter;
 import com.dododo.ariadne.jaxb.model.JaxbComplexState;
@@ -118,12 +118,12 @@ public final class JoinStatesJob extends AbstractJob {
 
             @Override
             public void accept(JaxbLabelledGroup group) {
-                map.put(group, new LabelledGroup(group.getValue()));
+                map.put(group, new Label(group.getValue()));
             }
 
             @Override
             public void accept(JaxbGoToState state) {
-                map.put(state, new JumpToPoint(state.getValue()));
+                map.put(state, new GoToPoint(state.getValue()));
             }
 
             @Override

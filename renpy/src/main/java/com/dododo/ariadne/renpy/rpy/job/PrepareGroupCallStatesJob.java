@@ -9,9 +9,9 @@ import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.extended.model.Label;
 import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.model.CallToState;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 import com.dododo.ariadne.renpy.common.util.RenPyStateCopyUtil;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public final class PrepareGroupCallStatesJob extends AbstractJob {
 
     @SuppressWarnings("FieldCanBeLocal")
-    private StateCollector<LabelledGroup> subGroupCollector;
+    private StateCollector<Label> labelCollector;
 
     private StateCollector<CallToState> linkCallStateCollector;
 
@@ -35,18 +35,18 @@ public final class PrepareGroupCallStatesJob extends AbstractJob {
     public void run() {
         FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
-        subGroupCollector = new GenericStateCollector<>(mouse, LabelledGroup.class);
+        labelCollector = new GenericStateCollector<>(mouse, Label.class);
         linkCallStateCollector = new GenericStateCollector<>(mouse, CallToState.class);
         endPointStateCollector = new GenericStateCollector<>(mouse, EndPoint.class);
         leafChainStateCollector = new LeafChainStateCollector(mouse);
 
-        Map<String, LabelledGroup> links = subGroupCollector.collect(getFlowchart())
+        Map<String, Label> links = labelCollector.collect(getFlowchart())
                 .stream()
                 .collect(Collectors.toMap(SimpleState::getValue, Function.identity()));
         process(links);
     }
 
-    private void process(Map<String, LabelledGroup> links) {
+    private void process(Map<String, Label> links) {
         Set<CallToState> states = links.values().stream()
                 .flatMap(link -> linkCallStateCollector.collect(link).stream())
                 .collect(Collectors.toSet());
@@ -58,15 +58,15 @@ public final class PrepareGroupCallStatesJob extends AbstractJob {
         }
     }
 
-    private void process(CallToState state, Map<String, LabelledGroup> links) {
-        LabelledGroup labelledGroup = links.get(state.getValue());
+    private void process(CallToState state, Map<String, Label> links) {
+        Label labelledGroup = links.get(state.getValue());
 
         if (labelledGroup != null) {
             process(state, labelledGroup);
         }
     }
 
-    private void process(CallToState state, LabelledGroup labelledGroup) {
+    private void process(CallToState state, Label labelledGroup) {
         State copy = RenPyStateCopyUtil.copy(labelledGroup);
         State nextState = state.getNext();
 

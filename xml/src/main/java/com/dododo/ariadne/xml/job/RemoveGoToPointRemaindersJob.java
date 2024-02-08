@@ -4,22 +4,22 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
-import com.dododo.ariadne.xml.common.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.common.model.GoToPoint;
-import com.dododo.ariadne.xml.common.util.XmlStateManipulatorUtil;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.mouse.ParentFirstExtendedFlowchartMouse;
+import com.dododo.ariadne.extended.util.ExtendedStateManipulatorUtil;
 
 public final class RemoveGoToPointRemaindersJob extends AbstractJob {
 
     @Override
     public void run() {
-        FlowchartContract callback = new XmlFlowchartContractAdapter() {
+        FlowchartContract callback = new ExtendedFlowchartContractAdapter() {
             @Override
             public void accept(GoToPoint point) {
-                XmlStateManipulatorUtil.replace(point, new EndPoint());
+                ExtendedStateManipulatorUtil.replace(point, new EndPoint());
             }
         };
-        FlowchartMouse mouse = new ParentFirstXmlFlowchartMouse();
+        FlowchartMouse mouse = new ParentFirstExtendedFlowchartMouse();
 
         mouse.accept(getFlowchart(), callback);
     }

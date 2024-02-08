@@ -3,8 +3,8 @@ package com.dododo.ariadne.xml.job;
 import com.dododo.ariadne.common.job.RemoveStateJob;
 import com.dododo.ariadne.core.mouse.ParentFirstFlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
-import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
-import com.dododo.ariadne.xml.common.util.XmlStateManipulatorUtil;
+import com.dododo.ariadne.extended.mouse.ParentFirstExtendedFlowchartMouse;
+import com.dododo.ariadne.extended.util.ExtendedStateManipulatorUtil;
 
 public final class XmlRemoveStateJob<T extends ChainState> extends RemoveStateJob<T> {
 
@@ -14,11 +14,11 @@ public final class XmlRemoveStateJob<T extends ChainState> extends RemoveStateJo
 
     @Override
     protected ParentFirstFlowchartMouse prepareMouse() {
-        return new ParentFirstXmlFlowchartMouse();
+        return new ParentFirstExtendedFlowchartMouse();
     }
 
     @Override
     protected void process(T state) {
-        XmlStateManipulatorUtil.replace(state, state.getNext());
+        ExtendedStateManipulatorUtil.replace(state, state.getNext());
     }
 }
