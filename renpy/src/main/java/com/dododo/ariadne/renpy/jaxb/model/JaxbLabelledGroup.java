@@ -1,19 +1,30 @@
 package com.dododo.ariadne.renpy.jaxb.model;
 
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbSimpleState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.util.JaxbSingleFieldStateComparator;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 public class JaxbLabelledGroup implements JaxbComplexState, JaxbSimpleState {
+
+    private final JaxbSingleFieldStateComparator comparator;
 
     private final String value;
 
     private final List<JaxbState> children;
 
+    private JaxbState root;
+
     public JaxbLabelledGroup(String value) {
+        this.comparator = new JaxbSingleFieldStateComparator();
         this.value = value;
         this.children = new ArrayList<>();
     }
@@ -54,13 +65,28 @@ public class JaxbLabelledGroup implements JaxbComplexState, JaxbSimpleState {
     }
 
     @Override
+    public JaxbState getRoot() {
+        return root;
+    }
+
+    @Override
+    public void setRoot(JaxbState state) {
+        this.root = state;
+    }
+
+    @Override
     public void accept(JaxbFlowchartContract contract) {
-        contract.accept(this);
+        ((RenPyJaxbFlowchartContract) contract).accept(this);
+    }
+
+    @Override
+    public void accept(JaxbFlowchartMouseStrategy strategy, JaxbFlowchartContract callback, Collection<JaxbState> grayStates, Collection<JaxbState> blackStates) {
+        strategy.acceptComplexState(this, callback, grayStates, blackStates);
     }
 
     @Override
     public int compareTo(JaxbState o) {
-        return o instanceof JaxbLabelledGroup && Objects.equals(((JaxbLabelledGroup) o).value, this.value) ? 0 : 1;
+        return comparator.compare(this, o);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.unity.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 
 public final class RemoveTextMarkLineProcessor extends LineProcessor {

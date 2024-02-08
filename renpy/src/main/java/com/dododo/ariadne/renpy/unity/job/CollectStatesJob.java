@@ -2,9 +2,8 @@ package com.dododo.ariadne.renpy.unity.job;
 
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import com.dododo.ariadne.renpy.unity.processor.LineProcessorFactory;
 
@@ -16,11 +15,11 @@ public final class CollectStatesJob extends AbstractJob {
 
     private LineProcessor processor;
 
-    private final JaxbGroupState rootState;
+    private final JaxbComplexState rootState;
 
     private final List<String> lines;
 
-    public CollectStatesJob(JaxbGroupState rootState, List<String> lines) {
+    public CollectStatesJob(JaxbComplexState rootState, List<String> lines) {
         this.rootState = rootState;
         this.lines = lines;
     }

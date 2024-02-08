@@ -7,8 +7,7 @@ import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
-import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.mouse.ParentFirstJaxbFlowchartMouse;
 
 public final class AddMissingSwitchFalseBranchComplexStateJob extends AbstractJob {
 
@@ -33,9 +32,8 @@ public final class AddMissingSwitchFalseBranchComplexStateJob extends AbstractJo
                 }
             }
         };
+        ParentFirstJaxbFlowchartMouse mouse = new ParentFirstJaxbFlowchartMouse();
 
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ParentFirstJaxbFlowchartMouseStrategy());
-
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 }

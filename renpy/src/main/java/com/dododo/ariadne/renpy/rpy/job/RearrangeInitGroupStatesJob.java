@@ -1,14 +1,18 @@
 package com.dododo.ariadne.renpy.rpy.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.jaxb.model.JaxbOption;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
+import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
 public final class RearrangeInitGroupStatesJob extends AbstractJob {
 
@@ -20,17 +24,42 @@ public final class RearrangeInitGroupStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        JaxbFlowchartContract contract = new JaxbFlowchartContractAdapter() {
-            @Override
-            public void accept(JaxbGroupState state) {
-                int lastInitStateIndex = findLastInitStateIndex(state);
+        RenPyJaxbFlowchartContract callback = new RenPyJaxbFlowchartContractAdapter() {
 
-                for (int i = lastInitStateIndex; i < state.childrenCount(); i++) {
-                    JaxbState child = state.childAt(i);
+            @Override
+            public void accept(JaxbRootState state) {
+                acceptComplexState(state);
+            }
+
+            @Override
+            public void accept(JaxbLabelledGroup group) {
+                acceptComplexState(group);
+            }
+
+            @Override
+            public void accept(JaxbOption option) {
+                acceptComplexState(option);
+            }
+
+            @Override
+            public void accept(JaxbSwitchBranch switchBranch) {
+                acceptComplexState(switchBranch);
+            }
+
+            @Override
+            public void accept(JaxbSwitchFalseBranch switchBranch) {
+                acceptComplexState(switchBranch);
+            }
+
+            private void acceptComplexState(JaxbComplexState complexState) {
+                int lastInitStateIndex = findLastInitStateIndex(complexState);
+
+                for (int i = lastInitStateIndex; i < complexState.childrenCount(); i++) {
+                    JaxbState child = complexState.childAt(i);
 
                     if (child instanceof JaxbInitGroupState) {
-                        state.removeChild(child);
-                        state.addChildAt(lastInitStateIndex, child);
+                        complexState.removeChild(child);
+                        complexState.addChildAt(lastInitStateIndex, child);
 
                         lastInitStateIndex++;
                     }
@@ -53,8 +82,8 @@ public final class RearrangeInitGroupStatesJob extends AbstractJob {
                 return result;
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(contract, new ParentFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ParentFirstRenPyJaxbFlowchartMouse();
 
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 }

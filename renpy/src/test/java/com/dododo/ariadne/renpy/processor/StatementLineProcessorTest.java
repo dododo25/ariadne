@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbText;
+import com.dododo.ariadne.jaxb.model.JaxbText;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

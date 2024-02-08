@@ -1,9 +1,9 @@
 package com.dododo.ariadne.renpy.rpy.job;
 
 import com.dododo.ariadne.common.configuration.Configuration;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.test.assertions.JaxbAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
@@ -52,7 +52,7 @@ class CollectStatesJobTest {
     }
 
     private void testRunShouldDoneWell(JaxbState expected, Configuration config) {
-        JaxbComplexState rootState = new JaxbGroupState();
+        JaxbComplexState rootState = new JaxbRootState();
 
         for (int i = 0; i < config.getInputFiles().size(); i++) {
             CollectStatesJob job = new CollectStatesJob(i, rootState);

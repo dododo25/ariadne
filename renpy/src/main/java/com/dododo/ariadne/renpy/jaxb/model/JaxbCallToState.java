@@ -1,14 +1,24 @@
 package com.dododo.ariadne.renpy.jaxb.model;
 
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.model.JaxbSimpleState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.util.JaxbSingleFieldStateComparator;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
 
-import java.util.Objects;
+import java.util.Collection;
 
 public class JaxbCallToState implements JaxbSimpleState {
 
+    private final JaxbSingleFieldStateComparator comparator;
+
     private final String value;
 
+    private JaxbState root;
+
     public JaxbCallToState(String value) {
+        this.comparator = new JaxbSingleFieldStateComparator();
         this.value = value;
     }
 
@@ -18,13 +28,28 @@ public class JaxbCallToState implements JaxbSimpleState {
     }
 
     @Override
+    public JaxbState getRoot() {
+        return root;
+    }
+
+    @Override
+    public void setRoot(JaxbState state) {
+        this.root = state;
+    }
+
+    @Override
     public void accept(JaxbFlowchartContract contract) {
-        contract.accept(this);
+        ((RenPyJaxbFlowchartContract) contract).accept(this);
+    }
+
+    @Override
+    public void accept(JaxbFlowchartMouseStrategy strategy, JaxbFlowchartContract callback, Collection<JaxbState> grayStates, Collection<JaxbState> blackStates) {
+        strategy.acceptSingleState(this, callback, grayStates, blackStates);
     }
 
     @Override
     public int compareTo(JaxbState o) {
-        return o instanceof JaxbCallToState && Objects.equals(((JaxbCallToState) o).value, this.value) ? 0 : 1;
+        return comparator.compare(this, o);
     }
 
     @Override

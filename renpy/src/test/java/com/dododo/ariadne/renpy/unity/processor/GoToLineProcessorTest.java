@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.unity.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbJumpToState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbGoToState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,7 +18,7 @@ class GoToLineProcessorTest {
 
     @Test
     void testAcceptShouldReturnObject() {
-        JaxbState expected = new JaxbJumpToState("test");
+        JaxbState expected = new JaxbGoToState("test");
 
         Assertions.assertEquals(0, processor.accept("goto test").compareTo(expected));
         Assertions.assertEquals(0, processor.accept("goto   test").compareTo(expected));

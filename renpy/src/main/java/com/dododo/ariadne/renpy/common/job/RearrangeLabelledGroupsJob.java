@@ -1,18 +1,17 @@
 package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbOption;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
-import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.mouse.strategy.ChildFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.renpy.jaxb.mouse.ChildFirstRenPyJaxbFlowchartMouse;
 
 import java.util.stream.Collectors;
 
@@ -28,11 +27,7 @@ public final class RearrangeLabelledGroupsJob extends AbstractJob {
     public void run() {
         JaxbComplexState rootComplexState = (JaxbComplexState) rootState;
 
-        JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
-            @Override
-            public void accept(JaxbGroupState state) {
-                acceptComplexState(state);
-            }
+        RenPyJaxbFlowchartContract callback = new RenPyJaxbFlowchartContractAdapter() {
 
             @Override
             public void accept(JaxbInitGroupState state) {
@@ -78,10 +73,10 @@ public final class RearrangeLabelledGroupsJob extends AbstractJob {
                 return rootComplexState.childrenStream().anyMatch(child -> child == state);
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ChildFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ChildFirstRenPyJaxbFlowchartMouse();
 
         rootComplexState.childrenStream()
                 .collect(Collectors.toList())
-                .forEach(state -> state.accept(mouse));
+                .forEach(state -> mouse.accept(state, callback));
     }
 }

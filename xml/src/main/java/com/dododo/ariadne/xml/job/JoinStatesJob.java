@@ -14,6 +14,8 @@ import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbReply;
+import com.dododo.ariadne.jaxb.mouse.ChildFirstJaxbFlowchartMouse;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
 import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
 import com.dododo.ariadne.xml.common.model.ComplexState;
 import com.dododo.ariadne.xml.common.model.GoToPoint;
@@ -33,9 +35,7 @@ import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbText;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
-import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.jaxb.mouse.strategy.ChildFirstJaxbFlowchartMouseStrategy;
-import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.mouse.ParentFirstJaxbFlowchartMouse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -121,9 +121,9 @@ public final class JoinStatesJob extends AbstractJob {
                 map.put(state, new EndPoint());
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ParentFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ParentFirstJaxbFlowchartMouse();
 
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 
     private void joinStates(Map<JaxbState, State> map) {
@@ -179,8 +179,8 @@ public final class JoinStatesJob extends AbstractJob {
                 }
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ChildFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ChildFirstJaxbFlowchartMouse();
 
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 }

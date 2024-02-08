@@ -12,5 +12,7 @@ public interface JaxbComplexState extends JaxbState {
 
     void addChild(JaxbState state);
 
+    void addChildAt(int index, JaxbState state);
+
     void removeChild(JaxbState state);
 }

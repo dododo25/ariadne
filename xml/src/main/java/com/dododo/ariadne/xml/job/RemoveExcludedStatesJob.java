@@ -9,7 +9,7 @@ import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbText;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.mouse.ParentFirstJaxbFlowchartMouse;
 
 import java.util.Set;
 
@@ -45,8 +45,8 @@ public final class RemoveExcludedStatesJob extends AbstractJob {
                         .forEach(complexState::removeChild);
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ParentFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ParentFirstJaxbFlowchartMouse();
 
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 }

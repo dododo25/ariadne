@@ -1,19 +1,19 @@
 package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexSwitch;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
+import com.dododo.ariadne.jaxb.model.JaxbOption;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
-import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
 import java.util.stream.IntStream;
 
@@ -27,10 +27,10 @@ public final class PrepareJaxbComplexSwitchStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
+        RenPyJaxbFlowchartContract callback = new RenPyJaxbFlowchartContractAdapter() {
 
             @Override
-            public void accept(JaxbGroupState state) {
+            public void accept(JaxbRootState state) {
                 acceptComplexState(state);
             }
 
@@ -59,10 +59,9 @@ public final class PrepareJaxbComplexSwitchStatesJob extends AbstractJob {
                 acceptComplexState(group);
             }
         };
+        JaxbFlowchartMouse mouse = new ParentFirstRenPyJaxbFlowchartMouse();
 
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ParentFirstJaxbFlowchartMouseStrategy());
-
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 
     private void acceptComplexState(JaxbComplexState state) {
@@ -79,7 +78,7 @@ public final class PrepareJaxbComplexSwitchStatesJob extends AbstractJob {
                 fromIndex = null;
             }
 
-            if (child instanceof JaxbSwitchBranch) {
+            if (child instanceof JaxbSwitchBranch && !(child instanceof JaxbSwitchFalseBranch)) {
                 fromIndex = i;
             }
 
@@ -94,13 +93,13 @@ public final class PrepareJaxbComplexSwitchStatesJob extends AbstractJob {
     private void process(JaxbComplexState state, int from, int to) {
         JaxbComplexSwitch complexSwitch = new JaxbComplexSwitch();
 
-        IntStream.range(from, to).forEach(index -> {
-            JaxbComplexState branch = (JaxbComplexState) state.childAt(from);
-
-            complexSwitch.addChild(branch);
-            state.removeChild(branch);
-        });
-
         state.addChildAt(from, complexSwitch);
+
+        IntStream.range(from, to).forEach(index -> {
+            JaxbComplexState branch = (JaxbComplexState) state.childAt(from + 1);
+
+            state.removeChild(branch);
+            complexSwitch.addChild(branch);
+        });
     }
 }

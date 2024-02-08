@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 
 public final class ReplaceBracketsInTextLineProcessor extends LineProcessor {
 

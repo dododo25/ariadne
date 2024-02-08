@@ -2,6 +2,7 @@ package com.dododo.ariadne.renpy.rpy.provider;
 
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.renpy.common.job.AddMissingSwitchFalseBranchComplexStateJob;
 import com.dododo.ariadne.renpy.common.job.JoinLinkJumpPointsJob;
 import com.dododo.ariadne.renpy.common.job.JoinStatesJob;
@@ -16,8 +17,7 @@ import com.dododo.ariadne.renpy.common.job.RenPyRemoveStateJob;
 import com.dododo.ariadne.renpy.common.job.ValidateRawFlowchartJob;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.renpy.rpy.job.CollectStatesJob;
 import com.dododo.ariadne.renpy.rpy.job.PrepareGroupCallStatesJob;
 import com.dododo.ariadne.renpy.rpy.job.RearrangeInitGroupStatesJob;
@@ -31,7 +31,7 @@ public final class RenPyFlowchartJobsProvider extends FlowchartJobsProvider {
 
     @Override
     public void populateJobs(List<AbstractJob> jobs) {
-        JaxbComplexState rootState = new JaxbGroupState();
+        JaxbRootState rootState = new JaxbRootState();
 
         addCollectStatesJob(jobs, rootState);
         jobs.add(new ValidateRawFlowchartJob(rootState));

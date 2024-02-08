@@ -1,8 +1,8 @@
 package com.dododo.ariadne.renpy.rpy.processor;
 
 import com.dododo.ariadne.common.configuration.Configuration;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.processor.GenericLineProcessor;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import com.dododo.ariadne.renpy.processor.LineToSkipProcessor;

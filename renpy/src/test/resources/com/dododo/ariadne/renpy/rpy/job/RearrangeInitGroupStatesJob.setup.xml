@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
 
-    <node id="1" type="com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState" />
+    <node id="1" type="com.dododo.ariadne.jaxb.model.JaxbRootState" />
     <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState" />
-    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="i = 0" />
-    <node id="4" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="i += 1" />
+    <node id="3" type="com.dododo.ariadne.jaxb.model.JaxbText" value="i = 0" />
+    <node id="4" type="com.dododo.ariadne.jaxb.model.JaxbText" value="i += 1" />
     <node id="5" type="com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState" />
-    <node id="6" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="j = 0" />
+    <node id="6" type="com.dododo.ariadne.jaxb.model.JaxbText" value="j = 0" />
 
     <edge from="1" to="2" />
     <edge from="1" to="4" />

@@ -1,10 +1,9 @@
 package com.dododo.ariadne.renpy.jaxb.test.assertions;
 
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbSimpleFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbSimpleFlowchartContract;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +18,14 @@ public class JaxbAssertions {
 
         List<JaxbState> states = new ArrayList<>();
 
-        JaxbFlowchartContract c1 = new JaxbSimpleFlowchartContract() {
+        RenPyJaxbFlowchartContract c1 = new RenPyJaxbSimpleFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 states.add(state);
             }
         };
 
-        JaxbFlowchartContract c2 = new JaxbSimpleFlowchartContract() {
+        RenPyJaxbFlowchartContract c2 = new RenPyJaxbSimpleFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 if (stopProcessingRef.get()) {
@@ -55,10 +54,10 @@ public class JaxbAssertions {
             throw new AssertionError(String.format("Expected %s, got %s", s1, s2));
         }
 
-        JaxbFlowchartMouse m1 = new JaxbFlowchartMouse(c1, new ParentFirstJaxbFlowchartMouseStrategy());
-        JaxbFlowchartMouse m2 = new JaxbFlowchartMouse(c2, new ParentFirstJaxbFlowchartMouseStrategy());
+        ParentFirstRenPyJaxbFlowchartMouse m1 = new ParentFirstRenPyJaxbFlowchartMouse();
+        ParentFirstRenPyJaxbFlowchartMouse m2 = new ParentFirstRenPyJaxbFlowchartMouse();
 
-        s1.accept(m1);
-        s2.accept(m2);
+        m1.accept(s1, c1);
+        m2.accept(s2, c2);
     }
 }

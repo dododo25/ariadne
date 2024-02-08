@@ -4,7 +4,7 @@ import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.contract.JaxbSimpleFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.jaxb.mouse.ParentFirstJaxbFlowchartMouse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +41,6 @@ public class JaxbAssertions {
 
                 if (s.compareTo(state) != 0) {
                     throw new AssertionError(String.format("Expected %s, got %s", s, state));
-                } else if (s == state) {
-                    stopProcessingRef.set(true);
                 }
             }
         };
@@ -55,10 +53,10 @@ public class JaxbAssertions {
             throw new AssertionError(String.format("Expected %s, got %s", s1, s2));
         }
 
-        JaxbFlowchartMouse m1 = new JaxbFlowchartMouse(c1, new ParentFirstJaxbFlowchartMouseStrategy());
-        JaxbFlowchartMouse m2 = new JaxbFlowchartMouse(c2, new ParentFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse m1 = new ParentFirstJaxbFlowchartMouse();
+        JaxbFlowchartMouse m2 = new ParentFirstJaxbFlowchartMouse();
 
-        s1.accept(m1);
-        s2.accept(m2);
+        m1.accept(s1, c1);
+        m2.accept(s2, c2);
     }
 }
