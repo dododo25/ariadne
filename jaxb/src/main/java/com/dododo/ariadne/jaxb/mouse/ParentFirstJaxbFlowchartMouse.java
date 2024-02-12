@@ -8,6 +8,7 @@ import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrat
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ParentFirstJaxbFlowchartMouse extends JaxbFlowchartMouse {
@@ -34,15 +35,20 @@ public class ParentFirstJaxbFlowchartMouse extends JaxbFlowchartMouse {
 
     @Override
     public void accept(JaxbState state, JaxbFlowchartContract callback) {
-        Collection<JaxbState> grayStates = new ArrayList<>();
-        Collection<JaxbState> blackStates = new ArrayList<>();
+        List<JaxbState> grayStates = new ArrayList<>();
+        List<JaxbState> blackStates = new ArrayList<>();
 
         state.accept(strategy, callback, grayStates, blackStates);
 
         while (!grayStates.isEmpty()) {
-            grayStates.stream()
-                    .findFirst()
-                    .ifPresent(nextState -> nextState.accept(strategy, callback, grayStates, blackStates));
+            Collection<JaxbState> newGrayStates = new ArrayList<>();
+
+            grayStates.stream().findFirst().ifPresent(nextState -> {
+                grayStates.remove(nextState);
+                nextState.accept(strategy, callback, newGrayStates, blackStates);
+            });
+
+            grayStates.addAll(0, newGrayStates);
         }
     }
 }

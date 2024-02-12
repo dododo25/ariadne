@@ -1,9 +1,9 @@
 package com.dododo.ariadne.drawio.job;
 
-import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.common.configuration.Configuration;
 import com.dododo.ariadne.common.exception.AriadneException;
-import com.dododo.ariadne.mxg.MxFile;
+import com.dododo.ariadne.mxg.model.MxFile;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

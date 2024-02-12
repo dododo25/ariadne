@@ -27,9 +27,6 @@ public class JaxbOption implements JaxbComplexState {
     @XmlAttribute
     private String condition;
 
-    @XmlTransient
-    private JaxbState root;
-
     @XmlElements({
             @XmlElement(name = "text", type = JaxbText.class),
             @XmlElement(name = "reply", type = JaxbReply.class),
@@ -78,29 +75,16 @@ public class JaxbOption implements JaxbComplexState {
     @Override
     public void addChild(JaxbState state) {
         children.add(state);
-        state.setRoot(this);
     }
 
     @Override
     public void addChildAt(int index, JaxbState state) {
         children.add(index, state);
-        state.setRoot(this);
     }
 
     @Override
     public void removeChild(JaxbState state) {
         children.remove(state);
-        state.setRoot(null);
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

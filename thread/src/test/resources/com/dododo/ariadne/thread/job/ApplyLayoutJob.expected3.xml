@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.block.model.SwitchBlock" x="0" y="0" />
-    <node id="2" type="com.dododo.ariadne.block.model.TextBlock" x="-120" y="100" value="assignment1" />
-    <node id="3" type="com.dododo.ariadne.block.model.TextBlock" x="120" y="100" value="assignment2" />
-    <node id="4" type="com.dododo.ariadne.block.model.TextBlock" x="-120" y="200" value="statement3" />
-    <node id="5" type="com.dododo.ariadne.block.model.EndBlock" x="-80" y="300" />
+    <node id="1" type="com.dododo.ariadne.mxg.common.model.SwitchBlock" x="0" y="0" />
+    <node id="2" type="com.dododo.ariadne.mxg.common.model.TextBlock" x="-120" y="100" value="assignment1" />
+    <node id="3" type="com.dododo.ariadne.mxg.common.model.TextBlock" x="120" y="100" value="assignment2" />
+    <node id="4" type="com.dododo.ariadne.mxg.common.model.TextBlock" x="-120" y="200" value="statement3" />
+    <node id="5" type="com.dododo.ariadne.mxg.common.model.EndBlock" x="-80" y="300" />
 
     <edge from="1" to="2" switchBranch="true" />
     <edge from="1" to="3" switchBranch="false" />

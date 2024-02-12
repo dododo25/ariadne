@@ -15,8 +15,6 @@ public class JaxbCallToState implements JaxbSimpleState {
 
     private final String value;
 
-    private JaxbState root;
-
     public JaxbCallToState(String value) {
         this.comparator = new JaxbSingleFieldStateComparator();
         this.value = value;
@@ -25,16 +23,6 @@ public class JaxbCallToState implements JaxbSimpleState {
     @Override
     public String getValue() {
         return value;
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

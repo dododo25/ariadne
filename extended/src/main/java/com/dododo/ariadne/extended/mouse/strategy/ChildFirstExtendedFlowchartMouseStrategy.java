@@ -18,7 +18,5 @@ public class ChildFirstExtendedFlowchartMouseStrategy extends ChildFirstFlowchar
 
         blackStates.add(state);
         state.accept(callback);
-
-        acceptRoots(state, grayStates);
     }
 }

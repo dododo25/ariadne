@@ -30,9 +30,6 @@ public class JaxbComplexSwitch implements JaxbComplexState {
     @XmlElement(name = "else", type = JaxbSwitchBranch.class)
     private JaxbState elseChild;
 
-    @XmlTransient
-    private JaxbState root;
-
     public JaxbComplexSwitch() {
         this.comparator = new JaxbNoFiledStateComparator();
         this.elseIfChildren = new CopyOnWriteArrayList<>();
@@ -40,7 +37,7 @@ public class JaxbComplexSwitch implements JaxbComplexState {
 
     @Override
     public int childrenCount() {
-        return elseIfChildren.size() + (elseChild == null ? 0 : 1)+ (ifChild == null ? 0 : 1);
+        return elseIfChildren.size() + (ifChild == null ? 0 : 1) + (elseChild == null ? 0 : 1);
     }
 
     @Override
@@ -82,8 +79,6 @@ public class JaxbComplexSwitch implements JaxbComplexState {
         } else {
             elseIfChildren.add(state);
         }
-
-        branch.setRoot(this);
     }
 
     @Override
@@ -105,8 +100,6 @@ public class JaxbComplexSwitch implements JaxbComplexState {
         } else {
             elseChild = branch;
         }
-
-        branch.setRoot(this);
     }
 
     @Override
@@ -118,18 +111,6 @@ public class JaxbComplexSwitch implements JaxbComplexState {
         } else {
             elseIfChildren.remove(state);
         }
-
-        state.setRoot(null);
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

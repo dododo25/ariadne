@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 
 class ChildFirstFlowchartMouseStrategyTest {
 
@@ -32,13 +32,8 @@ class ChildFirstFlowchartMouseStrategyTest {
         EntryState first = new EntryState();
         EntryState second = new EntryState();
 
-        List<State> expectedGray = Collections.singletonList(first);
-        List<State> expectedBlack = Collections.singletonList(second);
-
-        Collection<State> grayStates = new ArrayList<>();
-        Collection<State> blackStates = new ArrayList<>();
-
-        first.setNext(second);
+        Collection<State> expected = Collections.singletonList(second);
+        Collection<State> states = new ArrayList<>();
 
         FlowchartContract callback = new SimpleFlowchartContract() {
             @Override
@@ -47,10 +42,10 @@ class ChildFirstFlowchartMouseStrategyTest {
             }
         };
 
-        second.accept(strategy, callback, grayStates, blackStates);
+        first.setNext(second);
+        second.accept(strategy, callback, new HashSet<>(), states);
 
-        Assertions.assertIterableEquals(expectedGray, grayStates);
-        Assertions.assertIterableEquals(expectedBlack, blackStates);
+        Assertions.assertIterableEquals(expected, states);
     }
 
     @Test
@@ -58,13 +53,8 @@ class ChildFirstFlowchartMouseStrategyTest {
         EntryState first = new EntryState();
         Menu second = new Menu();
 
-        List<State> expectedGray = Collections.singletonList(first);
-        List<State> expectedBlack = Collections.singletonList(second);
-
-        Collection<State> grayStates = new ArrayList<>();
-        Collection<State> blackStates = new ArrayList<>();
-
-        first.setNext(second);
+        Collection<State> expected = Collections.singletonList(second);
+        Collection<State> states = new ArrayList<>();
 
         FlowchartContract callback = new SimpleFlowchartContract() {
             @Override
@@ -73,27 +63,21 @@ class ChildFirstFlowchartMouseStrategyTest {
             }
         };
 
-        second.accept(strategy, callback, grayStates, blackStates);
+        first.setNext(second);
+        second.accept(strategy, callback, new HashSet<>(), states);
 
-        Assertions.assertIterableEquals(expectedGray, grayStates);
-        Assertions.assertIterableEquals(expectedBlack, blackStates);
+        Assertions.assertIterableEquals(expected, states);
     }
 
     @Test
-    void testAcceptSwitchShouldDoneWel() {
+    void testAcceptSwitchShouldDoneWell() {
         Switch aSwitch = new Switch("test");
 
         Text t1 = new Text("t1");
         Text t2 = new Text("t2");
 
-        List<State> expectedGray = Arrays.asList(aSwitch, aSwitch);
-        List<State> expectedBlack = Arrays.asList(t1, t2);
-
-        Collection<State> grayStates = new ArrayList<>();
-        Collection<State> blackStates = new ArrayList<>();
-
-        aSwitch.setTrueBranch(t1);
-        aSwitch.setFalseBranch(t2);
+        Collection<State> expected = Arrays.asList(t1, t2);
+        Collection<State> states = new ArrayList<>();
 
         FlowchartContract callback = new SimpleFlowchartContract() {
             @Override
@@ -102,22 +86,21 @@ class ChildFirstFlowchartMouseStrategyTest {
             }
         };
 
-        t1.accept(strategy, callback, grayStates, blackStates);
-        t2.accept(strategy, callback, grayStates, blackStates);
+        aSwitch.setTrueBranch(t1);
+        aSwitch.setFalseBranch(t2);
 
-        Assertions.assertIterableEquals(expectedGray, grayStates);
-        Assertions.assertIterableEquals(expectedBlack, blackStates);
+        t1.accept(strategy, callback, new HashSet<>(), states);
+        t2.accept(strategy, callback, new HashSet<>(), states);
+
+        Assertions.assertIterableEquals(expected, states);
     }
 
     @Test
     void testAcceptPointShouldDoneWell() {
         EndPoint point = new EndPoint();
 
-        List<State> expectedGray = Collections.emptyList();
-        List<State> expectedBlack = Collections.singletonList(point);
-
-        Collection<State> grayStates = new ArrayList<>();
-        Collection<State> blackStates = new ArrayList<>();
+        Collection<State> expected = Collections.singletonList(point);
+        Collection<State> states = new ArrayList<>();
 
         FlowchartContract callback = new SimpleFlowchartContract() {
             @Override
@@ -126,9 +109,8 @@ class ChildFirstFlowchartMouseStrategyTest {
             }
         };
 
-        point.accept(strategy, callback, grayStates, blackStates);
+        point.accept(strategy, callback, new HashSet<>(), states);
 
-        Assertions.assertIterableEquals(expectedGray, grayStates);
-        Assertions.assertIterableEquals(expectedBlack, blackStates);
+        Assertions.assertIterableEquals(expected, states);
     }
 }

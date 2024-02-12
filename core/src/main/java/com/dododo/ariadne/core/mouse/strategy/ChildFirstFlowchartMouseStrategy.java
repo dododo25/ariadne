@@ -7,7 +7,6 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy {
@@ -20,8 +19,6 @@ public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy 
 
         blackStates.add(state);
         state.accept(callback);
-
-        acceptRoots(state, grayStates);
     }
 
     @Override
@@ -32,8 +29,6 @@ public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy 
 
         blackStates.add(menu);
         callback.accept(menu);
-
-        acceptRoots(menu, grayStates);
     }
 
     @Override
@@ -44,8 +39,6 @@ public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy 
 
         blackStates.add(aSwitch);
         callback.accept(aSwitch);
-
-        acceptRoots(aSwitch, grayStates);
     }
 
     @Override
@@ -56,11 +49,5 @@ public class ChildFirstFlowchartMouseStrategy implements FlowchartMouseStrategy 
 
         blackStates.add(point);
         point.accept(callback);
-
-        acceptRoots(point, grayStates);
-    }
-
-    protected void acceptRoots(State state, Collection<State> grayStates) {
-        grayStates.addAll(Arrays.asList(state.getRoots()));
     }
 }

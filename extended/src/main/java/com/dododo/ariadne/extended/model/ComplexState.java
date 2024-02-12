@@ -59,7 +59,7 @@ public class ComplexState extends State {
     }
 
     @Override
-    public void accept(FlowchartMouseStrategy strategy, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+    public final void accept(FlowchartMouseStrategy strategy, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
         ((ExtendedFlowchartMouseStrategy) strategy).acceptComplexState(this, callback, grayStates, blackStates);
     }
 

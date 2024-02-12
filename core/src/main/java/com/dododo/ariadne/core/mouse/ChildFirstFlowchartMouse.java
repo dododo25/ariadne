@@ -2,6 +2,7 @@ package com.dododo.ariadne.core.mouse;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
+import com.dododo.ariadne.core.model.AbstractPoint;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.CycleEntryState;
@@ -27,7 +28,7 @@ public class ChildFirstFlowchartMouse extends FlowchartMouse {
         super(new ChildFirstFlowchartMouseStrategy());
     }
 
-    public ChildFirstFlowchartMouse(ChildFirstFlowchartMouseStrategy strategy) {
+    protected ChildFirstFlowchartMouse(ChildFirstFlowchartMouseStrategy strategy) {
         super(strategy);
     }
 
@@ -45,22 +46,22 @@ public class ChildFirstFlowchartMouse extends FlowchartMouse {
 
     @Override
     public void accept(State state, FlowchartContract callback) {
-        Collection<State> grayStates = new ArrayList<>(prepareStartingPoints(state));
         Collection<State> blackStates = new ArrayList<>();
+        Collection<State> grayStates = prepareStartingPoints(state, blackStates);
 
         while (!grayStates.isEmpty()) {
-            grayStates.stream().findFirst().ifPresent(nextState -> {
-                grayStates.remove(nextState);
-                nextState.accept(strategy, callback, grayStates, blackStates);
-            });
+            grayStates.forEach(nextState ->
+                    nextState.accept(strategy, callback, new HashSet<>(), blackStates));
+
+            grayStates = prepareStartingPoints(state, blackStates);
         }
     }
 
-    protected Collection<State> prepareStartingPoints(State state) {
-        Collection<State> result = new HashSet<>();
+    protected Collection<State> prepareStartingPoints(State state, Collection<State> blackStates) {
+        Collection<State> result = new ArrayList<>();
 
-        FlowchartContract callback = new InnerFlowchartContract(result);
-        ParentFirstFlowchartMouse mouse = new ParentFirstFlowchartMouse();
+        FlowchartContract callback = new InnerFlowchartContract(result, blackStates);
+        FlowchartMouse mouse = new ParentFirstFlowchartMouse();
 
         mouse.accept(state, callback);
 
@@ -71,8 +72,11 @@ public class ChildFirstFlowchartMouse extends FlowchartMouse {
 
         protected final Collection<State> result;
 
-        public InnerFlowchartContract(Collection<State> result) {
+        protected final Collection<State> blackStates;
+
+        public InnerFlowchartContract(Collection<State> result, Collection<State> blackStates) {
             this.result = result;
+            this.blackStates = new HashSet<>(blackStates);
         }
 
         @Override
@@ -112,37 +116,54 @@ public class ChildFirstFlowchartMouse extends FlowchartMouse {
 
         @Override
         public void accept(Menu menu) {
-            if (menu.branchesCount() == 0) {
-                result.add(menu);
+            if (blackStates.contains(menu)) {
+                return;
             }
 
-            menu.branchesStream().forEach(option -> {
-                State nextState = option.getNext();
+            blackStates.add(menu);
 
-                if (nextState == menu) {
-                    result.add(option);
-                }
-            });
+            if (menu.branchesCount() == 0 || menu.branchesStream().allMatch(blackStates::contains)) {
+                result.add(menu);
+            }
         }
 
         @Override
         public void accept(Switch aSwitch) {
-            if (aSwitch.getTrueBranch() == null && aSwitch.getFalseBranch() == null
-                    || aSwitch.getTrueBranch() == aSwitch
-                    || aSwitch.getFalseBranch() == aSwitch) {
+            if (blackStates.contains(aSwitch)) {
+                return;
+            }
+
+            blackStates.add(aSwitch);
+
+            if (blackStates.contains(aSwitch.getTrueBranch()) && blackStates.contains(aSwitch.getFalseBranch())) {
                 result.add(aSwitch);
             }
         }
 
         @Override
         public void accept(EndPoint point) {
-            result.add(point);
+            acceptPoint(point);
         }
 
         protected void acceptChainState(ChainState state) {
-            if (state.getNext() == null || state.getNext() == state) {
+            if (blackStates.contains(state)) {
+                return;
+            }
+
+            blackStates.add(state);
+
+            if (state.getNext() == null || blackStates.contains(state.getNext())) {
                 result.add(state);
             }
+        }
+
+        protected void acceptPoint(AbstractPoint point) {
+            if (blackStates.contains(point)) {
+                return;
+            }
+
+            blackStates.add(point);
+            result.add(point);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.dododo.ariadne.extended.mouse;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
-import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.ChildFirstFlowchartMouse;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
@@ -15,8 +14,8 @@ import com.dododo.ariadne.extended.model.PassState;
 import com.dododo.ariadne.extended.model.SwitchBranch;
 import com.dododo.ariadne.extended.mouse.strategy.ChildFirstExtendedFlowchartMouseStrategy;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.function.Consumer;
 
 public class ChildFirstExtendedFlowchartMouse extends ChildFirstFlowchartMouse {
@@ -38,10 +37,10 @@ public class ChildFirstExtendedFlowchartMouse extends ChildFirstFlowchartMouse {
     }
 
     @Override
-    protected Collection<State> prepareStartingPoints(State state) {
-        Collection<State> result = new HashSet<>();
+    protected Collection<State> prepareStartingPoints(State state, Collection<State> blackStates) {
+        Collection<State> result = new ArrayList<>();
 
-        FlowchartContract callback = new ExtendedInnerFlowchartContract(result);
+        FlowchartContract callback = new ExtendedInnerFlowchartContract(result, blackStates);
         FlowchartMouse mouse = new ParentFirstExtendedFlowchartMouse();
 
         mouse.accept(state, callback);
@@ -52,31 +51,26 @@ public class ChildFirstExtendedFlowchartMouse extends ChildFirstFlowchartMouse {
     protected static class ExtendedInnerFlowchartContract extends InnerFlowchartContract
             implements ExtendedFlowchartContract {
 
-        public ExtendedInnerFlowchartContract(Collection<State> result) {
-            super(result);
+        public ExtendedInnerFlowchartContract(Collection<State> result, Collection<State> blackStates) {
+            super(result, blackStates);
         }
 
         @Override
         public void accept(ComplexState state) {
-            if (state.childrenCount() == 0) {
-                result.add(state);
+            if (blackStates.contains(state)) {
+                return;
             }
 
-            state.childrenStream()
-                    .filter(ChainState.class::isInstance)
-                    .map(ChainState.class::cast)
-                    .forEach(child -> {
-                        State nextState = child.getNext();
+            blackStates.add(state);
 
-                        if (nextState == state) {
-                            result.add(child);
-                        }
-                    });
+            if (state.childrenCount() == 0 || state.childrenStream().allMatch(blackStates::contains)) {
+                result.add(state);
+            }
         }
 
         @Override
-        public void accept(Label group) {
-            acceptChainState(group);
+        public void accept(Label label) {
+            acceptChainState(label);
         }
 
         @Override
@@ -96,7 +90,7 @@ public class ChildFirstExtendedFlowchartMouse extends ChildFirstFlowchartMouse {
 
         @Override
         public void accept(GoToPoint point) {
-            result.add(point);
+            acceptPoint(point);
         }
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.block.model.EntryBlock" x="0" y="0" />
-    <node id="2" type="com.dododo.ariadne.block.model.TextBlock" value="assignment1" x="0" y="0" />
-    <node id="3" type="com.dododo.ariadne.block.model.SwitchBlock" condition="switch" x="0" y="0" />
-    <node id="4" type="com.dododo.ariadne.block.model.TextBlock" value="assignment2" x="0" y="0" />
+    <node id="1" type="com.dododo.ariadne.mxg.common.model.EntryBlock" x="0" y="0" />
+    <node id="2" type="com.dododo.ariadne.mxg.common.model.TextBlock" value="assignment1" x="0" y="0" />
+    <node id="3" type="com.dododo.ariadne.mxg.common.model.SwitchBlock" condition="switch" x="0" y="0" />
+    <node id="4" type="com.dododo.ariadne.mxg.common.model.TextBlock" value="assignment2" x="0" y="0" />
 
     <edge from="1" to="2" />
     <edge from="2" to="3" />

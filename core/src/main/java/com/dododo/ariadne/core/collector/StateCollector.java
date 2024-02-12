@@ -3,8 +3,8 @@ package com.dododo.ariadne.core.collector;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.State;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 public abstract class StateCollector<S extends State> {
 
@@ -14,11 +14,11 @@ public abstract class StateCollector<S extends State> {
         this.mouse = mouse;
     }
 
-    public Set<S> collect(State flowchart) {
-        Set<S> result = new HashSet<>();
+    public Collection<S> collect(State flowchart) {
+        Collection<S> result = new HashSet<>();
         mouse.accept(flowchart, state -> accept(result, state));
         return result;
     }
 
-    protected abstract void accept(Set<S> set, State state);
+    protected abstract void accept(Collection<S> set, State state);
 }

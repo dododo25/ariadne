@@ -22,9 +22,6 @@ public class JaxbMenu implements JaxbComplexState {
     @XmlElement(name = "option", type = JaxbOption.class)
     private final List<JaxbState> children;
 
-    @XmlTransient
-    private JaxbState root;
-
     public JaxbMenu() {
         this.comparator = new JaxbNoFiledStateComparator();
         this.children = new CopyOnWriteArrayList<>();
@@ -48,29 +45,16 @@ public class JaxbMenu implements JaxbComplexState {
     @Override
     public void addChild(JaxbState state) {
         children.add(state);
-        state.setRoot(this);
     }
 
     @Override
     public void addChildAt(int index, JaxbState state) {
         children.add(index, state);
-        state.setRoot(this);
     }
 
     @Override
     public void removeChild(JaxbState state) {
         children.remove(state);
-        state.setRoot(null);
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

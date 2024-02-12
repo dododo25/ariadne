@@ -8,6 +8,7 @@ import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPySimpleFlowchartContract;
 import com.dododo.ariadne.renpy.common.model.CallToState;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.function.Consumer;
@@ -27,10 +28,23 @@ public class ChildFirstRenPyFlowchartMouse extends ChildFirstExtendedFlowchartMo
     }
 
     @Override
-    protected Collection<State> prepareStartingPoints(State state) {
-        Collection<State> result = new HashSet<>();
+    public void accept(State state, FlowchartContract callback) {
+        Collection<State> blackStates = new HashSet<>();
+        Collection<State> grayStates = prepareStartingPoints(state, blackStates);
 
-        FlowchartContract callback = new RenPyInnerFlowchartContract(result);
+        while (!grayStates.isEmpty()) {
+            grayStates.forEach(nextState ->
+                    nextState.accept(strategy, callback, new HashSet<>(), blackStates));
+
+            grayStates = prepareStartingPoints(state, blackStates);
+        }
+    }
+
+    @Override
+    protected Collection<State> prepareStartingPoints(State state, Collection<State> blackStates) {
+        Collection<State> result = new ArrayList<>();
+
+        FlowchartContract callback = new RenPyInnerFlowchartContract(result, blackStates);
         FlowchartMouse mouse = new ParentFirstRenPyFlowchartMouse();
 
         mouse.accept(state, callback);
@@ -41,8 +55,8 @@ public class ChildFirstRenPyFlowchartMouse extends ChildFirstExtendedFlowchartMo
     private static class RenPyInnerFlowchartContract extends ExtendedInnerFlowchartContract
             implements RenPyFlowchartContract {
 
-        public RenPyInnerFlowchartContract(Collection<State> result) {
-            super(result);
+        public RenPyInnerFlowchartContract(Collection<State> result, Collection<State> blackStates) {
+            super(result, blackStates);
         }
 
         @Override

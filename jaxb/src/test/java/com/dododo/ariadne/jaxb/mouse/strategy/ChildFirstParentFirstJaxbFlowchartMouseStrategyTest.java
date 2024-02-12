@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 
 class ChildFirstParentFirstJaxbFlowchartMouseStrategyTest {
 
@@ -28,11 +28,8 @@ class ChildFirstParentFirstJaxbFlowchartMouseStrategyTest {
         JaxbRootState rootState = new JaxbRootState();
         JaxbText text = new JaxbText("text");
 
-        List<JaxbState> expectedGray = Collections.singletonList(rootState);
-        List<JaxbState> expectedBlack = Collections.singletonList(text);
-
-        Collection<JaxbState> grayStates = new ArrayList<>();
-        Collection<JaxbState> blackStates = new ArrayList<>();
+        Collection<JaxbState> expected = Collections.singletonList(text);
+        Collection<JaxbState> states = new ArrayList<>();
 
         JaxbFlowchartContract callback = new JaxbSimpleFlowchartContract() {
             @Override
@@ -42,9 +39,8 @@ class ChildFirstParentFirstJaxbFlowchartMouseStrategyTest {
         };
 
         rootState.addChild(text);
-        text.accept(strategy, callback, grayStates, blackStates);
+        text.accept(strategy, callback, new HashSet<>(), states);
 
-        Assertions.assertIterableEquals(expectedGray, grayStates);
-        Assertions.assertIterableEquals(expectedBlack, blackStates);
+        Assertions.assertIterableEquals(expected, states);
     }
 }

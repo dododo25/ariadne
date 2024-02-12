@@ -22,9 +22,6 @@ public class JaxbReply implements JaxbState {
     @XmlAttribute(name = "line")
     private String line;
 
-    @XmlTransient
-    private JaxbState root;
-
     public JaxbReply() {
         this(null, null);
     }
@@ -41,16 +38,6 @@ public class JaxbReply implements JaxbState {
 
     public String getLine() {
         return line;
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

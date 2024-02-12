@@ -36,10 +36,10 @@ public class ChildFirstRenPyJaxbFlowchartMouse extends ChildFirstJaxbFlowchartMo
     }
 
     @Override
-    protected Collection<JaxbState> prepareStartingPoints(JaxbState state) {
+    protected Collection<JaxbState> prepareStartingPoints(JaxbState state, Collection<JaxbState> blackStates) {
         Collection<JaxbState> result = new ArrayList<>();
 
-        JaxbFlowchartContract callback = new InnerRenPyJaxbFlowchartContract(result);
+        JaxbFlowchartContract callback = new InnerRenPyJaxbFlowchartContract(result, blackStates);
         JaxbFlowchartMouse mouse = new ParentFirstRenPyJaxbFlowchartMouse();
 
         mouse.accept(state, callback);
@@ -50,8 +50,8 @@ public class ChildFirstRenPyJaxbFlowchartMouse extends ChildFirstJaxbFlowchartMo
     protected static class InnerRenPyJaxbFlowchartContract extends InnerJaxbFlowchartContract
             implements RenPyJaxbFlowchartContract {
 
-        public InnerRenPyJaxbFlowchartContract(Collection<JaxbState> result) {
-            super(result);
+        public InnerRenPyJaxbFlowchartContract(Collection<JaxbState> result, Collection<JaxbState> blackStates) {
+            super(result, blackStates);
         }
 
         @Override

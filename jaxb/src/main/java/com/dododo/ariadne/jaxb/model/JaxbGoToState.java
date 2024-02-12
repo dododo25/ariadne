@@ -19,9 +19,6 @@ public class JaxbGoToState implements JaxbSimpleState {
     @XmlAttribute
     private String value;
 
-    @XmlTransient
-    private JaxbState root;
-
     public JaxbGoToState() {
         this(null);
     }
@@ -34,16 +31,6 @@ public class JaxbGoToState implements JaxbSimpleState {
     @Override
     public String getValue() {
         return value;
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

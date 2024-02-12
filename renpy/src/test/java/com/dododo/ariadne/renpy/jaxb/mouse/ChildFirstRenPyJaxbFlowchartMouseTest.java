@@ -56,8 +56,8 @@ class ChildFirstRenPyJaxbFlowchartMouseTest {
 
     @Test
     void testAcceptShouldNotThrowException() {
-        Collection<JaxbState> expected = Arrays.asList(text, group, passState, endState, goToState, rootState,
-                switchBranch1, switchBranch2, complexSwitch);
+        Collection<JaxbState> expected = Arrays.asList(text, group, passState, endState, goToState, switchBranch1,
+                switchBranch2, complexSwitch, rootState);
         List<JaxbState> states = new ArrayList<>();
 
         JaxbFlowchartMouse mouse = new ChildFirstRenPyJaxbFlowchartMouse();

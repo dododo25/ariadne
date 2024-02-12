@@ -33,8 +33,8 @@ class ParentFirstFlowchartMouseStrategyTest {
         EntryState first = new EntryState();
         EntryState second = new EntryState();
 
-        List<State> expectedGray = Collections.emptyList();
-        List<State> expectedBlack = Arrays.asList(first, second);
+        List<State> expectedGray = Collections.singletonList(second);
+        List<State> expectedBlack = Collections.singletonList(first);
 
         first.setNext(second);
 

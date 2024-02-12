@@ -21,8 +21,6 @@ public class JaxbMenu implements JaxbSimpleState, JaxbComplexState {
 
     private final List<JaxbState> children;
 
-    private JaxbState root;
-
     public JaxbMenu() {
         this(null);
     }
@@ -65,16 +63,6 @@ public class JaxbMenu implements JaxbSimpleState, JaxbComplexState {
     @Override
     public void removeChild(JaxbState state) {
         children.remove(state);
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

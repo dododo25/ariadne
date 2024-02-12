@@ -18,8 +18,6 @@ public class JaxbInitGroupState implements JaxbComplexState {
 
     private final List<JaxbState> children;
 
-    private JaxbState root;
-
     public JaxbInitGroupState() {
         this.comparator = new JaxbNoFiledStateComparator();
         this.children = new ArrayList<>();
@@ -53,16 +51,6 @@ public class JaxbInitGroupState implements JaxbComplexState {
     @Override
     public void removeChild(JaxbState state) {
         children.remove(state);
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

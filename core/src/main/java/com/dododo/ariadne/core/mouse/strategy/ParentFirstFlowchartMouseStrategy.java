@@ -13,26 +13,24 @@ public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy
     
     @Override
     public void acceptChainState(ChainState state, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
-        State current = state;
+        grayStates.remove(state);
 
-        while (current instanceof ChainState) {
-            if (blackStates.contains(current)) {
-                break;
-            }
-
-            blackStates.add(current);
-            current.accept(callback);
-
-            current = ((ChainState) current).getNext();
+        if (blackStates.contains(state)) {
+            return;
         }
 
-        if (current != null && !blackStates.contains(current)) {
-            grayStates.add(current);
+        blackStates.add(state);
+        state.accept(callback);
+
+        if (state.getNext() != null) {
+            grayStates.add(state.getNext());
         }
     }
 
     @Override
     public void acceptMenu(Menu menu, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+        grayStates.remove(menu);
+
         if (blackStates.contains(menu)) {
             return;
         }
@@ -46,6 +44,8 @@ public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy
 
     @Override
     public void acceptSwitch(Switch aSwitch, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+        grayStates.remove(aSwitch);
+
         if (blackStates.contains(aSwitch)) {
             return;
         }
@@ -64,6 +64,8 @@ public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy
 
     @Override
     public void acceptPoint(AbstractPoint point, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+        grayStates.remove(point);
+
         if (blackStates.contains(point)) {
             return;
         }

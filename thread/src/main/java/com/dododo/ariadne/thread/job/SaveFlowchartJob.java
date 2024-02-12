@@ -1,11 +1,11 @@
 package com.dododo.ariadne.thread.job;
 
-import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.common.configuration.Configuration;
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.mxg.MxFile;
+import com.dododo.ariadne.mxg.model.MxFile;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.xml.sax.SAXException;

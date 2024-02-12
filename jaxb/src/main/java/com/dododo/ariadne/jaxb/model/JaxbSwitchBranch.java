@@ -35,9 +35,6 @@ public class JaxbSwitchBranch implements JaxbComplexState, JaxbSimpleState {
     })
     private final List<JaxbState> children;
 
-    @XmlTransient
-    private JaxbState root;
-
     public JaxbSwitchBranch() {
         this(null);
     }
@@ -71,29 +68,16 @@ public class JaxbSwitchBranch implements JaxbComplexState, JaxbSimpleState {
     @Override
     public void addChild(JaxbState state) {
         children.add(state);
-        state.setRoot(this);
     }
 
     @Override
     public void addChildAt(int index, JaxbState state) {
         children.add(index, state);
-        state.setRoot(this);
     }
 
     @Override
     public void removeChild(JaxbState state) {
         children.remove(state);
-        state.setRoot(null);
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

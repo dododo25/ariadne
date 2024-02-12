@@ -7,6 +7,7 @@ import com.dododo.ariadne.core.mouse.strategy.ParentFirstFlowchartMouseStrategy;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ParentFirstFlowchartMouse extends FlowchartMouse {
@@ -33,16 +34,20 @@ public class ParentFirstFlowchartMouse extends FlowchartMouse {
 
     @Override
     public void accept(State state, FlowchartContract callback) {
-        Collection<State> grayStates = new ArrayList<>();
-        Collection<State> blackStates = new ArrayList<>();
+        List<State> grayStates = new ArrayList<>();
+        List<State> blackStates = new ArrayList<>();
 
         state.accept(strategy, callback, grayStates, blackStates);
 
         while (!grayStates.isEmpty()) {
+            Collection<State> newGrayStates = new ArrayList<>();
+
             grayStates.stream().findFirst().ifPresent(nextState -> {
                 grayStates.remove(nextState);
-                nextState.accept(strategy, callback, grayStates, blackStates);
+                nextState.accept(strategy, callback, newGrayStates, blackStates);
             });
+
+            grayStates.addAll(0, newGrayStates);
         }
     }
 }

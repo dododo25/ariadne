@@ -1,20 +1,20 @@
 package com.dododo.ariadne.drawio.job;
 
-import com.dododo.ariadne.block.contract.BlockFlowchartContract;
-import com.dododo.ariadne.block.contract.BlockFlowchartContractAdapter;
-import com.dododo.ariadne.block.contract.BlockSimpleFlowchartContract;
-import com.dododo.ariadne.block.model.Block;
-import com.dododo.ariadne.block.model.ChainBlock;
-import com.dododo.ariadne.block.model.ConditionalOptionBlock;
-import com.dododo.ariadne.block.model.EntryBlock;
-import com.dododo.ariadne.block.model.MenuBlock;
-import com.dododo.ariadne.block.model.OptionBlock;
-import com.dododo.ariadne.block.model.ReplyBlock;
-import com.dododo.ariadne.block.model.SwitchBlock;
-import com.dododo.ariadne.block.model.TextBlock;
-import com.dododo.ariadne.block.mouse.BlockFlowchartMouse;
-import com.dododo.ariadne.block.mouse.strategy.ParentFirstBlockFlowchartMouseStrategy;
-import com.dododo.ariadne.mxg.MxFile;
+import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContractAdapter;
+import com.dododo.ariadne.mxg.common.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.mxg.common.model.Block;
+import com.dododo.ariadne.mxg.common.model.ChainBlock;
+import com.dododo.ariadne.mxg.common.model.ConditionalOptionBlock;
+import com.dododo.ariadne.mxg.common.model.EntryBlock;
+import com.dododo.ariadne.mxg.common.model.MenuBlock;
+import com.dododo.ariadne.mxg.common.model.OptionBlock;
+import com.dododo.ariadne.mxg.common.model.ReplyBlock;
+import com.dododo.ariadne.mxg.common.model.SwitchBlock;
+import com.dododo.ariadne.mxg.common.model.TextBlock;
+import com.dododo.ariadne.mxg.common.mouse.BlockFlowchartMouse;
+import com.dododo.ariadne.mxg.common.mouse.ParentFirstBlockFlowchartMouse;
+import com.dododo.ariadne.mxg.model.MxFile;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,8 +32,11 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
 
     public static final int VERTICAL_PADDING = 40;
 
+    private final BlockFlowchartMouse mouse;
+
     public ApplyLayoutJob(AtomicReference<MxFile> mxFileRef, AtomicReference<Block> rootBlockRef) {
         super(mxFileRef, rootBlockRef);
+        this.mouse = new ParentFirstBlockFlowchartMouse();
     }
 
     @Override
@@ -62,7 +65,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
         };
 
-        runMouse(root, callback);
+        mouse.accept(root, callback);
     }
 
     private void collectBlocks(Block root, Collection<Block> blocks) {
@@ -75,7 +78,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
         };
 
-        runMouse(root, callback);
+        mouse.accept(root, callback);
     }
 
     private void collectLoopBlocks(Block root, Map<Block, Map<Block, SwitchBranch>> map) {
@@ -136,7 +139,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
         };
 
-        runMouse(root, callback);
+        mouse.accept(root, callback);
     }
 
     private void unwrapLoops(Map<Block, Map<Block, SwitchBranch>> map) {
@@ -258,7 +261,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
         };
 
-        runMouse(root, callback);
+        mouse.accept(root, callback);
     }
 
     private void wrapLoops(Map<Block, Map<Block, SwitchBranch>> map) {
@@ -356,15 +359,8 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
             }
         };
 
-        runMouse(child, callback);
+        mouse.accept(child, callback);
         return result.get();
-    }
-
-    private void runMouse(Block block, BlockFlowchartContract contract) {
-        BlockFlowchartContract mouse = new BlockFlowchartMouse(contract,
-                new ParentFirstBlockFlowchartMouseStrategy());
-
-        block.accept(mouse);
     }
 
     private enum SwitchBranch {

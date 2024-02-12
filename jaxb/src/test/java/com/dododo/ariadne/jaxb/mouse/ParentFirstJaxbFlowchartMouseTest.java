@@ -36,7 +36,7 @@ class ParentFirstJaxbFlowchartMouseTest {
         complexSwitch = new JaxbComplexSwitch();
         switchBranch1 = new JaxbSwitchBranch("branch1");
         switchBranch2 = new JaxbSwitchBranch("branch2");
-        label = new JaxbLabel("marker");
+        label = new JaxbLabel("label");
         goToState = new JaxbGoToState("goToState");
         passState = new JaxbPassState();
         endState = new JaxbEndState();
@@ -53,8 +53,8 @@ class ParentFirstJaxbFlowchartMouseTest {
 
     @Test
     void testAcceptShouldNotThrowException() {
-        List<JaxbState> expected = Arrays.asList(rootState, text, complexSwitch, switchBranch1, switchBranch2,
-                label, passState, endState, goToState);
+        List<JaxbState> expected = Arrays.asList(rootState, text, complexSwitch, switchBranch1, label, passState,
+                endState, switchBranch2, goToState);
         List<JaxbState> states = new ArrayList<>();
 
         JaxbFlowchartMouse mouse = new ParentFirstJaxbFlowchartMouse();

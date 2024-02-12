@@ -1,8 +1,8 @@
 package com.dododo.ariadne.thread.job;
 
-import com.dododo.ariadne.mxg.Diagram;
-import com.dododo.ariadne.mxg.MxFile;
-import com.dododo.ariadne.mxg.MxGraphModel;
+import com.dododo.ariadne.mxg.model.Diagram;
+import com.dododo.ariadne.mxg.model.MxFile;
+import com.dododo.ariadne.mxg.model.MxGraphModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

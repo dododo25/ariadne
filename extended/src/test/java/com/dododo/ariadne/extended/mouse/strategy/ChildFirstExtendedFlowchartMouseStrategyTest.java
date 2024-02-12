@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 class ChildFirstExtendedFlowchartMouseStrategyTest {
 
@@ -24,22 +26,20 @@ class ChildFirstExtendedFlowchartMouseStrategyTest {
     }
 
     @Test
-    void testAcceptComplexStateShouldDoneWell() {
+    void testAcceptPointShouldDoneWell() {
         ComplexState first = new ComplexState();
         EndPoint point = new EndPoint();
 
-        List<State> expectedGray = Collections.singletonList(first);
-        List<State> expectedBlack = Collections.singletonList(point);
+        List<State> expected = Collections.singletonList(point);
 
         first.addChild(point);
 
-        testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
-                strategy.acceptPoint(point, callback, grayStates, blackStates));
+        testAccept(expected, (callback, blackStates) ->
+                strategy.acceptPoint(point, callback, new HashSet<>(), blackStates));
     }
 
-    private void testAccept(Collection<State> expectedGray, Collection<State> expectedBlack, TestConsumer consumer) {
-        Collection<State> grayStates = new ArrayList<>();
-        Collection<State> blackStates = new ArrayList<>();
+    private void testAccept(Collection<State> expected, BiConsumer<FlowchartContract, Collection<State>> consumer) {
+        Collection<State> states = new ArrayList<>();
 
         FlowchartContract callback = new ExtendedSimpleFlowchartContract() {
             @Override
@@ -48,15 +48,7 @@ class ChildFirstExtendedFlowchartMouseStrategyTest {
             }
         };
 
-        consumer.accept(callback, grayStates, blackStates);
-
-        Assertions.assertIterableEquals(expectedGray, grayStates);
-        Assertions.assertIterableEquals(expectedBlack, blackStates);
-    }
-
-    interface TestConsumer {
-
-        void accept(FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
-
+        consumer.accept(callback, states);
+        Assertions.assertIterableEquals(expected, states);
     }
 }

@@ -15,21 +15,8 @@ public class JaxbEndState implements JaxbState {
     @XmlTransient
     private final JaxbNoFiledStateComparator comparator;
 
-    @XmlTransient
-    private JaxbState root;
-
     public JaxbEndState() {
         comparator = new JaxbNoFiledStateComparator();
-    }
-
-    @Override
-    public JaxbState getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(JaxbState state) {
-        this.root = state;
     }
 
     @Override

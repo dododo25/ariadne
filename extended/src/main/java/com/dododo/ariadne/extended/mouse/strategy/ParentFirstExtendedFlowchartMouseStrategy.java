@@ -12,6 +12,8 @@ public class ParentFirstExtendedFlowchartMouseStrategy extends ParentFirstFlowch
 
     @Override
     public void acceptComplexState(ComplexState state, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
+        grayStates.remove(state);
+
         if (blackStates.contains(state)) {
             return;
         }

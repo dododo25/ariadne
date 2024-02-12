@@ -1,7 +1,7 @@
 package com.dododo.ariadne.drawio.job;
 
-import com.dododo.ariadne.block.factory.BlockComparatorFactory;
-import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.mxg.common.factory.BlockComparatorFactory;
+import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.mt.assertions.BlockAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
