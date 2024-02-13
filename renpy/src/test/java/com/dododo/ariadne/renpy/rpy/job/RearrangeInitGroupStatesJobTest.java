@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.rpy.job;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.test.assertions.JaxbAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;

@@ -4,7 +4,7 @@ import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
-import com.dododo.ariadne.jaxb.model.JaxbMarker;
+import com.dododo.ariadne.jaxb.model.JaxbLabel;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
@@ -61,8 +61,8 @@ public class JaxbFlowchartRulesSupplier {
     }
 
     @RuleSetSupplier
-    public RuleSet createRuleForJaxbMarker() {
-        return createRuleForSimpleState(JaxbMarker.class, JaxbMarker::new);
+    public RuleSet createRuleForJaxbLabel() {
+        return createRuleForSimpleState(JaxbLabel.class, JaxbLabel::new);
     }
 
     @RuleSetSupplier

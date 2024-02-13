@@ -1,16 +1,16 @@
 package com.dododo.ariadne.mt.supplier;
 
-import com.dododo.ariadne.block.model.Block;
-import com.dododo.ariadne.block.model.ChainBlock;
-import com.dododo.ariadne.block.model.ConditionalOptionBlock;
-import com.dododo.ariadne.block.model.EndBlock;
-import com.dododo.ariadne.block.model.EntryBlock;
-import com.dododo.ariadne.block.model.MenuBlock;
-import com.dododo.ariadne.block.model.OptionBlock;
-import com.dododo.ariadne.block.model.ReplyBlock;
-import com.dododo.ariadne.block.model.SimpleBlock;
-import com.dododo.ariadne.block.model.SwitchBlock;
-import com.dododo.ariadne.block.model.TextBlock;
+import com.dododo.ariadne.mxg.common.model.Block;
+import com.dododo.ariadne.mxg.common.model.ChainBlock;
+import com.dododo.ariadne.mxg.common.model.ConditionalOptionBlock;
+import com.dododo.ariadne.mxg.common.model.EndBlock;
+import com.dododo.ariadne.mxg.common.model.EntryBlock;
+import com.dododo.ariadne.mxg.common.model.MenuBlock;
+import com.dododo.ariadne.mxg.common.model.OptionBlock;
+import com.dododo.ariadne.mxg.common.model.ReplyBlock;
+import com.dododo.ariadne.mxg.common.model.SimpleBlock;
+import com.dododo.ariadne.mxg.common.model.SwitchBlock;
+import com.dododo.ariadne.mxg.common.model.TextBlock;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
 import com.dododo.ariadne.test.rule.NodeRule;
 import com.dododo.ariadne.test.rule.RuleSet;

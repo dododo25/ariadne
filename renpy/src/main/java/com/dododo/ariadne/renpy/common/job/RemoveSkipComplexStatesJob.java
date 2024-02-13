@@ -1,19 +1,19 @@
 package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbOption;
+import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbOption;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
-import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
 public final class RemoveSkipComplexStatesJob extends AbstractJob {
 
@@ -25,14 +25,10 @@ public final class RemoveSkipComplexStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
-            @Override
-            public void accept(JaxbGroupState state) {
-                acceptComplexState(state);
-            }
+        RenPyJaxbFlowchartContract callback = new RenPyJaxbFlowchartContractAdapter() {
 
             @Override
-            public void accept(JaxbInitGroupState state) {
+            public void accept(JaxbRootState state) {
                 acceptComplexState(state);
             }
 
@@ -44,6 +40,11 @@ public final class RemoveSkipComplexStatesJob extends AbstractJob {
             @Override
             public void accept(JaxbSwitchBranch switchBranch) {
                 acceptComplexState(switchBranch);
+            }
+
+            @Override
+            public void accept(JaxbInitGroupState state) {
+                acceptComplexState(state);
             }
 
             @Override
@@ -70,8 +71,8 @@ public final class RemoveSkipComplexStatesJob extends AbstractJob {
                 }
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ParentFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ParentFirstRenPyJaxbFlowchartMouse();
 
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 }

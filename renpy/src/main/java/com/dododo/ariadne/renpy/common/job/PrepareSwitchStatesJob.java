@@ -4,11 +4,11 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
-import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.util.RenPyStateManipulatorUtil;
 
 public final class PrepareSwitchStatesJob extends AbstractJob {

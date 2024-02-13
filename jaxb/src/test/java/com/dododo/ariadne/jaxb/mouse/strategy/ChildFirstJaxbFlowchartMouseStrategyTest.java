@@ -1,18 +1,22 @@
 package com.dododo.ariadne.jaxb.mouse.strategy;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.jaxb.contract.JaxbSimpleFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.SimpleJaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
+import com.dododo.ariadne.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.jaxb.model.JaxbOption;
+import com.dododo.ariadne.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.jaxb.model.JaxbText;
-import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -26,31 +30,46 @@ class ChildFirstJaxbFlowchartMouseStrategyTest {
     }
 
     @Test
-    void testAcceptComplexStateShouldDoneWell() {
-        JaxbRootState rootState = new JaxbRootState();
-        JaxbText statement = new JaxbText("text");
+    void testAcceptStateShouldDoneWell() {
+        testAccept(new JaxbRootState(), new JaxbRootState(), JaxbComplexState::addChild,
+                (state, callback, grayStates, blackStates) -> strategy.acceptComplexState(state, callback, grayStates, blackStates));
+        testAccept(new JaxbMenu(), new JaxbRootState(), JaxbComplexState::addChild,
+                (state, callback, grayStates, blackStates) -> strategy.acceptComplexState(state, callback, grayStates, blackStates));
+        testAccept(new JaxbOption("test", null), new JaxbRootState(), JaxbComplexState::addChild,
+                (state, callback, grayStates, blackStates) -> strategy.acceptComplexState(state, callback, grayStates, blackStates));
+        testAccept(new JaxbComplexSwitch(), new JaxbSwitchBranch("test"), JaxbComplexState::addChild,
+                (state, callback, grayStates, blackStates) -> strategy.acceptComplexState(state, callback, grayStates, blackStates));
+        testAccept(new JaxbSwitchBranch("test"), new JaxbRootState(), JaxbComplexState::addChild,
+                (state, callback, grayStates, blackStates) -> strategy.acceptComplexState(state, callback, grayStates, blackStates));
 
-        List<JaxbState> expected = Arrays.asList(statement, rootState);
-
-        rootState.addChild(statement);
-
-        testAccept(expected, (callback, mouse) ->
-                strategy.acceptComplexState(rootState, callback, mouse, new HashSet<>()));
+        testAccept(new JaxbRootState(), new JaxbPassState(), JaxbComplexState::addChild,
+                (state, callback, grayStates, blackStates) -> strategy.acceptSingleState(state, callback, grayStates, blackStates));
     }
 
-    private void testAccept(List<JaxbState> expected, BiConsumer<JaxbFlowchartContract, JaxbFlowchartMouse> consumer) {
-        List<JaxbState> actual = new ArrayList<>();
+    private <T extends JaxbState, E extends JaxbState> void testAccept(T first, E second, BiConsumer<T, E> consumer, TestConsumer<E> testConsumer) {
+        List<JaxbState> expectedGray = Collections.singletonList(first);
+        List<JaxbState> expectedBlack = Collections.singletonList(second);
 
-        JaxbFlowchartContract callback = new JaxbSimpleFlowchartContract() {
+        Collection<JaxbState> grayStates = new ArrayList<>();
+        Collection<JaxbState> blackStates = new ArrayList<>();
+
+        JaxbFlowchartContract callback = new SimpleJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
-                actual.add(state);
+                // test
             }
         };
 
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, strategy);
+        consumer.accept(first, second);
+        testConsumer.accept(second, callback, grayStates, blackStates);
 
-        consumer.accept(callback, mouse);
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertIterableEquals(expectedGray, grayStates);
+        Assertions.assertIterableEquals(expectedBlack, blackStates);
+    }
+
+    interface TestConsumer<T extends JaxbState> {
+
+        void accept(T state, JaxbFlowchartContract callback, Collection<JaxbState> grayStates, Collection<JaxbState> blackStates);
+
     }
 }

@@ -4,7 +4,7 @@ import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 
-import java.util.Set;
+import java.util.Collection;
 
 public class LeafChainStateCollector extends StateCollector<ChainState> {
 
@@ -13,7 +13,7 @@ public class LeafChainStateCollector extends StateCollector<ChainState> {
     }
 
     @Override
-    public void accept(Set<ChainState> set, State state) {
+    public void accept(Collection<ChainState> set, State state) {
         if (state instanceof ChainState && ((ChainState) state).getNext() == null) {
             set.add((ChainState) state);
         }

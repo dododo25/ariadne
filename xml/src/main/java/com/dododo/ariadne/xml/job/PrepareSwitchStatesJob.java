@@ -4,18 +4,18 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.xml.common.mouse.ParentFirstXmlFlowchartMouse;
-import com.dododo.ariadne.xml.common.contract.XmlFlowchartContract;
-import com.dododo.ariadne.xml.common.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.common.model.SwitchBranch;
-import com.dododo.ariadne.xml.common.model.ComplexSwitch;
-import com.dododo.ariadne.xml.common.util.XmlStateManipulatorUtil;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.SwitchBranch;
+import com.dododo.ariadne.extended.mouse.ParentFirstExtendedFlowchartMouse;
+import com.dododo.ariadne.extended.util.ExtendedStateManipulatorUtil;
 
 public final class PrepareSwitchStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        XmlFlowchartContract callback = new XmlFlowchartContractAdapter() {
+        ExtendedFlowchartContract callback = new ExtendedFlowchartContractAdapter() {
 
             @Override
             public void accept(ComplexSwitch complexSwitch) {
@@ -47,10 +47,10 @@ public final class PrepareSwitchStatesJob extends AbstractJob {
                     nextState.removeRoot(switchBranch);
                 }
 
-                XmlStateManipulatorUtil.replace(complexSwitch, rootSwitch);
+                ExtendedStateManipulatorUtil.replace(complexSwitch, rootSwitch);
             }
         };
-        FlowchartMouse mouse = new ParentFirstXmlFlowchartMouse();
+        FlowchartMouse mouse = new ParentFirstExtendedFlowchartMouse();
 
         mouse.accept(getFlowchart(), callback);
     }

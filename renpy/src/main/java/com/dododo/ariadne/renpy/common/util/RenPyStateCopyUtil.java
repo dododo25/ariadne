@@ -13,16 +13,16 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.common.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.common.model.CallToState;
-import com.dododo.ariadne.renpy.common.model.ComplexState;
-import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
-import com.dododo.ariadne.renpy.common.model.JumpToPoint;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
-import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -105,8 +105,8 @@ public final class RenPyStateCopyUtil {
             }
 
             @Override
-            public void accept(LabelledGroup group) {
-                map.put(group, new LabelledGroup(group.getValue()));
+            public void accept(Label label) {
+                map.put(label, new Label(label.getValue()));
             }
 
             @Override
@@ -115,8 +115,8 @@ public final class RenPyStateCopyUtil {
             }
 
             @Override
-            public void accept(JumpToPoint point) {
-                map.put(point, new JumpToPoint(point.getValue()));
+            public void accept(GoToPoint point) {
+                map.put(point, new GoToPoint(point.getValue()));
             }
 
             @Override
@@ -178,8 +178,8 @@ public final class RenPyStateCopyUtil {
             }
 
             @Override
-            public void accept(LabelledGroup group) {
-                acceptChainState(group);
+            public void accept(Label label) {
+                acceptChainState(label);
             }
 
             @Override

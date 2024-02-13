@@ -1,8 +1,9 @@
 package com.dododo.ariadne.renpy.unity.job;
 
 import com.dododo.ariadne.common.configuration.Configuration;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.test.assertions.JaxbAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
@@ -21,7 +22,7 @@ class CollectStatesJobTest {
 
     @Test
     void testRun(@InputParam("CollectStatesJob.expected.xml") JaxbState expected) {
-        JaxbGroupState rootState = new JaxbGroupState();
+        JaxbComplexState rootState = new JaxbRootState();
 
         List<String> input = Arrays.asList(
                 "label x                ",

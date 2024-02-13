@@ -1,18 +1,25 @@
 package com.dododo.ariadne.renpy.rpy.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.jaxb.model.JaxbOption;
+import com.dododo.ariadne.jaxb.model.JaxbPassState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
+import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
+import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
 public final class RearrangeInitGroupStatesJob extends AbstractJob {
 
     private final JaxbState rootState;
+
+    private int lastInitStateIndex;
 
     public RearrangeInitGroupStatesJob(JaxbState rootState) {
         this.rootState = rootState;
@@ -20,41 +27,58 @@ public final class RearrangeInitGroupStatesJob extends AbstractJob {
 
     @Override
     public void run() {
-        JaxbFlowchartContract contract = new JaxbFlowchartContractAdapter() {
+        lastInitStateIndex = 0;
+
+        RenPyJaxbFlowchartContract callback = new RenPyJaxbFlowchartContractAdapter() {
+
             @Override
-            public void accept(JaxbGroupState state) {
-                int lastInitStateIndex = findLastInitStateIndex(state);
-
-                for (int i = lastInitStateIndex; i < state.childrenCount(); i++) {
-                    JaxbState child = state.childAt(i);
-
-                    if (child instanceof JaxbInitGroupState) {
-                        state.removeChild(child);
-                        state.addChildAt(lastInitStateIndex, child);
-
-                        lastInitStateIndex++;
-                    }
-                }
+            public void accept(JaxbRootState state) {
+                acceptComplexState(state);
             }
 
-            private int findLastInitStateIndex(JaxbComplexState state) {
-                int result = 0;
+            @Override
+            public void accept(JaxbLabelledGroup group) {
+                acceptComplexState(group);
+            }
 
-                for (int i = 0; i < state.childrenCount(); i++) {
-                    JaxbState child = state.childAt(i);
+            @Override
+            public void accept(JaxbOption option) {
+                acceptComplexState(option);
+            }
+
+            @Override
+            public void accept(JaxbSwitchBranch switchBranch) {
+                acceptComplexState(switchBranch);
+            }
+
+            @Override
+            public void accept(JaxbSwitchFalseBranch switchBranch) {
+                acceptComplexState(switchBranch);
+            }
+
+            private void acceptComplexState(JaxbComplexState complexState) {
+                int i = 0;
+
+                while (i < complexState.childrenCount()) {
+                    JaxbState child = complexState.childAt(i);
 
                     if (child instanceof JaxbInitGroupState) {
-                        result++;
-                    } else {
-                        break;
+                        complexState.removeChild(child);
+                        ((JaxbComplexState) rootState).addChildAt(lastInitStateIndex++, child);
+                    }
+
+                    if (!(child instanceof JaxbInitGroupState) || complexState == rootState) {
+                        i++;
                     }
                 }
 
-                return result;
+                if (complexState.childrenCount() == 0) {
+                    complexState.addChild(new JaxbPassState());
+                }
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(contract, new ParentFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ParentFirstRenPyJaxbFlowchartMouse();
 
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 }

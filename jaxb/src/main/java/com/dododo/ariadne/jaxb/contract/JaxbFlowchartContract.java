@@ -3,7 +3,7 @@ package com.dododo.ariadne.jaxb.contract;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
 import com.dododo.ariadne.jaxb.model.JaxbGoToState;
-import com.dododo.ariadne.jaxb.model.JaxbMarker;
+import com.dododo.ariadne.jaxb.model.JaxbLabel;
 import com.dododo.ariadne.jaxb.model.JaxbMenu;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
@@ -28,7 +28,7 @@ public interface JaxbFlowchartContract {
 
     void accept(JaxbSwitchBranch switchBranch);
 
-    void accept(JaxbMarker marker);
+    void accept(JaxbLabel label);
 
     void accept(JaxbGoToState state);
 

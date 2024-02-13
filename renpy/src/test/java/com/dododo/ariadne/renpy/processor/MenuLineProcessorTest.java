@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,8 +16,8 @@ class MenuLineProcessorTest {
 
     @Test
     void testAcceptShouldReturnObject() {
-        JaxbMenu e1 = new JaxbMenu();
-        JaxbMenu e2 = new JaxbMenu("test_value");
+        JaxbRenPyMenu e1 = new JaxbRenPyMenu();
+        JaxbRenPyMenu e2 = new JaxbRenPyMenu("test_value");
 
         Assertions.assertEquals(0, processor.accept("menu:").compareTo(e1));
         Assertions.assertEquals(0, processor.accept("menu   :").compareTo(e1));

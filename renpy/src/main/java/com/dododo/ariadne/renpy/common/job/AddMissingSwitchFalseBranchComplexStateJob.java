@@ -1,14 +1,14 @@
 package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContractAdapter;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexSwitch;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbPassState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContractAdapter;
+import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
+import com.dododo.ariadne.jaxb.model.JaxbPassState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
-import com.dododo.ariadne.renpy.jaxb.mouse.JaxbFlowchartMouse;
-import com.dododo.ariadne.renpy.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
+import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
 public final class AddMissingSwitchFalseBranchComplexStateJob extends AbstractJob {
 
@@ -20,7 +20,7 @@ public final class AddMissingSwitchFalseBranchComplexStateJob extends AbstractJo
 
     @Override
     public void run() {
-        JaxbFlowchartContract callback = new JaxbFlowchartContractAdapter() {
+        RenPyJaxbFlowchartContract callback = new RenPyJaxbFlowchartContractAdapter() {
             @Override
             public void accept(JaxbComplexSwitch aSwitch) {
                 JaxbState lastBranch = aSwitch.childAt(aSwitch.childrenCount() - 1);
@@ -35,8 +35,8 @@ public final class AddMissingSwitchFalseBranchComplexStateJob extends AbstractJo
                 aSwitch.addChild(newBranch);
             }
         };
-        JaxbFlowchartMouse mouse = new JaxbFlowchartMouse(callback, new ParentFirstJaxbFlowchartMouseStrategy());
+        JaxbFlowchartMouse mouse = new ParentFirstRenPyJaxbFlowchartMouse();
 
-        rootState.accept(mouse);
+        mouse.accept(rootState, callback);
     }
 }

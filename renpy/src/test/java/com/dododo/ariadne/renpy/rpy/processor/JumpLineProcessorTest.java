@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.rpy.processor;
 
-import com.dododo.ariadne.renpy.jaxb.model.JaxbJumpToState;
+import com.dododo.ariadne.jaxb.model.JaxbGoToState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,7 +17,7 @@ class JumpLineProcessorTest {
 
     @Test
     void testAcceptShouldReturnObject() {
-        JaxbJumpToState expected = new JaxbJumpToState("test");
+        JaxbGoToState expected = new JaxbGoToState("test");
 
         Assertions.assertEquals(0, processor.accept("jump test").compareTo(expected));
         Assertions.assertEquals(0, processor.accept("jump   test").compareTo(expected));

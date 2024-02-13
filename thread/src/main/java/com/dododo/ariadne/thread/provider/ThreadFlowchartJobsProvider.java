@@ -1,6 +1,6 @@
 package com.dododo.ariadne.thread.provider;
 
-import com.dododo.ariadne.block.model.Block;
+import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.thread.job.ApplyLayoutJob;
@@ -10,7 +10,7 @@ import com.dododo.ariadne.thread.job.PrepareMxFileJob;
 import com.dododo.ariadne.thread.job.PrepareRootBlockJob;
 import com.dododo.ariadne.thread.job.SaveFlowchartJob;
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.mxg.MxFile;
+import com.dododo.ariadne.mxg.model.MxFile;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;

@@ -2,7 +2,7 @@ package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.renpy.common.mouse.ParentFirstRenPyFlowchartMouse;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;

@@ -10,13 +10,13 @@ import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.SwitchBranch;
 import com.dododo.ariadne.renpy.common.model.CallToState;
-import com.dododo.ariadne.renpy.common.model.ComplexSwitch;
-import com.dododo.ariadne.renpy.common.model.JumpToPoint;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
-import com.dododo.ariadne.renpy.common.model.ComplexState;
-import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.common.model.SwitchBranch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +33,7 @@ class RenPyStateCopyUtilTest {
         testCopyChainState(new Option("test"));
         testCopyChainState(new ConditionalOption("test1", "test2"));
         testCopyChainState(new PassState());
-        testCopyChainState(new LabelledGroup("test"));
+        testCopyChainState(new Label("test"));
         testCopyChainState(new CallToState("test"));
         testCopyChainState(new SwitchBranch("test"));
 
@@ -44,7 +44,7 @@ class RenPyStateCopyUtilTest {
         testCopy(new Switch("test"), new PassState(), (root, child) -> ((Switch) root).setFalseBranch(child),
                 root -> ((Switch) root).getFalseBranch());
 
-        testCopyEndPointState(new JumpToPoint("test"));
+        testCopyEndPointState(new GoToPoint("test"));
         testCopyEndPointState(new EndPoint());
 
         testCopyComplexState(new ComplexState());

@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.common.job;
 
 import com.dododo.ariadne.common.exception.AriadneException;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
 import org.junit.jupiter.api.Assertions;

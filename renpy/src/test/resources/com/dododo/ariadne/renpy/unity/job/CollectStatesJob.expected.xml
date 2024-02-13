@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
 
-    <node id="1" type="com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState" />
+    <node id="1" type="com.dododo.ariadne.jaxb.model.JaxbRootState" />
     <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup" value="x" />
-    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch" condition="expression1" />
-    <node id="4" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="value = 1" />
+    <node id="3" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" condition="expression1" />
+    <node id="4" type="com.dododo.ariadne.jaxb.model.JaxbText" value="value = 1" />
     <node id="5" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch" condition="expression2" />
-    <node id="6" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="value = 2" />
+    <node id="6" type="com.dododo.ariadne.jaxb.model.JaxbText" value="value = 2" />
     <node id="7" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch" />
-    <node id="8" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="value = 3" />
+    <node id="8" type="com.dododo.ariadne.jaxb.model.JaxbText" value="value = 3" />
     <node id="9" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState" />
-    <node id="10" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="value = 4" />
+    <node id="10" type="com.dododo.ariadne.jaxb.model.JaxbText" value="value = 4" />
 
     <edge from="1" to="2" />
     <edge from="2" to="3" />

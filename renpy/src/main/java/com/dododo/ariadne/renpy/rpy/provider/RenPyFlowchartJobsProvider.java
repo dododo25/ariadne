@@ -2,27 +2,27 @@ package com.dododo.ariadne.renpy.rpy.provider;
 
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.renpy.common.job.AddMissingSwitchFalseBranchComplexStateJob;
-import com.dododo.ariadne.renpy.common.job.JoinLinkJumpPointsJob;
+import com.dododo.ariadne.renpy.common.job.JoinLabelWithGoToPointsJob;
 import com.dododo.ariadne.renpy.common.job.JoinStatesJob;
 import com.dododo.ariadne.renpy.common.job.PrepareJaxbComplexSwitchStatesJob;
 import com.dododo.ariadne.renpy.common.job.PrepareSingleEntryFlowchartJob;
 import com.dododo.ariadne.renpy.common.job.PrepareSwitchStatesJob;
 import com.dododo.ariadne.renpy.common.job.RearrangeLabelledGroupsJob;
 import com.dododo.ariadne.renpy.common.job.RemoveComplexStatesJob;
-import com.dododo.ariadne.renpy.common.job.RemoveJumpToPointRemaindersJob;
+import com.dododo.ariadne.renpy.common.job.RemoveGoToPointRemaindersJob;
 import com.dododo.ariadne.renpy.common.job.RemoveSkipComplexStatesJob;
 import com.dododo.ariadne.renpy.common.job.RenPyRemoveStateJob;
 import com.dododo.ariadne.renpy.common.job.ValidateRawFlowchartJob;
 import com.dododo.ariadne.renpy.common.model.CallToState;
-import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.renpy.rpy.job.CollectStatesJob;
 import com.dododo.ariadne.renpy.rpy.job.PrepareGroupCallStatesJob;
 import com.dododo.ariadne.renpy.rpy.job.RearrangeInitGroupStatesJob;
 import com.dododo.ariadne.renpy.rpy.job.RemoveUnknownGroupCallStatesJob;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -31,7 +31,7 @@ public final class RenPyFlowchartJobsProvider extends FlowchartJobsProvider {
 
     @Override
     public void populateJobs(List<AbstractJob> jobs) {
-        JaxbComplexState rootState = new JaxbGroupState();
+        JaxbRootState rootState = new JaxbRootState();
 
         addCollectStatesJob(jobs, rootState);
         jobs.add(new ValidateRawFlowchartJob(rootState));
@@ -43,14 +43,14 @@ public final class RenPyFlowchartJobsProvider extends FlowchartJobsProvider {
         jobs.add(new JoinStatesJob(rootState));
 
         jobs.add(new PrepareSwitchStatesJob());
-        jobs.add(new JoinLinkJumpPointsJob());
+        jobs.add(new JoinLabelWithGoToPointsJob());
         jobs.add(new PrepareGroupCallStatesJob());
         jobs.add(new RemoveComplexStatesJob());
         jobs.add(new RemoveUnknownGroupCallStatesJob());
-        jobs.add(new RenPyRemoveStateJob<>(LabelledGroup.class));
+        jobs.add(new RenPyRemoveStateJob<>(Label.class));
         jobs.add(new RenPyRemoveStateJob<>(CallToState.class));
         jobs.add(new RenPyRemoveStateJob<>(PassState.class));
-        jobs.add(new RemoveJumpToPointRemaindersJob());
+        jobs.add(new RemoveGoToPointRemaindersJob());
         jobs.add(new PrepareSingleEntryFlowchartJob());
     }
 

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.renpy.common.model.ComplexState" />
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
 
-    <node id="2" type="com.dododo.ariadne.renpy.common.model.LabelledGroup" value="group" />
+    <node id="2" type="com.dododo.ariadne.extended.model.Label" value="group" />
     <node id="3" type="com.dododo.ariadne.core.model.Text" value="text" />
     <node id="4" type="com.dododo.ariadne.core.model.Reply" character="c" line="l" />
-    <node id="5" type="com.dododo.ariadne.renpy.common.model.PassState" />
+    <node id="5" type="com.dododo.ariadne.extended.model.PassState" />
 
     <node id="6" type="com.dododo.ariadne.core.model.Menu" />
     <node id="7" type="com.dododo.ariadne.core.model.Option" value="option1" />
-    <node id="8" type="com.dododo.ariadne.renpy.common.model.PassState" />
+    <node id="8" type="com.dododo.ariadne.extended.model.PassState" />
     <node id="9" type="com.dododo.ariadne.core.model.ConditionalOption" value="option2" condition="c" />
-    <node id="10" type="com.dododo.ariadne.renpy.common.model.PassState" />
+    <node id="10" type="com.dododo.ariadne.extended.model.PassState" />
 
-    <node id="11" type="com.dododo.ariadne.renpy.common.model.ComplexSwitch" />
-    <node id="12" type="com.dododo.ariadne.renpy.common.model.SwitchBranch" condition="switch" />
-    <node id="13" type="com.dododo.ariadne.renpy.common.model.JumpToPoint" value="group" />
-    <node id="14" type="com.dododo.ariadne.renpy.common.model.SwitchBranch" />
+    <node id="11" type="com.dododo.ariadne.extended.model.ComplexSwitch" />
+    <node id="12" type="com.dododo.ariadne.extended.model.SwitchBranch" condition="switch" />
+    <node id="13" type="com.dododo.ariadne.extended.model.GoToPoint" value="group" />
+    <node id="14" type="com.dododo.ariadne.extended.model.SwitchBranch" />
     <node id="15" type="com.dododo.ariadne.renpy.common.model.CallToState" value="group" />
     <node id="16" type="com.dododo.ariadne.core.model.EndPoint" />
 

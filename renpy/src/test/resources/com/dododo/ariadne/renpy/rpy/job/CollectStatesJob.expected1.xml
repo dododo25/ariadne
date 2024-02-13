@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
 
-    <node id="1" type="com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState" />
+    <node id="1" type="com.dododo.ariadne.jaxb.model.JaxbRootState" />
     <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState" />
-    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="i = 0" />
-    <node id="4" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="j = 0" />
+    <node id="3" type="com.dododo.ariadne.jaxb.model.JaxbText" value="i = 0" />
+    <node id="4" type="com.dododo.ariadne.jaxb.model.JaxbText" value="j = 0" />
     <node id="5" type="com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup" value="test" />
-    <node id="6" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="excluded = True" />
-    <node id="7" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchBranch" condition="i &lt; 5" />
-    <node id="8" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="i += 1" />
-    <node id="9" type="com.dododo.ariadne.renpy.jaxb.model.JaxbJumpToState" value="test" />
+    <node id="6" type="com.dododo.ariadne.jaxb.model.JaxbText" value="excluded = True" />
+    <node id="7" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" condition="i &lt; 5" />
+    <node id="8" type="com.dododo.ariadne.jaxb.model.JaxbText" value="i += 1" />
+    <node id="9" type="com.dododo.ariadne.jaxb.model.JaxbGoToState" value="test" />
     <node id="10" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch" />
-    <node id="11" type="com.dododo.ariadne.renpy.jaxb.model.JaxbReply" line="Example line #1" />
-    <node id="12" type="com.dododo.ariadne.renpy.jaxb.model.JaxbMenu" />
-    <node id="13" type="com.dododo.ariadne.renpy.jaxb.model.JaxbOption" value="Option #1" />
-    <node id="14" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="j = 1" />
-    <node id="15" type="com.dododo.ariadne.renpy.jaxb.model.JaxbOption" value="Option #2" />
-    <node id="16" type="com.dododo.ariadne.renpy.jaxb.model.JaxbText" value="j = 2" />
+    <node id="11" type="com.dododo.ariadne.jaxb.model.JaxbReply" line="Example line #1" />
+    <node id="12" type="com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu" />
+    <node id="13" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="Option #1" />
+    <node id="14" type="com.dododo.ariadne.jaxb.model.JaxbText" value="j = 1" />
+    <node id="15" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="Option #2" />
+    <node id="16" type="com.dododo.ariadne.jaxb.model.JaxbText" value="j = 2" />
 
     <edge from="1" to="2" />
     <edge from="1" to="5" />

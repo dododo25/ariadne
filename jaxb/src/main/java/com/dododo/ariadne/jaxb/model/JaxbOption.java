@@ -1,23 +1,18 @@
 package com.dododo.ariadne.jaxb.model;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.jaxb.util.NullableStringComparator;
+import com.dododo.ariadne.util.comparator.NullableStringComparator;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Stream;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class JaxbOption implements JaxbComplexState {
+public class JaxbOption extends JaxbComplexState {
 
     @XmlTransient
-    private final NullableStringComparator comparator;
+    private final NullableStringComparator stringComparator;
 
     @XmlAttribute
     private String value;
@@ -25,26 +20,16 @@ public class JaxbOption implements JaxbComplexState {
     @XmlAttribute
     private String condition;
 
-    @XmlElements({
-            @XmlElement(name = "text", type = JaxbText.class),
-            @XmlElement(name = "reply", type = JaxbReply.class),
-            @XmlElement(name = "menu", type = JaxbMenu.class),
-            @XmlElement(name = "marker", type = JaxbMarker.class),
-            @XmlElement(name = "goto", type = JaxbGoToState.class),
-            @XmlElement(name = "switch", type = JaxbComplexSwitch.class),
-            @XmlElement(name = "end", type = JaxbEndState.class)
-    })
-    private final List<JaxbState> children;
-
     public JaxbOption() {
         this(null, null);
     }
 
     public JaxbOption(String value, String condition) {
-        this.comparator = new NullableStringComparator();
+        super();
+
+        this.stringComparator = new NullableStringComparator();
         this.value = value;
         this.condition = condition;
-        this.children = new CopyOnWriteArrayList<>();
     }
 
     public String getValue() {
@@ -53,31 +38,6 @@ public class JaxbOption implements JaxbComplexState {
 
     public String getCondition() {
         return condition;
-    }
-
-    @Override
-    public int childrenCount() {
-        return children.size();
-    }
-
-    @Override
-    public JaxbState childAt(int index) {
-        return children.get(index);
-    }
-
-    @Override
-    public Stream<JaxbState> childrenStream() {
-        return children.stream();
-    }
-
-    @Override
-    public void addChild(JaxbState state) {
-        children.add(state);
-    }
-
-    @Override
-    public void removeChild(JaxbState state) {
-        children.remove(state);
     }
 
     @Override
@@ -91,13 +51,13 @@ public class JaxbOption implements JaxbComplexState {
             return 1;
         }
 
-        int res = comparator.compare(this.value, ((JaxbOption) o).value);
+        int res = stringComparator.compare(this.value, ((JaxbOption) o).value);
 
         if (res == 0) {
             return res;
         }
 
-        return comparator.compare(this.condition, ((JaxbOption) o).condition);
+        return stringComparator.compare(this.condition, ((JaxbOption) o).condition);
     }
 
     @Override

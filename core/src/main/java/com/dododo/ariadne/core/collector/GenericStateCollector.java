@@ -3,7 +3,7 @@ package com.dododo.ariadne.core.collector;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.State;
 
-import java.util.Set;
+import java.util.Collection;
 
 public class GenericStateCollector<S extends State> extends StateCollector<S> {
 
@@ -15,7 +15,7 @@ public class GenericStateCollector<S extends State> extends StateCollector<S> {
     }
 
     @Override
-    public void accept(Set<S> set, State state) {
+    public void accept(Collection<S> set, State state) {
         if (type.isAssignableFrom(state.getClass())) {
             set.add(type.cast(state));
         }

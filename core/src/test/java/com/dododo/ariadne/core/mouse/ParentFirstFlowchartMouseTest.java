@@ -21,16 +21,16 @@ class ParentFirstFlowchartMouseTest {
     }
 
     @Test
-    void testCreateForShouldDoneWell() {
-        testCreateFor(new EntryState());
-        testCreateFor(new CycleMarker("test"));
-        testCreateFor(new CycleEntryState("test"));
-        testCreateFor(new Text("test"));
-        testCreateFor(new Switch("test"));
-        testCreateFor(new EndPoint());
+    void testAcceptShouldDoneWell() {
+        testAccept(new EntryState());
+        testAccept(new CycleMarker("test"));
+        testAccept(new CycleEntryState("test"));
+        testAccept(new Text("test"));
+        testAccept(new Switch("test"));
+        testAccept(new EndPoint());
     }
 
-    private void testCreateFor(State state) {
+    private void testAccept(State state) {
         mouse.accept(state, s -> Assertions.assertSame(s, state));
     }
 }

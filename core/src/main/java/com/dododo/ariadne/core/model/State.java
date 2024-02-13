@@ -1,8 +1,8 @@
 package com.dododo.ariadne.core.model;
 
-import com.dododo.ariadne.core.comparator.NullableStringComparator;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.mouse.strategy.FlowchartMouseStrategy;
+import com.dododo.ariadne.util.comparator.NullableStringComparator;
 
 import java.util.Collection;
 import java.util.Comparator;

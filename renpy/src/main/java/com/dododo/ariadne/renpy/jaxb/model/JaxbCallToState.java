@@ -1,34 +1,17 @@
 package com.dododo.ariadne.renpy.jaxb.model;
 
-import com.dododo.ariadne.renpy.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
+import com.dododo.ariadne.jaxb.model.JaxbSimpleState;
+import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
 
-import java.util.Objects;
-
-public class JaxbCallToState implements JaxbSimpleState {
-
-    private final String value;
+public class JaxbCallToState extends JaxbSimpleState {
 
     public JaxbCallToState(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public String getValue() {
-        return value;
+        super(value);
     }
 
     @Override
     public void accept(JaxbFlowchartContract contract) {
-        contract.accept(this);
-    }
-
-    @Override
-    public int compareTo(JaxbState o) {
-        return o instanceof JaxbCallToState && Objects.equals(((JaxbCallToState) o).value, this.value) ? 0 : 1;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s(value='%s')", getClass().getSimpleName(), value);
+        ((RenPyJaxbFlowchartContract) contract).accept(this);
     }
 }

@@ -1,11 +1,11 @@
 package com.dododo.ariadne.mt.assertions;
 
-import com.dododo.ariadne.block.contract.BlockFlowchartContract;
-import com.dododo.ariadne.block.contract.BlockSimpleFlowchartContract;
-import com.dododo.ariadne.block.factory.BlockComparatorFactory;
-import com.dododo.ariadne.block.model.Block;
-import com.dododo.ariadne.block.mouse.BlockFlowchartMouse;
-import com.dododo.ariadne.block.mouse.strategy.ParentFirstBlockFlowchartMouseStrategy;
+import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.SimpleBlockFlowchartContract;
+import com.dododo.ariadne.mxg.common.factory.BlockComparatorFactory;
+import com.dododo.ariadne.mxg.common.model.Block;
+import com.dododo.ariadne.mxg.common.mouse.BlockFlowchartMouse;
+import com.dododo.ariadne.mxg.common.mouse.ParentFirstBlockFlowchartMouse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +22,14 @@ public class BlockAssertions {
 
         List<Block> blocks = new ArrayList<>();
 
-        BlockFlowchartContract c1 = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract c1 = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 blocks.add(block);
             }
         };
 
-        BlockFlowchartContract c2 = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract c2 = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 if (stopProcessingRef.get()) {
@@ -55,10 +55,10 @@ public class BlockAssertions {
             return;
         }
 
-        BlockFlowchartMouse m1 = new BlockFlowchartMouse(c1, new ParentFirstBlockFlowchartMouseStrategy());
-        BlockFlowchartMouse m2 = new BlockFlowchartMouse(c2, new ParentFirstBlockFlowchartMouseStrategy());
+        BlockFlowchartMouse m1 = new ParentFirstBlockFlowchartMouse();
+        BlockFlowchartMouse m2 = new ParentFirstBlockFlowchartMouse();
 
-        b1.accept(m1);
-        b2.accept(m2);
+        m1.accept(b1, c1);
+        m2.accept(b2, c2);
     }
 }

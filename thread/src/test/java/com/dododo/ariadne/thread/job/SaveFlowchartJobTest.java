@@ -4,10 +4,10 @@ import com.dododo.ariadne.common.configuration.Configuration;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbText;
-import com.dododo.ariadne.mxg.DiagramRoot;
-import com.dododo.ariadne.mxg.MxEdgeCell;
-import com.dododo.ariadne.mxg.MxFile;
-import com.dododo.ariadne.mxg.MxNodeCell;
+import com.dododo.ariadne.mxg.model.DiagramRoot;
+import com.dododo.ariadne.mxg.model.MxEdgeCell;
+import com.dododo.ariadne.mxg.model.MxFile;
+import com.dododo.ariadne.mxg.model.MxNodeCell;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -79,10 +79,6 @@ class SaveFlowchartJobTest {
 
     private JaxbState createJaxbState() {
         JaxbRootState jaxbState = mock(JaxbRootState.class, RETURNS_DEEP_STUBS);
-        DiagramRoot root = mock(DiagramRoot.class);
-
-        root.getCells().add(mock(MxNodeCell.class));
-        root.getCells().add(mock(MxEdgeCell.class));
 
         when(jaxbState.childrenCount())
                 .thenReturn(2);

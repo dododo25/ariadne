@@ -2,9 +2,9 @@ package com.dododo.ariadne.renpy.rpy.job;
 
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSingleLineComment;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import com.dododo.ariadne.renpy.rpy.processor.LineProcessorFactory;
 

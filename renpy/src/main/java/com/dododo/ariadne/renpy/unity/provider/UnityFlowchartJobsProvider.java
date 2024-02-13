@@ -2,20 +2,21 @@ package com.dododo.ariadne.renpy.unity.provider;
 
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.jaxb.model.JaxbComplexState;
+import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.renpy.common.job.AddMissingSwitchFalseBranchComplexStateJob;
-import com.dododo.ariadne.renpy.common.job.JoinLinkJumpPointsJob;
+import com.dododo.ariadne.renpy.common.job.JoinLabelWithGoToPointsJob;
 import com.dododo.ariadne.renpy.common.job.JoinStatesJob;
 import com.dododo.ariadne.renpy.common.job.PrepareJaxbComplexSwitchStatesJob;
 import com.dododo.ariadne.renpy.common.job.PrepareSingleEntryFlowchartJob;
 import com.dododo.ariadne.renpy.common.job.PrepareSwitchStatesJob;
 import com.dododo.ariadne.renpy.common.job.RemoveComplexStatesJob;
-import com.dododo.ariadne.renpy.common.job.RemoveJumpToPointRemaindersJob;
+import com.dododo.ariadne.renpy.common.job.RemoveGoToPointRemaindersJob;
 import com.dododo.ariadne.renpy.common.job.RemoveSkipComplexStatesJob;
 import com.dododo.ariadne.renpy.common.job.RenPyRemoveStateJob;
 import com.dododo.ariadne.renpy.common.job.ValidateRawFlowchartJob;
-import com.dododo.ariadne.renpy.common.model.LabelledGroup;
-import com.dododo.ariadne.renpy.common.model.PassState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbGroupState;
 import com.dododo.ariadne.renpy.unity.job.CollectStatesJob;
 import com.dododo.ariadne.renpy.unity.job.LoadLinesJob;
 import com.dododo.ariadne.renpy.unity.job.PrepareLinesJob;
@@ -29,7 +30,7 @@ public final class UnityFlowchartJobsProvider extends FlowchartJobsProvider {
     @Override
     public void populateJobs(List<AbstractJob> jobs) {
         List<String> lines = new ArrayList<>();
-        JaxbGroupState rootState = new JaxbGroupState();
+        JaxbComplexState rootState = new JaxbRootState();
 
         addCollectStatesJob(jobs, lines);
         jobs.add(new PrepareLinesJob(lines));
@@ -41,10 +42,10 @@ public final class UnityFlowchartJobsProvider extends FlowchartJobsProvider {
         jobs.add(new JoinStatesJob(rootState));
 
         jobs.add(new PrepareSwitchStatesJob());
-        jobs.add(new JoinLinkJumpPointsJob());
+        jobs.add(new JoinLabelWithGoToPointsJob());
         jobs.add(new RemoveComplexStatesJob());
-        jobs.add(new RemoveJumpToPointRemaindersJob());
-        jobs.add(new RenPyRemoveStateJob<>(LabelledGroup.class));
+        jobs.add(new RemoveGoToPointRemaindersJob());
+        jobs.add(new RenPyRemoveStateJob<>(Label.class));
         jobs.add(new RenPyRemoveStateJob<>(PassState.class));
         jobs.add(new PrepareSingleEntryFlowchartJob());
     }
