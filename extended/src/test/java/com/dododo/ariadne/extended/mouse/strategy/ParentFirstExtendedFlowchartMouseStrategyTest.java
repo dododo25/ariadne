@@ -1,10 +1,10 @@
 package com.dododo.ariadne.extended.mouse.strategy;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
-import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.contract.ExtendedSimpleFlowchartContract;
 import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.PassState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -26,12 +26,12 @@ class ParentFirstExtendedFlowchartMouseStrategyTest {
     @Test
     void testAcceptComplexStateShouldDoneWell() {
         ComplexState first = new ComplexState();
-        EndPoint point = new EndPoint();
+        PassState second = new PassState();
 
-        List<State> expectedGray = Collections.singletonList(point);
+        List<State> expectedGray = Collections.singletonList(second);
         List<State> expectedBlack = Collections.singletonList(first);
 
-        first.addChild(point);
+        first.addChild(second);
 
         testAccept(expectedGray, expectedBlack, (callback, grayStates, blackStates) ->
                 strategy.acceptComplexState(first, callback, grayStates, blackStates));

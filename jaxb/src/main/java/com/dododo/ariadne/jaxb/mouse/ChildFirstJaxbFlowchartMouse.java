@@ -1,7 +1,7 @@
 package com.dododo.ariadne.jaxb.mouse;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.jaxb.contract.JaxbSimpleFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.SimpleJaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbComplexState;
 import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbEndState;
@@ -34,7 +34,7 @@ public class ChildFirstJaxbFlowchartMouse extends JaxbFlowchartMouse {
 
     @Override
     public void accept(JaxbState state, Consumer<JaxbState> consumer) {
-        JaxbFlowchartContract callback = new JaxbSimpleFlowchartContract() {
+        JaxbFlowchartContract callback = new SimpleJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 consumer.accept(state);
@@ -46,22 +46,20 @@ public class ChildFirstJaxbFlowchartMouse extends JaxbFlowchartMouse {
 
     @Override
     public void accept(JaxbState state, JaxbFlowchartContract callback) {
+        Collection<JaxbState> grayStates = prepareStartingPoints(state);
         Collection<JaxbState> blackStates = new ArrayList<>();
-        Collection<JaxbState> grayStates = prepareStartingPoints(state, blackStates);
 
         while (!grayStates.isEmpty()) {
-            grayStates.forEach(nextState ->
-                    nextState.accept(strategy, callback, new HashSet<>(), blackStates));
-
-            grayStates = prepareStartingPoints(state, blackStates);
+            grayStates.stream().findFirst().ifPresent(nextState ->
+                    nextState.accept(strategy, callback, grayStates, blackStates));
         }
     }
 
-    protected Collection<JaxbState> prepareStartingPoints(JaxbState state, Collection<JaxbState> blackStates) {
+    protected Collection<JaxbState> prepareStartingPoints(JaxbState state) {
         Collection<JaxbState> result = new ArrayList<>();
 
-        JaxbFlowchartContract callback = new InnerJaxbFlowchartContract(result, blackStates);
-        ParentFirstJaxbFlowchartMouse mouse = new ParentFirstJaxbFlowchartMouse();
+        JaxbFlowchartContract callback = new InnerJaxbFlowchartContract(result);
+        JaxbFlowchartMouse mouse = new ParentFirstJaxbFlowchartMouse();
 
         mouse.accept(state, callback);
 
@@ -74,9 +72,9 @@ public class ChildFirstJaxbFlowchartMouse extends JaxbFlowchartMouse {
 
         protected final Collection<JaxbState> blackStates;
 
-        public InnerJaxbFlowchartContract(Collection<JaxbState> result, Collection<JaxbState> blackStates) {
+        public InnerJaxbFlowchartContract(Collection<JaxbState> result) {
             this.result = result;
-            this.blackStates = blackStates;
+            this.blackStates = new HashSet<>();
         }
 
         @Override

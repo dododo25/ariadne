@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.processor;
 
 import com.dododo.ariadne.jaxb.model.JaxbState;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 
 import java.util.regex.Matcher;
 
@@ -16,9 +16,9 @@ public final class MenuLineProcessor extends GenericLineProcessor {
         String value = matcher.group(2);
 
         if (value == null || value.isEmpty()) {
-            return new JaxbMenu();
+            return new JaxbRenPyMenu();
         }
 
-        return new JaxbMenu(value);
+        return new JaxbRenPyMenu(value);
     }
 }

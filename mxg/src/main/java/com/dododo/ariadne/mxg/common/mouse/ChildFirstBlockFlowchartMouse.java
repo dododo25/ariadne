@@ -1,7 +1,7 @@
 package com.dododo.ariadne.mxg.common.mouse;
 
 import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
-import com.dododo.ariadne.mxg.common.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.SimpleBlockFlowchartContract;
 import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.mxg.common.model.ChainBlock;
 import com.dododo.ariadne.mxg.common.model.ConditionalOptionBlock;
@@ -31,7 +31,7 @@ public class ChildFirstBlockFlowchartMouse extends BlockFlowchartMouse {
 
     @Override
     public void accept(Block block, Consumer<Block> consumer) {
-        BlockFlowchartContract callback = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract callback = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 consumer.accept(block);
@@ -43,21 +43,19 @@ public class ChildFirstBlockFlowchartMouse extends BlockFlowchartMouse {
 
     @Override
     public void accept(Block block, BlockFlowchartContract callback) {
+        Collection<Block> grayBlocks = prepareStartingPoints(block);
         Collection<Block> blackBlocks = new ArrayList<>();
-        Collection<Block> grayBlocks = prepareStartingPoints(block, blackBlocks);
 
         while (!grayBlocks.isEmpty()) {
-            grayBlocks.forEach(nextState ->
-                    nextState.accept(strategy, callback, new HashSet<>(), blackBlocks));
-
-            grayBlocks = prepareStartingPoints(block, blackBlocks);
+            grayBlocks.stream().findFirst().ifPresent(nextState ->
+                    nextState.accept(strategy, callback, grayBlocks, blackBlocks));
         }
     }
 
-    protected Collection<Block> prepareStartingPoints(Block block, Collection<Block> blackBlocks) {
+    protected Collection<Block> prepareStartingPoints(Block block) {
         Collection<Block> result = new ArrayList<>();
 
-        BlockFlowchartContract callback = new InnerFlowchartContract(result, blackBlocks);
+        BlockFlowchartContract callback = new InnerFlowchartContract(result);
         BlockFlowchartMouse mouse = new ParentFirstBlockFlowchartMouse();
 
         mouse.accept(block, callback);
@@ -71,9 +69,9 @@ public class ChildFirstBlockFlowchartMouse extends BlockFlowchartMouse {
 
         protected final Collection<Block> blackBlocks;
 
-        public InnerFlowchartContract(Collection<Block> result, Collection<Block> blackBlocks) {
+        public InnerFlowchartContract(Collection<Block> result) {
             this.result = result;
-            this.blackBlocks = blackBlocks;
+            this.blackBlocks = new HashSet<>();
         }
 
         @Override
@@ -107,6 +105,8 @@ public class ChildFirstBlockFlowchartMouse extends BlockFlowchartMouse {
                 return;
             }
 
+            blackBlocks.add(block);
+
             if (block.branchesCount() == 0 || block.branchesStream().allMatch(blackBlocks::contains)) {
                 result.add(block);
             }
@@ -118,13 +118,12 @@ public class ChildFirstBlockFlowchartMouse extends BlockFlowchartMouse {
                 return;
             }
 
-            if (blackBlocks.contains(block.getTrueBranch()) && blackBlocks.contains(block.getFalseBranch())) {
-                result.add(block);
-            }
+            blackBlocks.add(block);
 
-            if (block.getTrueBranch() == null && block.getFalseBranch() == null
-                    || block.getTrueBranch() == block
-                    || block.getFalseBranch() == block) {
+            if ((block.getTrueBranch() == null
+                    && block.getFalseBranch() == null)
+                    || (blackBlocks.contains(block.getTrueBranch())
+                    && blackBlocks.contains(block.getFalseBranch()))) {
                 result.add(block);
             }
         }
@@ -135,6 +134,7 @@ public class ChildFirstBlockFlowchartMouse extends BlockFlowchartMouse {
                 return;
             }
 
+            blackBlocks.add(block);
             result.add(block);
         }
 
@@ -142,6 +142,8 @@ public class ChildFirstBlockFlowchartMouse extends BlockFlowchartMouse {
             if (blackBlocks.contains(block)) {
                 return;
             }
+
+            blackBlocks.add(block);
 
             if (block.getNext() == null || blackBlocks.contains(block.getNext())) {
                 result.add(block);

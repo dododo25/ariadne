@@ -1,5 +1,7 @@
 package com.dododo.ariadne.mxg.common.mouse;
 
+import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.SimpleBlockFlowchartContract;
 import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.mxg.common.model.ConditionalOptionBlock;
 import com.dododo.ariadne.mxg.common.model.EndBlock;
@@ -9,63 +11,57 @@ import com.dododo.ariadne.mxg.common.model.OptionBlock;
 import com.dododo.ariadne.mxg.common.model.ReplyBlock;
 import com.dododo.ariadne.mxg.common.model.SwitchBlock;
 import com.dododo.ariadne.mxg.common.model.TextBlock;
-import com.dododo.ariadne.mxg.common.mouse.BlockFlowchartMouse;
-import com.dododo.ariadne.mxg.common.mouse.ChildFirstBlockFlowchartMouse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.function.BiConsumer;
 
 class ChildFirstBlockFlowchartMouseTest {
 
-    private static EntryBlock entryBlock;
-    private static TextBlock text1;
-    private static TextBlock text2;
-    private static ReplyBlock reply;
-    private static MenuBlock menu;
-    private static OptionBlock option1;
-    private static ConditionalOptionBlock option2;
-    private static SwitchBlock aSwitch;
-    private static EndBlock endPoint1;
-    private static EndBlock endPoint2;
+    private static BlockFlowchartMouse mouse;
 
     @BeforeAll
     static void setUp() {
-        entryBlock = new EntryBlock(0);
-        text1 = new TextBlock(1, "test1");
-        text2 = new TextBlock(2, "test2");
-        reply = new ReplyBlock(3, null, "test");
-        menu = new MenuBlock(4);
-        option1 = new OptionBlock(5, "test");
-        option2 = new ConditionalOptionBlock(6, "test1", "test2");
-        aSwitch = new SwitchBlock(7, "test");
-        endPoint1 = new EndBlock(8);
-        endPoint2 = new EndBlock(9);
-
-        entryBlock.setNext(reply);
-        reply.setNext(menu);
-        menu.addBranch(option1);
-        menu.addBranch(option2);
-        option1.setNext(text1);
-        option2.setNext(aSwitch);
-        text1.setNext(aSwitch);
-        aSwitch.setTrueBranch(text2);
-        aSwitch.setFalseBranch(endPoint1);
-        text2.setNext(endPoint2);
+        mouse = new ChildFirstBlockFlowchartMouse();
     }
 
     @Test
-    void testAcceptShouldNotThrowException() {
-        List<Block> expected = Arrays.asList(endPoint1, endPoint2, text2, aSwitch, option2, text1,
-                option1, menu, reply, entryBlock);
-        List<Block> blocks = new ArrayList<>();
+    void testAcceptShouldDoneWell() {
+        testAccept(new EntryBlock(0));
+        testAccept(new TextBlock(0, "test"));
+        testAccept(new ReplyBlock(0, null, "test"));
+        testAccept(new MenuBlock(0));
+        testAccept(new OptionBlock(0, "test"));
+        testAccept(new ConditionalOptionBlock(0, "test", "test"));
+        testAccept(new SwitchBlock(0, "test"));
+        testAccept(new EndBlock(0));
 
-        BlockFlowchartMouse mouse = new ChildFirstBlockFlowchartMouse();
+        testAccept(new SwitchBlock(0, "test"), new EndBlock(1), SwitchBlock::setTrueBranch);
+        testAccept(new SwitchBlock(0, "test"), new EndBlock(1), SwitchBlock::setFalseBranch);
+    }
 
-        mouse.accept(entryBlock, blocks::add);
-        Assertions.assertEquals(expected, blocks);
+    private void testAccept(Block block) {
+        mouse.accept(block, s -> Assertions.assertSame(s, block));
+    }
+
+    private <T extends Block> void testAccept(T first, Block second, BiConsumer<T, Block> consumer) {
+        Collection<Block> expected = Arrays.asList(second, first);
+        Collection<Block> states = new ArrayList<>();
+
+        BlockFlowchartContract contract = new SimpleBlockFlowchartContract() {
+            @Override
+            public void acceptBlock(Block block) {
+                states.add(block);
+            }
+        };
+
+        consumer.accept(first, second);
+        mouse.accept(first, contract);
+
+        Assertions.assertEquals(expected, states);
     }
 }

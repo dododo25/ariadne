@@ -35,6 +35,12 @@
         </dependency>
         <dependency>
             <groupId>com.dododo</groupId>
+            <artifactId>core-test</artifactId>
+            <version>0.0.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dododo</groupId>
             <artifactId>extended-test</artifactId>
             <version>0.0.3</version>
             <scope>test</scope>

@@ -46,21 +46,19 @@ public class ChildFirstFlowchartMouse extends FlowchartMouse {
 
     @Override
     public void accept(State state, FlowchartContract callback) {
+        Collection<State> grayStates = prepareStartingPoints(state);
         Collection<State> blackStates = new ArrayList<>();
-        Collection<State> grayStates = prepareStartingPoints(state, blackStates);
 
         while (!grayStates.isEmpty()) {
-            grayStates.forEach(nextState ->
-                    nextState.accept(strategy, callback, new HashSet<>(), blackStates));
-
-            grayStates = prepareStartingPoints(state, blackStates);
+            grayStates.stream().findFirst().ifPresent(nextState ->
+                    nextState.accept(strategy, callback, grayStates, blackStates));
         }
     }
 
-    protected Collection<State> prepareStartingPoints(State state, Collection<State> blackStates) {
+    protected Collection<State> prepareStartingPoints(State state) {
         Collection<State> result = new ArrayList<>();
 
-        FlowchartContract callback = new InnerFlowchartContract(result, blackStates);
+        FlowchartContract callback = new InnerFlowchartContract(result);
         FlowchartMouse mouse = new ParentFirstFlowchartMouse();
 
         mouse.accept(state, callback);
@@ -74,9 +72,9 @@ public class ChildFirstFlowchartMouse extends FlowchartMouse {
 
         protected final Collection<State> blackStates;
 
-        public InnerFlowchartContract(Collection<State> result, Collection<State> blackStates) {
+        public InnerFlowchartContract(Collection<State> result) {
             this.result = result;
-            this.blackStates = new HashSet<>(blackStates);
+            this.blackStates = new HashSet<>();
         }
 
         @Override
@@ -135,7 +133,10 @@ public class ChildFirstFlowchartMouse extends FlowchartMouse {
 
             blackStates.add(aSwitch);
 
-            if (blackStates.contains(aSwitch.getTrueBranch()) && blackStates.contains(aSwitch.getFalseBranch())) {
+            if ((aSwitch.getTrueBranch() == null
+                    && aSwitch.getFalseBranch() == null)
+                    || (blackStates.contains(aSwitch.getTrueBranch())
+                    && blackStates.contains(aSwitch.getFalseBranch()))) {
                 result.add(aSwitch);
             }
         }

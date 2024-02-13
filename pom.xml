@@ -23,6 +23,7 @@
         <module>test</module>
         <module>thread</module>
         <module>xml</module>
+        <module>util</module>
     </modules>
 
     <properties>

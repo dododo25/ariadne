@@ -1,4 +1,4 @@
-package com.dododo.ariadne.jaxb.util;
+package com.dododo.ariadne.jaxb.comparator;
 
 import com.dododo.ariadne.jaxb.model.JaxbPassState;
 import com.dododo.ariadne.jaxb.model.JaxbState;

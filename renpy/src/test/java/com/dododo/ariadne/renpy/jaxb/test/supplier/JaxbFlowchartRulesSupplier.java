@@ -5,7 +5,7 @@ import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbCallToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSkipComplexState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 import com.dododo.ariadne.test.annotation.RuleSetSupplier;
@@ -25,8 +25,8 @@ public class JaxbFlowchartRulesSupplier {
     }
 
     @RuleSetSupplier
-    public RuleSet createRuleForJaxbMenu() {
-        return createRuleForComplexState(JaxbMenu.class, (id, attrs) -> new JaxbMenu());
+    public RuleSet createRuleForJaxbRenPyMenu() {
+        return createRuleForComplexState(JaxbRenPyMenu.class, (id, attrs) -> new JaxbRenPyMenu());
     }
 
     @RuleSetSupplier

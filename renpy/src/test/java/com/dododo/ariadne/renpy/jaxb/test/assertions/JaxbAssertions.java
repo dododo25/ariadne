@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.jaxb.test.assertions;
 
 import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbFlowchartContract;
-import com.dododo.ariadne.renpy.jaxb.contract.RenPyJaxbSimpleFlowchartContract;
+import com.dododo.ariadne.renpy.jaxb.contract.SimpleRenPyJaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
@@ -18,14 +18,14 @@ public class JaxbAssertions {
 
         List<JaxbState> states = new ArrayList<>();
 
-        RenPyJaxbFlowchartContract c1 = new RenPyJaxbSimpleFlowchartContract() {
+        RenPyJaxbFlowchartContract c1 = new SimpleRenPyJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 states.add(state);
             }
         };
 
-        RenPyJaxbFlowchartContract c2 = new RenPyJaxbSimpleFlowchartContract() {
+        RenPyJaxbFlowchartContract c2 = new SimpleRenPyJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 if (stopProcessingRef.get()) {

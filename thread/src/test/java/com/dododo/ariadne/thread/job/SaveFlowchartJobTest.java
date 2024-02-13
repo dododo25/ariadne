@@ -79,10 +79,6 @@ class SaveFlowchartJobTest {
 
     private JaxbState createJaxbState() {
         JaxbRootState jaxbState = mock(JaxbRootState.class, RETURNS_DEEP_STUBS);
-        DiagramRoot root = mock(DiagramRoot.class);
-
-        root.getCells().add(mock(MxNodeCell.class));
-        root.getCells().add(mock(MxEdgeCell.class));
 
         when(jaxbState.childrenCount())
                 .thenReturn(2);

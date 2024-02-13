@@ -22,8 +22,8 @@ public abstract class ExtendedSimpleFlowchartContract extends SimpleFlowchartCon
     }
 
     @Override
-    public final void accept(Label group) {
-        acceptState(group);
+    public final void accept(Label label) {
+        acceptState(label);
     }
 
     @Override

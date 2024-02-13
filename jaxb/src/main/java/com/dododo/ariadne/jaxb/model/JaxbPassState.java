@@ -2,12 +2,12 @@ package com.dododo.ariadne.jaxb.model;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
-import com.dododo.ariadne.jaxb.util.JaxbNoFiledStateComparator;
+import com.dododo.ariadne.jaxb.comparator.JaxbNoFiledStateComparator;
 
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Collection;
 
-public class JaxbPassState implements JaxbState {
+public class JaxbPassState extends JaxbState {
 
     @XmlTransient
     private final JaxbNoFiledStateComparator comparator;

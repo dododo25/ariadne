@@ -18,7 +18,7 @@ public abstract class ExtendedFlowchartContractAdapter extends FlowchartContract
     public void accept(PassState state) {}
 
     @Override
-    public void accept(Label group) {}
+    public void accept(Label label) {}
 
     @Override
     public void accept(GoToPoint point) {}

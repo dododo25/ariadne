@@ -4,7 +4,7 @@ import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbCallToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 
 public abstract class RenPyJaxbFlowchartContractAdapter extends JaxbFlowchartContractAdapter
@@ -14,7 +14,7 @@ public abstract class RenPyJaxbFlowchartContractAdapter extends JaxbFlowchartCon
     public void accept(JaxbInitGroupState state) {}
 
     @Override
-    public void accept(JaxbMenu menu) {}
+    public void accept(JaxbRenPyMenu menu) {}
 
     @Override
     public void accept(JaxbSwitchFalseBranch switchBranch) {}

@@ -1,7 +1,7 @@
 package com.dododo.ariadne.mt.assertions;
 
 import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
-import com.dododo.ariadne.mxg.common.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.SimpleBlockFlowchartContract;
 import com.dododo.ariadne.mxg.common.factory.BlockComparatorFactory;
 import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.mxg.common.mouse.BlockFlowchartMouse;
@@ -22,14 +22,14 @@ public class BlockAssertions {
 
         List<Block> blocks = new ArrayList<>();
 
-        BlockFlowchartContract c1 = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract c1 = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 blocks.add(block);
             }
         };
 
-        BlockFlowchartContract c2 = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract c2 = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 if (stopProcessingRef.get()) {

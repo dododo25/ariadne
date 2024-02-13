@@ -10,7 +10,7 @@ import com.dododo.ariadne.core.model.Switch;
 import java.util.Collection;
 
 public class ParentFirstFlowchartMouseStrategy implements FlowchartMouseStrategy {
-    
+
     @Override
     public void acceptChainState(ChainState state, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates) {
         grayStates.remove(state);

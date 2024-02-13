@@ -3,7 +3,7 @@
 
     <node id="1" type="com.dododo.ariadne.jaxb.model.JaxbRootState" />
 
-    <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbMenu" />
+    <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu" />
     <node id="3" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="option" />
     <node id="4" type="com.dododo.ariadne.jaxb.model.JaxbComplexSwitch" />
     <node id="5" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" condition="switch1" />

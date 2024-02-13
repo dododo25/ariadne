@@ -1,14 +1,14 @@
 package com.dododo.ariadne.renpy.jaxb.contract;
 
-import com.dododo.ariadne.jaxb.contract.JaxbSimpleFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.SimpleJaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbCallToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 
-public abstract class RenPyJaxbSimpleFlowchartContract extends JaxbSimpleFlowchartContract
+public abstract class SimpleRenPyJaxbFlowchartContract extends SimpleJaxbFlowchartContract
         implements RenPyJaxbFlowchartContract {
 
     @Override
@@ -17,7 +17,7 @@ public abstract class RenPyJaxbSimpleFlowchartContract extends JaxbSimpleFlowcha
     }
 
     @Override
-    public final void accept(JaxbMenu menu) {
+    public final void accept(JaxbRenPyMenu menu) {
         acceptState(menu);
     }
 

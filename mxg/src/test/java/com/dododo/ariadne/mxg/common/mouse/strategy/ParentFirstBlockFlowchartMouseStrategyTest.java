@@ -1,15 +1,13 @@
 package com.dododo.ariadne.mxg.common.mouse.strategy;
 
 import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
-import com.dododo.ariadne.mxg.common.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.SimpleBlockFlowchartContract;
 import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.mxg.common.model.EndBlock;
 import com.dododo.ariadne.mxg.common.model.EntryBlock;
 import com.dododo.ariadne.mxg.common.model.MenuBlock;
 import com.dododo.ariadne.mxg.common.model.OptionBlock;
 import com.dododo.ariadne.mxg.common.model.SwitchBlock;
-import com.dododo.ariadne.mxg.common.mouse.strategy.BlockFlowchartMouseStrategy;
-import com.dododo.ariadne.mxg.common.mouse.strategy.ParentFirstBlockFlowchartMouseStrategy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -99,7 +97,7 @@ class ParentFirstBlockFlowchartMouseStrategyTest {
         List<Block> grayBlocks = new ArrayList<>();
         List<Block> blackBlocks = new ArrayList<>();
 
-        BlockFlowchartContract callback = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract callback = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 // test

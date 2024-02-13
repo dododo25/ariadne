@@ -1,4 +1,4 @@
-package com.dododo.ariadne.core.comparator;
+package com.dododo.ariadne.util.comparator;
 
 import java.util.Comparator;
 

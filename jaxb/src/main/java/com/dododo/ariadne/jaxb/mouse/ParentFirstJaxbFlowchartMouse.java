@@ -1,7 +1,7 @@
 package com.dododo.ariadne.jaxb.mouse;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.jaxb.contract.JaxbSimpleFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.SimpleJaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
 import com.dododo.ariadne.jaxb.mouse.strategy.ParentFirstJaxbFlowchartMouseStrategy;
@@ -23,7 +23,7 @@ public class ParentFirstJaxbFlowchartMouse extends JaxbFlowchartMouse {
 
     @Override
     public void accept(JaxbState state, Consumer<JaxbState> consumer) {
-        JaxbFlowchartContract callback = new JaxbSimpleFlowchartContract() {
+        JaxbFlowchartContract callback = new SimpleJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 consumer.accept(state);

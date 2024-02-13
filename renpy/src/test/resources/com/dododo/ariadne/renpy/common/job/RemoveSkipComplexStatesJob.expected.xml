@@ -2,7 +2,7 @@
 <mapping root="1">
     <node id="1" type="com.dododo.ariadne.jaxb.model.JaxbRootState" />
     <node id="2" type="com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup" value="group1" />
-    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbMenu" />
+    <node id="3" type="com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu" />
     <node id="4" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="option1" />
     <node id="5" type="com.dododo.ariadne.jaxb.model.JaxbSwitchBranch" value="switch1" />
     <node id="6" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch" value="switch3" />

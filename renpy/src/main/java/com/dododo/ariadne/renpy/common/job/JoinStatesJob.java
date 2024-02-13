@@ -36,7 +36,7 @@ import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbCallToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 import com.dododo.ariadne.renpy.jaxb.mouse.ChildFirstRenPyJaxbFlowchartMouse;
 import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
@@ -88,7 +88,7 @@ public final class JoinStatesJob extends AbstractJob {
             }
 
             @Override
-            public void accept(JaxbMenu menu) {
+            public void accept(JaxbRenPyMenu menu) {
                 map.put(menu, new Menu(menu.getValue()));
             }
 
@@ -185,7 +185,7 @@ public final class JoinStatesJob extends AbstractJob {
             }
 
             @Override
-            public void accept(JaxbMenu jaxbMenu) {
+            public void accept(JaxbRenPyMenu jaxbMenu) {
                 Menu menu = (Menu) map.get(jaxbMenu);
 
                 jaxbMenu.childrenStream()

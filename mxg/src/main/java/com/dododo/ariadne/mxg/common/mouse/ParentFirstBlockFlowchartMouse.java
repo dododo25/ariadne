@@ -1,7 +1,7 @@
 package com.dododo.ariadne.mxg.common.mouse;
 
 import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
-import com.dododo.ariadne.mxg.common.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.SimpleBlockFlowchartContract;
 import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.mxg.common.mouse.strategy.ParentFirstBlockFlowchartMouseStrategy;
 
@@ -21,7 +21,7 @@ public class ParentFirstBlockFlowchartMouse extends BlockFlowchartMouse {
 
     @Override
     public void accept(Block block, Consumer<Block> consumer) {
-        BlockFlowchartContract callback = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract callback = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 consumer.accept(block);

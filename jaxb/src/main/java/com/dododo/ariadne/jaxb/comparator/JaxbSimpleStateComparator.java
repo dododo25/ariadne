@@ -1,15 +1,16 @@
-package com.dododo.ariadne.jaxb.util;
+package com.dododo.ariadne.jaxb.comparator;
 
 import com.dododo.ariadne.jaxb.model.JaxbSimpleState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
+import com.dododo.ariadne.util.comparator.NullableStringComparator;
 
 import java.util.Comparator;
 
-public class JaxbSingleFieldStateComparator implements Comparator<JaxbState> {
+public class JaxbSimpleStateComparator implements Comparator<JaxbState> {
 
     private final NullableStringComparator comparator;
 
-    public JaxbSingleFieldStateComparator() {
+    public JaxbSimpleStateComparator() {
         this.comparator = new NullableStringComparator();
     }
 

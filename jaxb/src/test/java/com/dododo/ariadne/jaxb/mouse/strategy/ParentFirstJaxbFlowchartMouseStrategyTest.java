@@ -1,7 +1,7 @@
 package com.dododo.ariadne.jaxb.mouse.strategy;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.jaxb.contract.JaxbSimpleFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.SimpleJaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbRootState;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbText;
@@ -12,15 +12,15 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 
-class ChildFirstParentFirstJaxbFlowchartMouseStrategyTest {
+class ParentFirstJaxbFlowchartMouseStrategyTest {
 
     private static JaxbFlowchartMouseStrategy strategy;
 
     @BeforeAll
     static void setUp() {
-        strategy = new ChildFirstJaxbFlowchartMouseStrategy();
+        strategy = new ParentFirstJaxbFlowchartMouseStrategy();
     }
 
     @Test
@@ -28,10 +28,13 @@ class ChildFirstParentFirstJaxbFlowchartMouseStrategyTest {
         JaxbRootState rootState = new JaxbRootState();
         JaxbText text = new JaxbText("text");
 
-        Collection<JaxbState> expected = Collections.singletonList(text);
-        Collection<JaxbState> states = new ArrayList<>();
+        List<JaxbState> expectedGray = Collections.singletonList(text);
+        List<JaxbState> expectedBlack = Collections.singletonList(rootState);
 
-        JaxbFlowchartContract callback = new JaxbSimpleFlowchartContract() {
+        Collection<JaxbState> grayStates = new ArrayList<>();
+        Collection<JaxbState> blackStates = new ArrayList<>();
+
+        JaxbFlowchartContract callback = new SimpleJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 // test
@@ -39,8 +42,9 @@ class ChildFirstParentFirstJaxbFlowchartMouseStrategyTest {
         };
 
         rootState.addChild(text);
-        text.accept(strategy, callback, new HashSet<>(), states);
+        rootState.accept(strategy, callback, grayStates, blackStates);
 
-        Assertions.assertIterableEquals(expected, states);
+        Assertions.assertIterableEquals(expectedGray, grayStates);
+        Assertions.assertIterableEquals(expectedBlack, blackStates);
     }
 }

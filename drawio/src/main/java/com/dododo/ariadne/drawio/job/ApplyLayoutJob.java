@@ -2,7 +2,7 @@ package com.dododo.ariadne.drawio.job;
 
 import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContract;
 import com.dododo.ariadne.mxg.common.contract.BlockFlowchartContractAdapter;
-import com.dododo.ariadne.mxg.common.contract.BlockSimpleFlowchartContract;
+import com.dododo.ariadne.mxg.common.contract.SimpleBlockFlowchartContract;
 import com.dododo.ariadne.mxg.common.model.Block;
 import com.dododo.ariadne.mxg.common.model.ChainBlock;
 import com.dododo.ariadne.mxg.common.model.ConditionalOptionBlock;
@@ -69,7 +69,7 @@ public final class ApplyLayoutJob extends DrawIoAbstractJob {
     }
 
     private void collectBlocks(Block root, Collection<Block> blocks) {
-        BlockFlowchartContract callback = new BlockSimpleFlowchartContract() {
+        BlockFlowchartContract callback = new SimpleBlockFlowchartContract() {
             @Override
             public void acceptBlock(Block block) {
                 if (block.getRoots().length != 1) {

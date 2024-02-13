@@ -2,7 +2,7 @@ package com.dododo.ariadne.jaxb.model;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.mouse.strategy.JaxbFlowchartMouseStrategy;
-import com.dododo.ariadne.jaxb.util.NullableStringComparator;
+import com.dododo.ariadne.util.comparator.NullableStringComparator;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.util.Collection;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class JaxbReply implements JaxbState {
+public class JaxbReply extends JaxbState {
 
     @XmlTransient
     private final NullableStringComparator comparator;

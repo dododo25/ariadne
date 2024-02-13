@@ -14,7 +14,7 @@ import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
 
@@ -60,7 +60,7 @@ public final class ValidateRawFlowchartJob extends AbstractJob {
             }
 
             @Override
-            public void accept(JaxbMenu menu) {
+            public void accept(JaxbRenPyMenu menu) {
                 acceptComplexState(menu);
                 validateMenuChildStates(menu);
             }
@@ -87,7 +87,7 @@ public final class ValidateRawFlowchartJob extends AbstractJob {
                 .ifPresent(child -> invalidate(state, child));
     }
 
-    private void validateMenuChildStates(JaxbMenu menu) {
+    private void validateMenuChildStates(JaxbRenPyMenu menu) {
         menu.childrenStream()
                 .filter(child -> !(child instanceof JaxbOption))
                 .findFirst()

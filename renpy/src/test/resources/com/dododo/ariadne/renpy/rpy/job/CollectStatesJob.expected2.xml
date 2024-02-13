@@ -11,7 +11,7 @@
     <node id="8" type="com.dododo.ariadne.jaxb.model.JaxbText" value="i += 1" />
     <node id="9" type="com.dododo.ariadne.jaxb.model.JaxbGoToState" value="test" />
     <node id="10" type="com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch" />
-    <node id="11" type="com.dododo.ariadne.renpy.jaxb.model.JaxbMenu" />
+    <node id="11" type="com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu" />
     <node id="12" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="Option #1" />
     <node id="13" type="com.dododo.ariadne.jaxb.model.JaxbText" value="j = 1" />
     <node id="14" type="com.dododo.ariadne.jaxb.model.JaxbOption" value="Option #2" />

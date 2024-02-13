@@ -10,7 +10,6 @@ import com.dododo.ariadne.jaxb.model.JaxbComplexSwitch;
 import com.dododo.ariadne.jaxb.model.JaxbOption;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 import com.dododo.ariadne.renpy.jaxb.mouse.ParentFirstRenPyJaxbFlowchartMouse;
@@ -31,11 +30,6 @@ public final class PrepareJaxbComplexSwitchStatesJob extends AbstractJob {
 
             @Override
             public void accept(JaxbRootState state) {
-                acceptComplexState(state);
-            }
-
-            @Override
-            public void accept(JaxbInitGroupState state) {
                 acceptComplexState(state);
             }
 

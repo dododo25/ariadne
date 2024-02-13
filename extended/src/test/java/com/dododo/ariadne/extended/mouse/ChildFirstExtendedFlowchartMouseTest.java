@@ -1,15 +1,9 @@
 package com.dododo.ariadne.extended.mouse;
 
-import com.dododo.ariadne.core.model.ConditionalOption;
-import com.dododo.ariadne.core.model.EndPoint;
-import com.dododo.ariadne.core.model.EntryState;
-import com.dododo.ariadne.core.model.Menu;
-import com.dododo.ariadne.core.model.Option;
-import com.dododo.ariadne.core.model.Reply;
+import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.extended.contract.ExtendedSimpleFlowchartContract;
 import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.GoToPoint;
@@ -19,6 +13,11 @@ import com.dododo.ariadne.extended.model.SwitchBranch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.function.BiConsumer;
 
 class ChildFirstExtendedFlowchartMouseTest {
 
@@ -30,27 +29,37 @@ class ChildFirstExtendedFlowchartMouseTest {
     }
 
     @Test
-    void testCreateForShouldDoneWell() {
-        testCreateFor(new EntryState());
-        testCreateFor(new Text("test"));
-        testCreateFor(new Reply(null, "test"));
-        testCreateFor(new Menu());
-        testCreateFor(new Option("test"));
-        testCreateFor(new ConditionalOption("test1", "test2"));
-        testCreateFor(new Switch("test"));
-        testCreateFor(new EndPoint());
+    void testAcceptShouldDoneWell() {
+        testAccept(new ComplexState());
+        testAccept(new Label("test"));
+        testAccept(new PassState());
+        testAccept(new ComplexSwitch());
+        testAccept(new SwitchBranch("test"));
+        testAccept(new GoToPoint("test"));
 
-        testCreateFor(new ComplexState());
-        testCreateFor(new PassState());
-
-        testCreateFor(new Label("test"));
-        testCreateFor(new GoToPoint("test"));
-
-        testCreateFor(new ComplexSwitch());
-        testCreateFor(new SwitchBranch("test"));
+        testAccept(new ComplexState(), new PassState(), ComplexState::addChild);
+        testAccept(new ComplexSwitch(), new SwitchBranch("test"), ComplexState::addChild);
+        testAccept(new SwitchBranch("test"), new PassState(), SwitchBranch::setNext);
     }
 
-    private void testCreateFor(State state) {
+    private void testAccept(State state) {
         mouse.accept(state, s -> Assertions.assertSame(s, state));
+    }
+
+    private <T extends State> void testAccept(T first, State second, BiConsumer<T, State> consumer) {
+        Collection<State> expected = Arrays.asList(second, first);
+        Collection<State> states = new ArrayList<>();
+
+        FlowchartContract contract = new ExtendedSimpleFlowchartContract() {
+            @Override
+            public void acceptState(State state) {
+                states.add(state);
+            }
+        };
+
+        consumer.accept(first, second);
+        mouse.accept(first, contract);
+
+        Assertions.assertEquals(expected, states);
     }
 }

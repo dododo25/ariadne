@@ -37,10 +37,10 @@ public class ChildFirstExtendedFlowchartMouse extends ChildFirstFlowchartMouse {
     }
 
     @Override
-    protected Collection<State> prepareStartingPoints(State state, Collection<State> blackStates) {
+    protected Collection<State> prepareStartingPoints(State state) {
         Collection<State> result = new ArrayList<>();
 
-        FlowchartContract callback = new ExtendedInnerFlowchartContract(result, blackStates);
+        FlowchartContract callback = new ExtendedInnerFlowchartContract(result);
         FlowchartMouse mouse = new ParentFirstExtendedFlowchartMouse();
 
         mouse.accept(state, callback);
@@ -51,8 +51,8 @@ public class ChildFirstExtendedFlowchartMouse extends ChildFirstFlowchartMouse {
     protected static class ExtendedInnerFlowchartContract extends InnerFlowchartContract
             implements ExtendedFlowchartContract {
 
-        public ExtendedInnerFlowchartContract(Collection<State> result, Collection<State> blackStates) {
-            super(result, blackStates);
+        public ExtendedInnerFlowchartContract(Collection<State> result) {
+            super(result);
         }
 
         @Override

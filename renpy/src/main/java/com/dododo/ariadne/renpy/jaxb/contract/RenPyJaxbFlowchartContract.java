@@ -4,14 +4,14 @@ import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbCallToState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbInitGroupState;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbLabelledGroup;
-import com.dododo.ariadne.renpy.jaxb.model.JaxbMenu;
+import com.dododo.ariadne.renpy.jaxb.model.JaxbRenPyMenu;
 import com.dododo.ariadne.renpy.jaxb.model.JaxbSwitchFalseBranch;
 
 public interface RenPyJaxbFlowchartContract extends JaxbFlowchartContract {
 
     void accept(JaxbInitGroupState state);
 
-    void accept(JaxbMenu menu);
+    void accept(JaxbRenPyMenu menu);
 
     void accept(JaxbSwitchFalseBranch switchBranch);
 

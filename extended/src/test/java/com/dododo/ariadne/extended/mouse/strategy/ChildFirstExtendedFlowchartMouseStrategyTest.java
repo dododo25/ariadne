@@ -1,10 +1,15 @@
 package com.dododo.ariadne.extended.mouse.strategy;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
-import com.dododo.ariadne.core.model.EndPoint;
+import com.dododo.ariadne.core.model.ChainState;
+import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.contract.ExtendedSimpleFlowchartContract;
 import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.Label;
+import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.SwitchBranch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -26,20 +30,26 @@ class ChildFirstExtendedFlowchartMouseStrategyTest {
     }
 
     @Test
-    void testAcceptPointShouldDoneWell() {
-        ComplexState first = new ComplexState();
-        EndPoint point = new EndPoint();
+    void testAcceptStateShouldDoneWell() {
+        testAccept(new Label("test"), new EntryState(), ChainState::setNext,
+                (state, callback, grayStates, blackStates) -> strategy.acceptChainState(state, callback, grayStates, blackStates));
+        testAccept(new PassState(), new EntryState(), ChainState::setNext,
+                (state, callback, grayStates, blackStates) -> strategy.acceptChainState(state, callback, grayStates, blackStates));
+        testAccept(new SwitchBranch("test"), new EntryState(), ChainState::setNext,
+                (state, callback, grayStates, blackStates) -> strategy.acceptChainState(state, callback, grayStates, blackStates));
 
-        List<State> expected = Collections.singletonList(point);
-
-        first.addChild(point);
-
-        testAccept(expected, (callback, blackStates) ->
-                strategy.acceptPoint(point, callback, new HashSet<>(), blackStates));
+        testAccept(new EntryState(), new ComplexState(), ChainState::setNext,
+                (state, callback, grayStates, blackStates) -> strategy.acceptComplexState(state, callback, grayStates, blackStates));
+        testAccept(new EntryState(), new ComplexSwitch(), ChainState::setNext,
+                (state, callback, grayStates, blackStates) -> strategy.acceptComplexState(state, callback, grayStates, blackStates));
     }
 
-    private void testAccept(Collection<State> expected, BiConsumer<FlowchartContract, Collection<State>> consumer) {
-        Collection<State> states = new ArrayList<>();
+    private <T extends State, E extends State> void testAccept(T first, E second, BiConsumer<T, E> consumer, TestConsumer<E> testConsumer) {
+        List<State> expectedGray = Collections.singletonList(first);
+        List<State> expectedBlack = Collections.singletonList(second);
+
+        Collection<State> grayStates = new ArrayList<>();
+        Collection<State> blackStates = new ArrayList<>();
 
         FlowchartContract callback = new ExtendedSimpleFlowchartContract() {
             @Override
@@ -48,7 +58,16 @@ class ChildFirstExtendedFlowchartMouseStrategyTest {
             }
         };
 
-        consumer.accept(callback, states);
-        Assertions.assertIterableEquals(expected, states);
+        consumer.accept(first, second);
+        testConsumer.accept(second, callback, grayStates, blackStates);
+
+        Assertions.assertIterableEquals(expectedGray, grayStates);
+        Assertions.assertIterableEquals(expectedBlack, blackStates);
+    }
+
+    interface TestConsumer<T extends State> {
+
+        void accept(T state, FlowchartContract callback, Collection<State> grayStates, Collection<State> blackStates);
+
     }
 }

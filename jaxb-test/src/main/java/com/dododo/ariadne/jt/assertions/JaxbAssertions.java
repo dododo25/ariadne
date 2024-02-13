@@ -1,7 +1,7 @@
 package com.dododo.ariadne.jt.assertions;
 
 import com.dododo.ariadne.jaxb.contract.JaxbFlowchartContract;
-import com.dododo.ariadne.jaxb.contract.JaxbSimpleFlowchartContract;
+import com.dododo.ariadne.jaxb.contract.SimpleJaxbFlowchartContract;
 import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.mouse.JaxbFlowchartMouse;
 import com.dododo.ariadne.jaxb.mouse.ParentFirstJaxbFlowchartMouse;
@@ -19,14 +19,14 @@ public class JaxbAssertions {
 
         List<JaxbState> states = new ArrayList<>();
 
-        JaxbFlowchartContract c1 = new JaxbSimpleFlowchartContract() {
+        JaxbFlowchartContract c1 = new SimpleJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 states.add(state);
             }
         };
 
-        JaxbFlowchartContract c2 = new JaxbSimpleFlowchartContract() {
+        JaxbFlowchartContract c2 = new SimpleJaxbFlowchartContract() {
             @Override
             public void acceptState(JaxbState state) {
                 if (stopProcessingRef.get()) {

@@ -10,7 +10,7 @@ import com.dododo.ariadne.mxg.common.model.ReplyBlock;
 import com.dododo.ariadne.mxg.common.model.SwitchBlock;
 import com.dododo.ariadne.mxg.common.model.TextBlock;
 
-public abstract class BlockSimpleFlowchartContract implements BlockFlowchartContract {
+public abstract class SimpleBlockFlowchartContract implements BlockFlowchartContract {
 
     @Override
     public final void accept(EntryBlock block) {
@@ -28,7 +28,7 @@ public abstract class BlockSimpleFlowchartContract implements BlockFlowchartCont
     }
 
     @Override
-    public void accept(MenuBlock block) {
+    public final void accept(MenuBlock block) {
         acceptBlock(block);
     }
 
@@ -43,7 +43,7 @@ public abstract class BlockSimpleFlowchartContract implements BlockFlowchartCont
     }
 
     @Override
-    public void accept(SwitchBlock block) {
+    public final void accept(SwitchBlock block) {
         acceptBlock(block);
     }
 

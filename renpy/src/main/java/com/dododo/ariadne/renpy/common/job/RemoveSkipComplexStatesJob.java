@@ -33,11 +33,6 @@ public final class RemoveSkipComplexStatesJob extends AbstractJob {
             }
 
             @Override
-            public void accept(JaxbInitGroupState state) {
-                acceptComplexState(state);
-            }
-
-            @Override
             public void accept(JaxbOption option) {
                 acceptComplexState(option);
             }
@@ -45,6 +40,11 @@ public final class RemoveSkipComplexStatesJob extends AbstractJob {
             @Override
             public void accept(JaxbSwitchBranch switchBranch) {
                 acceptComplexState(switchBranch);
+            }
+
+            @Override
+            public void accept(JaxbInitGroupState state) {
+                acceptComplexState(state);
             }
 
             @Override

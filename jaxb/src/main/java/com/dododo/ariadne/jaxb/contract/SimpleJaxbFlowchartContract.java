@@ -13,7 +13,7 @@ import com.dododo.ariadne.jaxb.model.JaxbState;
 import com.dododo.ariadne.jaxb.model.JaxbSwitchBranch;
 import com.dododo.ariadne.jaxb.model.JaxbText;
 
-public abstract class JaxbSimpleFlowchartContract implements JaxbFlowchartContract {
+public abstract class SimpleJaxbFlowchartContract implements JaxbFlowchartContract {
 
     @Override
     public final void accept(JaxbRootState state) {

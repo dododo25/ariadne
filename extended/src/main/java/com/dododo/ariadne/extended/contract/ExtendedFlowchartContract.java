@@ -12,7 +12,7 @@ public interface ExtendedFlowchartContract extends FlowchartContract {
 
     void accept(ComplexState state);
 
-    void accept(Label group);
+    void accept(Label label);
 
     void accept(PassState state);
 
