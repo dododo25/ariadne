@@ -1,29 +1,33 @@
 package com.dododo.ariadne.common.configuration;
 
-import java.util.Comparator;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Configuration {
 
-    private static final Comparator<String> KEYS_COMPARATOR = Comparator
-            .comparingInt(o -> Integer.parseInt(o.substring(o.lastIndexOf('.') + 1)));
+    private final String inputProfile;
 
-    private String inputProfile;
+    private final String outputProfile;
 
-    private String outputProfile;
+    private final List<String> inputFiles;
 
-    private List<String> inputFiles;
+    private final String outputDir;
 
-    private String outputDir;
+    private final boolean loadReply;
 
-    private boolean loadReply;
+    private final Set<String> excluded;
 
-    private Set<String> excluded;
-
-    private Configuration() {}
+    private Configuration(Builder builder) {
+        this.inputProfile = builder.inputProfile;
+        this.outputProfile = builder.outputProfile;
+        this.inputFiles = new ArrayList<>(builder.inputFiles);
+        this.outputDir = builder.outputDir;
+        this.loadReply = builder.loadReply;
+        this.excluded = new HashSet<>(builder.excluded);
+    }
 
     public String getInputProfile() {
         return inputProfile;
@@ -49,33 +53,54 @@ public class Configuration {
         return excluded;
     }
 
-    public static Configuration create(Properties properties) {
-        Configuration configuration = new Configuration();
+    public static class Builder {
 
-        configuration.inputProfile  = properties.getProperty("flowchart.input.profile");
-        configuration.outputProfile = properties.getProperty("flowchart.output.profile");
-        configuration.outputDir     = properties.getProperty("flowchart.output.directory");
-        configuration.inputFiles    = prepareSortedInputFilesList(properties);
-        configuration.loadReply     = Boolean.parseBoolean(properties.getProperty("flowchart.loadReply", "true"));
-        configuration.excluded      = prepareExcluded(properties);
+        private String inputProfile;
 
-        return configuration;
-    }
+        private String outputProfile;
 
-    private static List<String> prepareSortedInputFilesList(Properties properties) {
-        return properties.stringPropertyNames()
-                .stream()
-                .filter(key -> key.startsWith("flowchart.input.file"))
-                .sorted(KEYS_COMPARATOR)
-                .map(properties::getProperty)
-                .collect(Collectors.toList());
-    }
+        private final List<String> inputFiles;
 
-    private static Set<String> prepareExcluded(Properties properties) {
-        return properties.stringPropertyNames()
-                .stream()
-                .filter(key -> key.startsWith("flowchart.excluded"))
-                .map(properties::getProperty)
-                .collect(Collectors.toSet());
+        private String outputDir;
+
+        private boolean loadReply;
+
+        private final Set<String> excluded;
+
+        public Builder() {
+            this.outputDir = Paths.get(".").toAbsolutePath().toString();
+            this.loadReply = false;
+
+            this.inputFiles = new ArrayList<>();
+            this.excluded = new HashSet<>();
+        }
+
+        public void setInputProfile(String inputProfile) {
+            this.inputProfile = inputProfile;
+        }
+
+        public void setOutputProfile(String outputProfile) {
+            this.outputProfile = outputProfile;
+        }
+
+        public void addInputFile(String inputFile) {
+            this.inputFiles.add(inputFile);
+        }
+
+        public void setOutputDir(String outputDir) {
+            this.outputDir = outputDir;
+        }
+
+        public void setLoadReply(boolean loadReply) {
+            this.loadReply = loadReply;
+        }
+
+        public void addExclude(String excluded) {
+            this.excluded.add(excluded);
+        }
+
+        public Configuration build() {
+            return new Configuration(this);
+        }
     }
 }
