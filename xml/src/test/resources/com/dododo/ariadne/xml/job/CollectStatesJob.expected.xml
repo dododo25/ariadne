@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.xml.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.core.model.Text" value="i = 0" />
+    <node id="3" type="com.dododo.ariadne.xml.model.Marker" value="m1" />
+    <node id="4" type="com.dododo.ariadne.xml.model.ComplexSwitch" />
+    <node id="5" type="com.dododo.ariadne.xml.model.ComplexSwitchBranch" condition="i &lt; 5" />
+    <node id="6" type="com.dododo.ariadne.core.model.Text" value="i++" />
+    <node id="7" type="com.dododo.ariadne.xml.model.GoToPoint" value="m1" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="3" />
+    <edge from="1" to="4" />
+    <edge from="4" to="5" />
+    <edge from="5" to="6" />
+    <edge from="5" to="7" />
+</mapping>

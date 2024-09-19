@@ -45,13 +45,17 @@ public class FlowchartMouse {
                 continue;
             }
 
-            InnerFlowchartContract contract = new InnerFlowchartContract(callback);
+            InnerFlowchartContract contract = prepareInnerContract(callback);
 
             blackStates.add(current);
             current.accept(contract);
 
             grayStates.addAll(0, contract.grayStates);
         }
+    }
+
+    protected InnerFlowchartContract prepareInnerContract(FlowchartContract callback) {
+        return new InnerFlowchartContract(callback);
     }
 
     protected static class InnerFlowchartContract implements FlowchartContract {

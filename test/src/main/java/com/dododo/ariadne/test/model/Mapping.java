@@ -2,6 +2,7 @@ package com.dododo.ariadne.test.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Mapping {
 
-    @XmlElement(name = "root-node", type = Node.class)
-    private Node rootNode;
+    @XmlAttribute
+    private int root;
 
     @XmlElement(name = "node", type = Node.class)
     private List<Node> nodes;
@@ -26,8 +27,8 @@ public final class Mapping {
         this.edges = new ArrayList<>();
     }
 
-    public Node getRootNode() {
-        return rootNode;
+    public int getRoot() {
+        return root;
     }
 
     public Collection<Node> getNodes() {

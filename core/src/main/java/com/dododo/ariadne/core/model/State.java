@@ -1,6 +1,7 @@
 package com.dododo.ariadne.core.model;
 
 import com.dododo.ariadne.core.contract.FlowchartContract;
+import com.dododo.ariadne.util.comparator.NullableStringComparator;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -15,13 +16,7 @@ public abstract class State implements Comparable<State> {
 
     protected State() {
         this.roots = new CopyOnWriteArraySet<>();
-        this.comparator = (o1, o2) -> {
-            if (o1 == null) {
-                return o2 == null ? 0 : -1;
-            }
-
-            return o2 == null ? 1 : o1.compareTo(o2);
-        };
+        this.comparator = new NullableStringComparator();
     }
 
     public State[] getRoots() {

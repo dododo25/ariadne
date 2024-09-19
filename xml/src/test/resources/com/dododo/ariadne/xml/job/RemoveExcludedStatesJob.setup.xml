@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.xml.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.core.model.Text" value="$ excluded = True" />
+    <node id="3" type="com.dododo.ariadne.xml.model.ComplexSwitch" />
+    <node id="4" type="com.dododo.ariadne.xml.model.ComplexSwitchBranch" condition="switch" />
+    <node id="5" type="com.dododo.ariadne.core.model.Text" value="$ excluded = False" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="3" />
+    <edge from="3" to="4" />
+    <edge from="4" to="5" />
+
+</mapping>

@@ -1,0 +1,8 @@
+<mapping root="1">
+
+    <node id="1" type="com.dododo.ariadne.core.model.EntryState" />
+    <node id="2" type="com.dododo.ariadne.core.model.Text" value="text" />
+
+    <edge from="1" to="2" />
+
+</mapping>

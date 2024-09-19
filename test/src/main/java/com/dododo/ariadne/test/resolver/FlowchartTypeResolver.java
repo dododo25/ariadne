@@ -70,7 +70,7 @@ public final class FlowchartTypeResolver implements ParameterResolver {
             collectStates(map, mapping);
             joinStates(map, mapping);
 
-            return map.get(mapping.getRootNode().getId());
+            return map.get(mapping.getRoot());
         } catch (JAXBException | InvocationTargetException | IllegalAccessException e) {
             throw new ParameterResolutionException(e.getMessage(), e);
         } catch (IllegalArgumentException e) {

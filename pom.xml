@@ -13,6 +13,8 @@
         <module>core</module>
         <module>core-test</module>
         <module>test</module>
+        <module>util</module>
+        <module>xml</module>
     </modules>
 
     <properties>
@@ -21,4 +23,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

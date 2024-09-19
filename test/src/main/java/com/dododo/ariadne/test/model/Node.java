@@ -68,6 +68,6 @@ public final class Node {
     @Override
     public String toString() {
         return String.format("%s(id=%d, type=%s, attributes=%s)",
-                getClass().getSimpleName(), getId(), getType(), rawAttrs);
+                getClass().getSimpleName(), getId(), rawType, rawAttrs);
     }
 }

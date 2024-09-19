@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flowchart>
+    <text value="i = 0"/>
+    <marker value="m1"/>
+    <switch>
+        <if condition="i &lt; 5">
+            <text value="i++"/>
+            <goto value="m1"/>
+        </if>
+    </switch>
+</flowchart>
