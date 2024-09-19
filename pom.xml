@@ -11,6 +11,8 @@
     <modules>
         <module>common</module>
         <module>core</module>
+        <module>core-test</module>
+        <module>test</module>
     </modules>
 
     <properties>
