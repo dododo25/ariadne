@@ -1,6 +1,6 @@
 package com.dododo.ariadne.xml.job;
 
-import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.job.AbstractJob;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
 import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;

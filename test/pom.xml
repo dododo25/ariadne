@@ -7,9 +7,10 @@
     <parent>
         <groupId>com.dododo</groupId>
         <artifactId>ariadne</artifactId>
-        <version>0.0.1</version>
+        <version>${revision}</version>
     </parent>
 
+    <groupId>com.dododo.ariadne</groupId>
     <artifactId>test</artifactId>
 
     <properties>
@@ -19,9 +20,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.dododo</groupId>
-            <artifactId>core</artifactId>
-            <version>0.0.1</version>
+            <groupId>com.dododo.ariadne</groupId>
+            <artifactId>core-model</artifactId>
+            <version>${revision}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>

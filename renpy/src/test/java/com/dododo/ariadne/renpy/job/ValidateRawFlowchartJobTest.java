@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.job;
 
-import com.dododo.ariadne.common.exception.AriadneException;
+import com.dododo.ariadne.core.exception.AriadneException;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;

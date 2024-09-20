@@ -7,10 +7,18 @@
     <parent>
         <groupId>com.dododo</groupId>
         <artifactId>ariadne</artifactId>
-        <version>0.0.1</version>
+        <version>${revision}</version>
     </parent>
 
+    <groupId>com.dododo.ariadne</groupId>
     <artifactId>core</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>model</module>
+        <module>provider</module>
+        <module>test</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,12 +26,4 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.dododo</groupId>
-            <artifactId>util</artifactId>
-            <version>0.0.1</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 </project>

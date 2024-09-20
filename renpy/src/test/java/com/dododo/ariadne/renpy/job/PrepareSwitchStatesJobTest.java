@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.job;
 
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.ct.assertions.StateAssertions;
+import com.dododo.ariadne.core.test.assertions.StateAssertions;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;

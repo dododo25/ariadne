@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.job;
 
-import com.dododo.ariadne.common.job.RemoveStateJob;
+import com.dododo.ariadne.core.job.RemoveStateJob;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;

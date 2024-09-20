@@ -1,7 +1,7 @@
 package com.dododo.ariadne.xml.job;
 
-import com.dododo.ariadne.common.exception.AriadneException;
-import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.exception.AriadneException;
+import com.dododo.ariadne.core.job.AbstractJob;
 import com.dododo.ariadne.xml.handler.XmlFlowchartHandler;
 import com.dododo.ariadne.extended.model.ComplexState;
 import org.xml.sax.SAXException;

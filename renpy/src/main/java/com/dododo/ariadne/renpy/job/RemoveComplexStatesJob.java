@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.job;
 
-import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.job.AbstractJob;
 import com.dododo.ariadne.core.collector.LeafChainStateCollector;
 import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;

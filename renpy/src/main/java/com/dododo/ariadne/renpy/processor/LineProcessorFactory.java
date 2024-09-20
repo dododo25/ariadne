@@ -1,6 +1,6 @@
 package com.dododo.ariadne.renpy.processor;
 
-import com.dododo.ariadne.common.configuration.Configuration;
+import com.dododo.ariadne.core.configuration.Configuration;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.renpy.model.SkipComplexState;
 

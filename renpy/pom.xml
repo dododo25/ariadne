@@ -7,9 +7,10 @@
     <parent>
         <groupId>com.dododo</groupId>
         <artifactId>ariadne</artifactId>
-        <version>0.0.1</version>
+        <version>${revision}</version>
     </parent>
 
+    <groupId>com.dododo.ariadne</groupId>
     <artifactId>renpy</artifactId>
 
     <properties>
@@ -20,31 +21,31 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.dododo</groupId>
-            <artifactId>common</artifactId>
-            <version>0.0.1</version>
+            <groupId>com.dododo.ariadne</groupId>
+            <artifactId>core-provider</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>core-test</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>extended-model</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>extended-test</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>test</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

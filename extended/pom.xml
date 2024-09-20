@@ -7,15 +7,16 @@
     <parent>
         <groupId>com.dododo</groupId>
         <artifactId>ariadne</artifactId>
-        <version>0.0.1</version>
+        <version>${revision}</version>
     </parent>
 
+    <groupId>com.dododo.ariadne</groupId>
     <artifactId>extended</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>extended-model</module>
-        <module>extended-test</module>
+        <module>model</module>
+        <module>test</module>
     </modules>
 
     <properties>

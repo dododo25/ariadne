@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.job;
 
-import com.dododo.ariadne.common.exception.AriadneException;
-import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.exception.AriadneException;
+import com.dododo.ariadne.core.job.AbstractJob;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;

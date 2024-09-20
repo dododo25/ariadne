@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.job;
 
-import com.dododo.ariadne.common.exception.AriadneException;
-import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.exception.AriadneException;
+import com.dododo.ariadne.core.job.AbstractJob;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.State;

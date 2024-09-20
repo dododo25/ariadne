@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.provider;
 
-import com.dododo.ariadne.common.job.AbstractJob;
-import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
+import com.dododo.ariadne.core.job.AbstractJob;
+import com.dododo.ariadne.core.provider.FlowchartJobsProvider;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
 import com.dododo.ariadne.renpy.job.AddMissingSwitchFalseBranchComplexStateJob;

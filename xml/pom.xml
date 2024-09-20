@@ -6,9 +6,10 @@
     <parent>
         <groupId>com.dododo</groupId>
         <artifactId>ariadne</artifactId>
-        <version>0.0.1</version>
+        <version>${revision}</version>
     </parent>
 
+    <groupId>com.dododo.ariadne</groupId>
     <artifactId>xml</artifactId>
 
     <properties>
@@ -19,38 +20,31 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.dododo</groupId>
-            <artifactId>common</artifactId>
-            <version>0.0.1</version>
+            <groupId>com.dododo.ariadne</groupId>
+            <artifactId>core-provider</artifactId>
+            <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>core-test</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>extended-model</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>extended-test</artifactId>
-            <version>0.0.1</version>
+            <version>${revision}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.dododo</groupId>
+            <groupId>com.dododo.ariadne</groupId>
             <artifactId>test</artifactId>
-            <version>0.0.1</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.12.4</version>
+            <version>${revision}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,7 +1,7 @@
 package com.dododo.ariadne.xml.provider;
 
-import com.dododo.ariadne.common.provider.FlowchartJobsProvider;
-import com.dododo.ariadne.common.job.AbstractJob;
+import com.dododo.ariadne.core.provider.FlowchartJobsProvider;
+import com.dododo.ariadne.core.job.AbstractJob;
 import com.dododo.ariadne.xml.job.PrepareComplexStateEntryFlowchartJob;
 import com.dododo.ariadne.xml.job.PrepareMenuStatesJob;
 import com.dododo.ariadne.extended.model.Marker;
