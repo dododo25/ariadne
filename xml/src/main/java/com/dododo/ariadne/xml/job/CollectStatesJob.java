@@ -3,7 +3,7 @@ package com.dododo.ariadne.xml.job;
 import com.dododo.ariadne.common.exception.AriadneException;
 import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.xml.handler.XmlFlowchartHandler;
-import com.dododo.ariadne.xml.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexState;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -37,6 +37,8 @@ public final class CollectStatesJob extends AbstractJob {
             factory.setSchema(schema);
 
             SAXParser parser = factory.newSAXParser();
+            parser.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            parser.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
             parser.parse(file, new XmlFlowchartHandler((ComplexState) getFlowchart()));
         } catch (SAXException | ParserConfigurationException | IOException e) {

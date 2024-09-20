@@ -4,10 +4,10 @@ import com.dododo.ariadne.common.job.AbstractJob;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.xml.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.model.ComplexState;
-import com.dododo.ariadne.xml.model.ComplexSwitchBranch;
-import com.dododo.ariadne.xml.mouse.XmlFlowchartMouse;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
+import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
 
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public final class RemoveExcludedStatesJob extends AbstractJob {
     public void run() {
         Set<String> excluded = getConfiguration().getExcluded();
 
-        FlowchartContract callback = new XmlFlowchartContractAdapter() {
+        FlowchartContract callback = new ExtendedFlowchartContractAdapter() {
 
             @Override
             public void accept(ComplexState state) {
@@ -37,7 +37,7 @@ public final class RemoveExcludedStatesJob extends AbstractJob {
                         .forEach(complexState::removeChild);
             }
         };
-        FlowchartMouse mouse = new XmlFlowchartMouse();
+        FlowchartMouse mouse = new ExtendedFlowchartMouse();
 
         mouse.accept(getFlowchart(), callback);
     }

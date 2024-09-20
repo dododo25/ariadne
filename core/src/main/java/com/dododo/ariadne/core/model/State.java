@@ -33,6 +33,11 @@ public abstract class State implements Comparable<State> {
 
     public abstract void accept(FlowchartContract contract);
 
+    @Override
+    public String toString() {
+        return String.format("%s@%s", getClass().getSimpleName(), Integer.toHexString(hashCode()));
+    }
+
     protected int compareByClass(State state) {
         if (!(this.getClass().isInstance(state))) {
             return 1;

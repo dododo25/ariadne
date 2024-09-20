@@ -3,9 +3,9 @@ package com.dododo.ariadne.xml.job;
 import com.dododo.ariadne.common.configuration.Configuration;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
+import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
-import com.dododo.ariadne.xml.mouse.XmlFlowchartMouse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -31,6 +31,6 @@ class RemoveExcludedStatesJobTest {
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, setup, new XmlFlowchartMouse());
+        StateAssertions.assertEquals(expected, setup, new ExtendedFlowchartMouse());
     }
 }

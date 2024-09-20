@@ -2,13 +2,13 @@ package com.dododo.ariadne.xml.handler;
 
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.Text;
-import com.dododo.ariadne.xml.model.ComplexMenu;
-import com.dododo.ariadne.xml.model.ComplexOption;
-import com.dododo.ariadne.xml.model.ComplexState;
-import com.dododo.ariadne.xml.model.ComplexSwitch;
-import com.dododo.ariadne.xml.model.ComplexSwitchBranch;
-import com.dododo.ariadne.xml.model.GoToPoint;
-import com.dododo.ariadne.xml.model.Marker;
+import com.dododo.ariadne.extended.model.ComplexMenu;
+import com.dododo.ariadne.extended.model.ComplexOption;
+import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.ComplexSwitch;
+import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
+import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.Marker;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -29,6 +29,7 @@ public class XmlFlowchartHandler extends DefaultHandler {
     }
 
     @Override
+    @SuppressWarnings("java:S1192")
     public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
         switch (qName.toLowerCase()) {
             case "marker":
@@ -56,17 +57,17 @@ public class XmlFlowchartHandler extends DefaultHandler {
                 current = complexSwitch;
                 break;
             case "if":
-                ComplexSwitchBranch ifSwitchBranch = new ComplexSwitchBranch(attrs.getValue("condition"));
+                ComplexSwitchBranch ifSwitchBranch = new ComplexSwitchBranch(attrs.getValue("condition"), false);
                 current.addChild(ifSwitchBranch);
                 current = ifSwitchBranch;
                 break;
             case "else-if":
-                ComplexSwitchBranch elseIfSwitchBranch = new ComplexSwitchBranch(attrs.getValue("condition"));
+                ComplexSwitchBranch elseIfSwitchBranch = new ComplexSwitchBranch(attrs.getValue("condition"), true);
                 current.addChild(elseIfSwitchBranch);
                 current = elseIfSwitchBranch;
                 break;
             case "else":
-                ComplexSwitchBranch elseSwitchBranch = new ComplexSwitchBranch();
+                ComplexSwitchBranch elseSwitchBranch = new ComplexSwitchBranch(true);
                 current.addChild(elseSwitchBranch);
                 current = elseSwitchBranch;
                 break;
@@ -90,6 +91,7 @@ public class XmlFlowchartHandler extends DefaultHandler {
             case "else-if":
             case "else":
                 current = (ComplexState) current.getRoots()[0];
+                break;
             default:
                 break;
         }

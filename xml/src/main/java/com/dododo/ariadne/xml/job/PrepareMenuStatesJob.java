@@ -9,24 +9,24 @@ import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.xml.contract.XmlFlowchartContract;
-import com.dododo.ariadne.xml.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.model.ComplexMenu;
-import com.dododo.ariadne.xml.model.ComplexOption;
-import com.dododo.ariadne.xml.mouse.XmlFlowchartMouse;
-import com.dododo.ariadne.xml.util.XmlFlowchartManipulatorUtil;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
+import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
+import com.dododo.ariadne.extended.util.ExtendedFlowchartManipulatorUtil;
+import com.dododo.ariadne.extended.model.ComplexMenu;
+import com.dododo.ariadne.extended.model.ComplexOption;
 
 public final class PrepareMenuStatesJob extends AbstractJob {
 
     private final StateCollector<ChainState> collector;
 
     public PrepareMenuStatesJob() {
-        this.collector = new LeafChainStateCollector(new XmlFlowchartMouse());
+        this.collector = new LeafChainStateCollector(new ExtendedFlowchartMouse());
     }
 
     @Override
     public void run() {
-        XmlFlowchartContract callback = new XmlFlowchartContractAdapter() {
+        ExtendedFlowchartContract callback = new ExtendedFlowchartContractAdapter() {
             @Override
             public void accept(ComplexMenu complexMenu) {
                 Menu menu = new Menu();
@@ -54,10 +54,10 @@ public final class PrepareMenuStatesJob extends AbstractJob {
                     menu.addBranch(option);
                 });
 
-                XmlFlowchartManipulatorUtil.replace(complexMenu, menu);
+                ExtendedFlowchartManipulatorUtil.replace(complexMenu, menu);
             }
         };
-        FlowchartMouse mouse = new XmlFlowchartMouse();
+        FlowchartMouse mouse = new ExtendedFlowchartMouse();
 
         mouse.accept(getFlowchart(), callback);
     }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.renpy.model.VariableGroupComplexState" />
+    <node id="3" type="com.dododo.ariadne.core.model.Text" value="i = 0" />
+    <node id="4" type="com.dododo.ariadne.core.model.Text" value="j = 0" />
+    <node id="5" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="test" />
+    <node id="6" type="com.dododo.ariadne.core.model.Text" value="excluded = True" />
+    <node id="7" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="i &lt; 5" />
+    <node id="8" type="com.dododo.ariadne.core.model.Text" value="i += 1" />
+    <node id="9" type="com.dododo.ariadne.extended.model.GoToPoint" value="test" />
+    <node id="10" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" />
+    <node id="11" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="12" type="com.dododo.ariadne.extended.model.ComplexMenu" />
+    <node id="13" type="com.dododo.ariadne.extended.model.ComplexOption" value="Option #1" />
+    <node id="14" type="com.dododo.ariadne.core.model.Text" value="j = 1" />
+    <node id="15" type="com.dododo.ariadne.extended.model.ComplexOption" value="Option #2" />
+    <node id="16" type="com.dododo.ariadne.core.model.Text" value="j = 2" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="5" />
+    <edge from="2" to="3" />
+    <edge from="2" to="4" />
+    <edge from="5" to="6" />
+    <edge from="5" to="7" />
+    <edge from="5" to="10" />
+    <edge from="5" to="12" />
+    <edge from="7" to="8" />
+    <edge from="7" to="9" />
+    <edge from="10" to="11" />
+    <edge from="12" to="13" />
+    <edge from="12" to="15" />
+    <edge from="13" to="14" />
+    <edge from="15" to="16" />
+</mapping>

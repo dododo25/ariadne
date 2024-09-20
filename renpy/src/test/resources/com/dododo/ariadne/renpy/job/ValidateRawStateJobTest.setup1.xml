@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="group" />
+    <node id="3" type="com.dododo.ariadne.core.model.Text" value="text1" />
+    <node id="4" type="com.dododo.ariadne.extended.model.ComplexMenu" />
+    <node id="5" type="com.dododo.ariadne.extended.model.ComplexOption" value="option1" />
+    <node id="6" type="com.dododo.ariadne.extended.model.ComplexOption" value="option2" />
+    <node id="7" type="com.dododo.ariadne.core.model.Text" value="statement3" />
+    <node id="8" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch1" />
+    <node id="9" type="com.dododo.ariadne.core.model.Text" value="statement4" />
+    <node id="10" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch3" />
+    <node id="11" type="com.dododo.ariadne.core.model.Text" value="statement5" />
+    <node id="13" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" />
+    <node id="14" type="com.dododo.ariadne.core.model.Text" value="statement6" />
+    <node id="15" type="com.dododo.ariadne.core.model.EndPoint" />
+
+    <edge from="1" to="2" />
+    <edge from="2" to="3" />
+    <edge from="2" to="4" />
+    <edge from="2" to="8" />
+    <edge from="2" to="10" />
+    <edge from="2" to="13" />
+    <edge from="2" to="15" />
+    <edge from="4" to="5" />
+    <edge from="4" to="6" />
+    <edge from="5" to="7" />
+    <edge from="8" to="9" />
+    <edge from="10" to="11" />
+    <edge from="13" to="14" />
+
+</mapping>

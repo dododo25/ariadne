@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
 
-    <node id="1" type="com.dododo.ariadne.xml.model.ComplexState" />
-    <node id="2" type="com.dododo.ariadne.xml.model.ComplexState" />
-    <node id="3" type="com.dododo.ariadne.xml.model.PassState" />
-    <node id="4" type="com.dododo.ariadne.xml.model.PassState" />
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="3" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="4" type="com.dododo.ariadne.extended.model.PassState" />
 
     <edge from="1" to="2" />
     <edge from="1" to="4" />

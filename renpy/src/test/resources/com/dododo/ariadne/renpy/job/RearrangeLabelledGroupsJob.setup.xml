@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="label1" />
+    <node id="3" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="4" type="com.dododo.ariadne.extended.model.ComplexMenu" />
+    <node id="5" type="com.dododo.ariadne.extended.model.ComplexOption" value="test" />
+    <node id="6" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="label2" />
+    <node id="7" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="8" type="com.dododo.ariadne.extended.model.ComplexSwitch" />
+    <node id="9" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="test" />
+    <node id="10" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="label3" />
+    <node id="11" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="12" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" />
+    <node id="13" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="label4" />
+    <node id="14" type="com.dododo.ariadne.extended.model.PassState" />
+
+    <node id="15" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="test" />
+    <node id="16" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="label5" />
+    <node id="17" type="com.dododo.ariadne.extended.model.PassState" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="4" />
+    <edge from="1" to="8" />
+    <edge from="1" to="15" />
+    <edge from="2" to="3" />
+    <edge from="4" to="5" />
+    <edge from="5" to="6" />
+    <edge from="6" to="7" />
+    <edge from="8" to="9" />
+    <edge from="8" to="12" />
+    <edge from="9" to="10" />
+    <edge from="10" to="11" />
+    <edge from="12" to="13" />
+    <edge from="13" to="14" />
+    <edge from="15" to="16" />
+    <edge from="16" to="17" />
+</mapping>

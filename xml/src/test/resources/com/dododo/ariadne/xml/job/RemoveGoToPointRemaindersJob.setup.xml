@@ -2,7 +2,7 @@
 <mapping root="1">
     <node id="1" type="com.dododo.ariadne.core.model.EntryState" />
     <node id="2" type="com.dododo.ariadne.core.model.Text" value="text" />
-    <node id="3" type="com.dododo.ariadne.xml.model.GoToPoint" value="__INVALID" />
+    <node id="3" type="com.dododo.ariadne.extended.model.GoToPoint" value="__INVALID" />
 
     <edge from="1" to="2" />
     <edge from="2" to="3" />

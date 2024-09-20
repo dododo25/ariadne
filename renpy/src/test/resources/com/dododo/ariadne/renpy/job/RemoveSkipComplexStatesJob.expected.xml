@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="group1" />
+    <node id="3" type="com.dododo.ariadne.extended.model.ComplexMenu" />
+    <node id="4" type="com.dododo.ariadne.extended.model.ComplexOption" value="option1" />
+    <node id="5" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch1" />
+    <node id="6" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch3" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="3" />
+    <edge from="1" to="5" />
+    <edge from="1" to="6" />
+    <edge from="3" to="4" />
+</mapping>

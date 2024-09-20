@@ -6,20 +6,20 @@ import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
-import com.dododo.ariadne.xml.contract.XmlFlowchartContract;
-import com.dododo.ariadne.xml.contract.XmlFlowchartContractAdapter;
-import com.dododo.ariadne.xml.model.ComplexState;
-import com.dododo.ariadne.xml.mouse.XmlFlowchartMouse;
-import com.dododo.ariadne.xml.util.XmlFlowchartManipulatorUtil;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
+import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
+import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
+import com.dododo.ariadne.extended.util.ExtendedFlowchartManipulatorUtil;
+import com.dododo.ariadne.extended.model.ComplexState;
 
 public final class RemoveComplexStatesJob extends AbstractJob {
 
     @Override
     public void run() {
         StateCollector<ChainState> leafChainStateCollector =
-                new LeafChainStateCollector(new XmlFlowchartMouse());
+                new LeafChainStateCollector(new ExtendedFlowchartMouse());
 
-        XmlFlowchartContract callback = new XmlFlowchartContractAdapter() {
+        ExtendedFlowchartContract callback = new ExtendedFlowchartContractAdapter() {
             @Override
             public void accept(ComplexState state) {
                 for (int i = 0; i < state.childrenCount() - 1; i++) {
@@ -32,10 +32,10 @@ public final class RemoveComplexStatesJob extends AbstractJob {
                     nextChild.removeRoot(state);
                 }
 
-                XmlFlowchartManipulatorUtil.replace(state, state.childAt(0));
+                ExtendedFlowchartManipulatorUtil.replace(state, state.childAt(0));
             }
         };
-        FlowchartMouse mouse = new XmlFlowchartMouse();
+        FlowchartMouse mouse = new ExtendedFlowchartMouse();
 
         State rootState = getFlowchart();
         State newRootState = rootState;

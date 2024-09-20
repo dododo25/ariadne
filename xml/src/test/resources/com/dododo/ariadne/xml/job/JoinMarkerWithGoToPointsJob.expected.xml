@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.xml.model.ComplexState" />
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
     <node id="2" type="com.dododo.ariadne.core.model.Text" value="i = 0" />
-    <node id="3" type="com.dododo.ariadne.xml.model.Marker" value="m1" />
+    <node id="3" type="com.dododo.ariadne.extended.model.Marker" value="m1" />
     <node id="4" type="com.dododo.ariadne.core.model.Switch" condition="i &lt; 5" />
     <node id="5" type="com.dododo.ariadne.core.model.Text" value="i++" />
 

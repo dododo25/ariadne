@@ -31,6 +31,17 @@
         </dependency>
         <dependency>
             <groupId>com.dododo</groupId>
+            <artifactId>extended-model</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dododo</groupId>
+            <artifactId>extended-test</artifactId>
+            <version>0.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dododo</groupId>
             <artifactId>test</artifactId>
             <version>0.0.1</version>
             <scope>test</scope>

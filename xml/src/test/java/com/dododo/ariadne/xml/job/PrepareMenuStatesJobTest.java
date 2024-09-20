@@ -2,9 +2,9 @@ package com.dododo.ariadne.xml.job;
 
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.ct.assertions.StateAssertions;
+import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
-import com.dododo.ariadne.xml.mouse.XmlFlowchartMouse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -19,6 +19,6 @@ class PrepareMenuStatesJobTest {
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, job.getFlowchart(), new XmlFlowchartMouse());
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new ExtendedFlowchartMouse());
     }
 }

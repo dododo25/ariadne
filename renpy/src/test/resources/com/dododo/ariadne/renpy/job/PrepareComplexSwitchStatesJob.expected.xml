@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+
+    <node id="2" type="com.dododo.ariadne.extended.model.ComplexMenu" />
+    <node id="3" type="com.dododo.ariadne.extended.model.ComplexOption" value="option" />
+    <node id="4" type="com.dododo.ariadne.extended.model.ComplexSwitch" />
+    <node id="5" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch1" branchType="if" />
+    <node id="6" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="7" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" branchType="else" />
+    <node id="8" type="com.dododo.ariadne.extended.model.PassState" />
+
+    <node id="9" type="com.dododo.ariadne.extended.model.ComplexSwitch" />
+    <node id="10" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch2" branchType="if" />
+    <node id="11" type="com.dododo.ariadne.extended.model.ComplexSwitch" />
+    <node id="12" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch3" branchType="if" />
+    <node id="13" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="14" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" branchType="else" />
+    <node id="15" type="com.dododo.ariadne.extended.model.PassState" />
+
+    <node id="17" type="com.dododo.ariadne.extended.model.ComplexSwitch" />
+    <node id="18" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch4" branchType="if" />
+    <node id="19" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="20" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" branchType="else" />
+    <node id="21" type="com.dododo.ariadne.extended.model.PassState" />
+
+    <node id="22" type="com.dododo.ariadne.renpy.model.LabelledGroupComplexState" value="group" />
+    <node id="23" type="com.dododo.ariadne.extended.model.ComplexSwitch" />
+    <node id="24" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch5" branchType="if" />
+    <node id="25" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="26" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" branchType="else" />
+    <node id="27" type="com.dododo.ariadne.extended.model.PassState" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="9" />
+    <edge from="1" to="17" />
+    <edge from="1" to="22" />
+    <edge from="2" to="3" />
+    <edge from="3" to="4" />
+    <edge from="4" to="5" />
+    <edge from="4" to="7" />
+    <edge from="5" to="6" />
+    <edge from="7" to="8" />
+    <edge from="9" to="10" />
+    <edge from="10" to="11" />
+    <edge from="11" to="12" />
+    <edge from="11" to="14" />
+    <edge from="12" to="13" />
+    <edge from="14" to="15" />
+    <edge from="17" to="18" />
+    <edge from="17" to="20" />
+    <edge from="18" to="19" />
+    <edge from="20" to="21" />
+    <edge from="22" to="23" />
+    <edge from="23" to="24" />
+    <edge from="23" to="26" />
+    <edge from="24" to="25" />
+    <edge from="26" to="27" />
+    
+</mapping>

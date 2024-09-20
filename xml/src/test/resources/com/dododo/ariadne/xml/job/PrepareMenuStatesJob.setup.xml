@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
     <node id="1" type="com.dododo.ariadne.core.model.EntryState" />
-    <node id="2" type="com.dododo.ariadne.xml.model.ComplexMenu" />
-    <node id="3" type="com.dododo.ariadne.xml.model.ComplexOption" value="option1" />
-    <node id="4" type="com.dododo.ariadne.xml.model.PassState" />
-    <node id="5" type="com.dododo.ariadne.xml.model.PassState" />
-    <node id="6" type="com.dododo.ariadne.xml.model.ComplexOption" value="option2" />
-    <node id="7" type="com.dododo.ariadne.xml.model.PassState" />
+    <node id="2" type="com.dododo.ariadne.extended.model.ComplexMenu" />
+    <node id="3" type="com.dododo.ariadne.extended.model.ComplexOption" value="option1" />
+    <node id="4" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="5" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="6" type="com.dododo.ariadne.extended.model.ComplexOption" value="option2" />
+    <node id="7" type="com.dododo.ariadne.extended.model.PassState" />
 
     <edge from="1" to="2" />
     <edge from="2" to="3" />

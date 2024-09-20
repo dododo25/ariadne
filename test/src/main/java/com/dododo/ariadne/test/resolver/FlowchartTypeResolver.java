@@ -72,9 +72,11 @@ public final class FlowchartTypeResolver implements ParameterResolver {
 
             return map.get(mapping.getRoot());
         } catch (JAXBException | InvocationTargetException | IllegalAccessException e) {
-            throw new ParameterResolutionException(e.getMessage(), e);
+            throw new ParameterResolutionException(
+                    String.format("%s at %s", e.getMessage(), inputAnnotation.value()), e);
         } catch (IllegalArgumentException e) {
-            throw new ParameterResolutionException(String.format("%s at %s", e.getMessage(), inputAnnotation.value()));
+            throw new ParameterResolutionException(
+                    String.format("%s at %s", e.getMessage(), inputAnnotation.value()));
         }
     }
 

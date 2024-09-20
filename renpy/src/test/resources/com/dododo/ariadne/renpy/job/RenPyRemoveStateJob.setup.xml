@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.core.model.Text" value="__INVALID" />
+    <node id="2" type="com.dododo.ariadne.core.model.Menu" />
+    <node id="3" type="com.dododo.ariadne.core.model.Option" value="option1" />
+    <node id="4" type="com.dododo.ariadne.core.model.Option" value="option2" />
+    <node id="5" type="com.dododo.ariadne.core.model.Text" value="__INVALID" />
+    <node id="6" type="com.dododo.ariadne.core.model.Switch" condition="switch1" />
+    <node id="7" type="com.dododo.ariadne.core.model.Text" value="__INVALID" />
+    <node id="8" type="com.dododo.ariadne.core.model.Switch" condition="switch2" />
+    <node id="9" type="com.dododo.ariadne.core.model.Text" value="__INVALID" />
+    <node id="10" type="com.dododo.ariadne.core.model.EndPoint" />
+
+    <edge from="1" to="2" />
+    <edge from="2" to="3" />
+    <edge from="2" to="4" />
+    <edge from="3" to="5" />
+    <edge from="4" to="6" />
+    <edge from="5" to="6" />
+    <edge from="6" to="7" switchBranch="true" />
+    <edge from="6" to="8" switchBranch="false" />
+    <edge from="7" to="8" />
+    <edge from="8" to="9" switchBranch="true" />
+    <edge from="8" to="10" switchBranch="false" />
+    <edge from="9" to="10" />
+</mapping>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="2" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="switch" branchType="if" />
+    <node id="3" type="com.dododo.ariadne.core.model.Text" value="text" />
+    <node id="4" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" condition="__INVALID" branchType="else-if" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="3" />
+    <edge from="1" to="4" />
+</mapping>
