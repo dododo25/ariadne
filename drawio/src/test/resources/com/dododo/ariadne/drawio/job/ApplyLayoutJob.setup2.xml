@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.drawio.model.SwitchBlock" x="0" y="0" />
+    <node id="2" type="com.dododo.ariadne.drawio.model.TextBlock" x="0" y="0" value="text1" />
+    <node id="3" type="com.dododo.ariadne.drawio.model.TextBlock" x="0" y="0" value="text2" />
+    <node id="4" type="com.dododo.ariadne.drawio.model.EndBlock" x="0" y="0" />
+
+    <edge from="1" to="2" switchBranch="true" />
+    <edge from="1" to="3" switchBranch="false" />
+    <edge from="2" to="4" />
+    <edge from="3" to="4" />
+</mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.drawio.model.MenuBlock" x="0" y="0" width="280" />
+    <node id="2" type="com.dododo.ariadne.drawio.model.OptionBlock" x="0" y="40" value="option1" />
+    <node id="3" type="com.dododo.ariadne.drawio.model.TextBlock" x="0" y="140" value="text1" />
+    <node id="4" type="com.dododo.ariadne.drawio.model.ConditionalOptionBlock" x="160" y="40" value="option2" condition="condition" />
+    <node id="5" type="com.dododo.ariadne.drawio.model.TextBlock" x="160" y="140" value="text2" />
+    <node id="6" type="com.dododo.ariadne.drawio.model.EndBlock" x="200" y="240" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="4" />
+    <edge from="2" to="3" />
+    <edge from="3" to="6" />
+    <edge from="4" to="5" />
+    <edge from="5" to="6" />
+</mapping>
