@@ -5,21 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.dododo</groupId>
-        <artifactId>ariadne</artifactId>
+        <groupId>com.dododo.ariadne</groupId>
+        <artifactId>renpy</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <groupId>com.dododo.ariadne</groupId>
-    <artifactId>renpy</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>core</module>
-        <module>rpy</module>
-        <module>test</module>
-        <module>unity</module>
-    </modules>
+    <artifactId>renpy-unity</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -30,31 +21,18 @@
     <dependencies>
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
-            <artifactId>core-provider</artifactId>
+            <artifactId>renpy-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
-            <artifactId>core-test</artifactId>
+            <artifactId>renpy-test</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.dododo.ariadne</groupId>
-            <artifactId>extended-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.dododo.ariadne</groupId>
-            <artifactId>extended-test</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>test</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
