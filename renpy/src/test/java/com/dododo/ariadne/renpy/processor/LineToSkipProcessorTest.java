@@ -1,6 +1,7 @@
 package com.dododo.ariadne.renpy.processor;
 
-import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.core.model.State;
+import com.dododo.ariadne.renpy.model.SkipComplexState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ class LineToSkipProcessorTest {
 
     @Test
     void testAcceptShouldReturnObjectShouldDoneWell() {
-        PassState expected = new PassState();
+        State expected = new SkipComplexState();
 
         Assertions.assertEquals(0, processor.accept("skip").compareTo(expected));
         Assertions.assertEquals(0, processor.accept("skip123").compareTo(expected));

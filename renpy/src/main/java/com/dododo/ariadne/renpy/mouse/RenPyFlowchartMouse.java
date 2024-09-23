@@ -7,6 +7,7 @@ import com.dododo.ariadne.renpy.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.contract.RenPySimpleFlowchartContract;
 import com.dododo.ariadne.renpy.model.CallToState;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
+import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.model.VariableGroupComplexState;
 
 import java.util.function.Consumer;
@@ -35,6 +36,11 @@ public class RenPyFlowchartMouse extends ExtendedFlowchartMouse {
 
         public InnerRenPyFlowchartContract(FlowchartContract callback) {
             super(callback);
+        }
+
+        @Override
+        public void accept(RootComplexState rootState) {
+            acceptComplexState(rootState);
         }
 
         @Override

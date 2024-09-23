@@ -8,7 +8,7 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.util.RenPyStateManipulatorUtil;
+import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public final class JoinLabelWithJumpToPointsJob extends AbstractJob {
             State link = links.get(point.getValue());
 
             if (link != null) {
-                RenPyStateManipulatorUtil.replace(point, link);
+                RenPyFlowchartManipulatorUtil.replace(point, link);
             }
         });
     }

@@ -22,14 +22,20 @@
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>core-model</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.3</version>
+            <groupId>com.dododo.ariadne</groupId>
+            <artifactId>core-test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dododo.ariadne</groupId>
+            <artifactId>test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <dependency>

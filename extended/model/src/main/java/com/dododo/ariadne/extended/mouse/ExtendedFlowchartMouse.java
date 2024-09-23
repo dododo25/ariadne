@@ -35,7 +35,8 @@ public class ExtendedFlowchartMouse extends FlowchartMouse {
         return new InnerExtendedFlowchartContract(callback);
     }
 
-    protected static class InnerExtendedFlowchartContract extends InnerFlowchartContract implements ExtendedFlowchartContract {
+    protected static class InnerExtendedFlowchartContract extends InnerFlowchartContract
+            implements ExtendedFlowchartContract {
 
         public InnerExtendedFlowchartContract(FlowchartContract callback) {
             super(callback);

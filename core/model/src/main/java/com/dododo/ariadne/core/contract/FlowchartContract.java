@@ -1,6 +1,8 @@
 package com.dododo.ariadne.core.contract;
 
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -26,4 +28,8 @@ public interface FlowchartContract {
     void accept(Switch aSwitch);
 
     void accept(EndPoint point);
+
+    void accept(CycleMarker marker);
+
+    void accept(CycleEntryState entryState);
 }

@@ -6,10 +6,11 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
+import com.dododo.ariadne.extended.model.PassState;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.util.RenPyStateManipulatorUtil;
+import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 
 public final class PrepareSwitchStatesJob extends AbstractJob {
 
@@ -28,16 +29,13 @@ public final class PrepareSwitchStatesJob extends AbstractJob {
 
     private void process(ComplexSwitch state) {
         ComplexSwitchBranch branchState = (ComplexSwitchBranch) state.childAt(0);
-        State nextState = branchState.childAt(0);
+        State nextState = branchState.childrenCount() > 0 ? branchState.childAt(0): new PassState();
 
         Switch rootSwitch = new Switch(branchState.getValue());
-
         Switch aSwitch = rootSwitch;
-        aSwitch.setTrueBranch(nextState);
 
-        if (nextState != null) {
-            nextState.removeRoot(branchState);
-        }
+        aSwitch.setTrueBranch(nextState);
+        nextState.removeRoot(branchState);
 
         for (int i = 1; i < state.childrenCount(); i++) {
             branchState = (ComplexSwitchBranch) state.childAt(i);
@@ -53,11 +51,9 @@ public final class PrepareSwitchStatesJob extends AbstractJob {
                 aSwitch.setFalseBranch(nextState);
             }
 
-            if (nextState != null) {
-                nextState.removeRoot(branchState);
-            }
+            nextState.removeRoot(branchState);
         }
 
-        RenPyStateManipulatorUtil.replace(state, rootSwitch);
+        RenPyFlowchartManipulatorUtil.replace(state, rootSwitch);
     }
 }

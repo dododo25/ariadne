@@ -23,29 +23,29 @@
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>core-provider</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>core-test</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>extended-model</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>extended-test</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>test</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.core.model.EntryState" />
+    <node id="2" type="com.dododo.ariadne.core.model.Switch" condition="__INVALID" />
+    <node id="3" type="com.dododo.ariadne.core.model.Text" value="text1" />
+    <node id="4" type="com.dododo.ariadne.core.model.Switch" condition="__INVALID" />
+    <node id="5" type="com.dododo.ariadne.core.model.Text" value="text2" />
+    <node id="6" type="com.dododo.ariadne.core.model.Switch" condition="__INVALID" />
+
+    <edge from="1" to="2" />
+    <edge from="2" to="2" switchBranch="true" />
+    <edge from="2" to="3" switchBranch="false" />
+    <edge from="3" to="4" />
+    <edge from="4" to="4" switchBranch="false" />
+    <edge from="4" to="5" switchBranch="true" />
+    <edge from="5" to="6" />
+    <edge from="6" to="6" switchBranch="true" />
+    <edge from="6" to="6" switchBranch="false" />
+</mapping>

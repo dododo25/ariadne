@@ -10,7 +10,7 @@ import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.util.RenPyStateManipulatorUtil;
+import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 
 public final class RemoveComplexStatesJob extends AbstractJob {
 
@@ -29,24 +29,14 @@ public final class RemoveComplexStatesJob extends AbstractJob {
                     leafChainStateCollector.collect(child)
                             .forEach(leaf -> leaf.setNext(nextChild));
 
-                    state.removeChild(child);
+                    nextChild.removeRoot(state);
                 }
 
-                RenPyStateManipulatorUtil.replace(state, state.childAt(0));
+                RenPyFlowchartManipulatorUtil.replace(state, state.childAt(0));
             }
         };
         FlowchartMouse mouse = new RenPyFlowchartMouse();
 
-        State rootState = getFlowchart();
-        State newRootState = rootState;
-
-        mouse.accept(rootState, callback);
-
-        while (newRootState instanceof ComplexState) {
-            newRootState = ((ComplexState) newRootState).childAt(0);
-        }
-
-        setFlowchart(newRootState);
-        newRootState.removeRoot(rootState);
+        mouse.accept(getFlowchart(), callback);
     }
 }

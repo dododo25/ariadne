@@ -10,6 +10,7 @@ import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
+import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 
 import java.util.stream.IntStream;
@@ -19,6 +20,11 @@ public final class PrepareComplexSwitchStatesJob extends AbstractJob {
     @Override
     public void run() {
         FlowchartContract callback = new RenPyFlowchartContractAdapter() {
+
+            @Override
+            public void accept(RootComplexState state) {
+                acceptComplexState(state);
+            }
 
             @Override
             public void accept(ComplexState state) {
@@ -65,6 +71,11 @@ public final class PrepareComplexSwitchStatesJob extends AbstractJob {
                 if (!switchBranch.isFalseBranch()) {
                     fromIndex = i;
                 }
+            } else if (fromIndex != null) {
+                process(state, fromIndex, i);
+
+                i = fromIndex + 1;
+                fromIndex = null;
             }
 
             i++;
@@ -81,10 +92,10 @@ public final class PrepareComplexSwitchStatesJob extends AbstractJob {
         state.addChildAt(from, complexSwitch);
 
         IntStream.range(from, to).forEach(index -> {
-            ComplexState branch = (ComplexState) state.childAt(from + 1);
+            State child = state.childAt(from + 1);
 
-            state.removeChild(branch);
-            complexSwitch.addChild(branch);
+            state.removeChild(child);
+            complexSwitch.addChild(child);
         });
     }
 }

@@ -13,7 +13,7 @@ import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.model.CallToState;
 import com.dododo.ariadne.renpy.util.RenPyStateCopyUtil;
-import com.dododo.ariadne.renpy.util.RenPyStateManipulatorUtil;
+import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 
 import java.util.Map;
 import java.util.Set;
@@ -70,12 +70,12 @@ public final class PrepareGroupCallStatesJob extends AbstractJob {
         State copy = RenPyStateCopyUtil.copy(marker);
         State nextState = state.getNext();
 
-        RenPyStateManipulatorUtil.replace(state, copy);
+        RenPyFlowchartManipulatorUtil.replace(state, copy);
 
         leafChainStateCollector.collect(copy).forEach(leaf -> leaf.setNext(nextState));
 
         endPointStateCollector.collect(copy)
-                .forEach(s -> RenPyStateManipulatorUtil.replace(s, nextState));
+                .forEach(s -> RenPyFlowchartManipulatorUtil.replace(s, nextState));
 
         nextState.removeRoot(state);
     }

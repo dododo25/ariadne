@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-
-    <node id="1" type="com.dododo.ariadne.extended.model.ComplexState" />
+    <node id="1" type="com.dododo.ariadne.renpy.model.RootComplexState" />
     <node id="2" type="com.dododo.ariadne.renpy.model.VariableGroupComplexState" />
     <node id="3" type="com.dododo.ariadne.core.model.Text" value="i = 0" />
     <node id="4" type="com.dododo.ariadne.core.model.Text" value="j = 0" />
@@ -11,7 +10,7 @@
     <node id="8" type="com.dododo.ariadne.core.model.Text" value="i += 1" />
     <node id="9" type="com.dododo.ariadne.extended.model.GoToPoint" value="test" />
     <node id="10" type="com.dododo.ariadne.extended.model.ComplexSwitchBranch" />
-    <node id="11" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="11" type="com.dododo.ariadne.renpy.model.SkipComplexState" />
     <node id="12" type="com.dododo.ariadne.extended.model.ComplexMenu" />
     <node id="13" type="com.dododo.ariadne.extended.model.ComplexOption" value="Option #1" />
     <node id="14" type="com.dododo.ariadne.core.model.Text" value="j = 1" />

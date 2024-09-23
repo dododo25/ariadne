@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.dododo.ariadne</groupId>
             <artifactId>core-model</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

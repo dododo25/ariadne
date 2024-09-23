@@ -3,7 +3,7 @@ package com.dododo.ariadne.renpy.job;
 import com.dododo.ariadne.core.configuration.Configuration;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.test.assertions.StateAssertions;
-import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
@@ -52,7 +52,7 @@ class CollectStatesJobTest {
     }
 
     private void testRunShouldDoneWell(State expected, Configuration config) {
-        ComplexState rootState = new ComplexState();
+        State rootState = new RootComplexState();
 
         for (int i = 0; i < config.getInputFiles().size(); i++) {
             CollectStatesJob job = new CollectStatesJob(i);

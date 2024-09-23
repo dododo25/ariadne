@@ -22,7 +22,7 @@ public abstract class RemoveStateJob<T extends ChainState> extends AbstractJob {
         collector.collect(flowchart)
                 .forEach(this::process);
 
-        if (flowchart.getClass().equals(type)) {
+        if (type.isAssignableFrom(flowchart.getClass())) {
             State newRoot = ((ChainState) flowchart).getNext();
             newRoot.removeRoot(flowchart);
             setFlowchart(newRoot);

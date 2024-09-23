@@ -7,7 +7,7 @@ import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
-import com.dododo.ariadne.renpy.util.RenPyStateManipulatorUtil;
+import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 
 public final class RemoveGoToPointRemaindersJob extends AbstractJob {
 
@@ -16,7 +16,7 @@ public final class RemoveGoToPointRemaindersJob extends AbstractJob {
         RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
             public void accept(GoToPoint point) {
-                RenPyStateManipulatorUtil.replace(point, new EndPoint());
+                RenPyFlowchartManipulatorUtil.replace(point, new EndPoint());
             }
         };
         FlowchartMouse mouse = new RenPyFlowchartMouse();

@@ -2,6 +2,8 @@ package com.dododo.ariadne.renpy.util;
 
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -19,11 +21,12 @@ import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.renpy.contract.RenPyGenericFlowchartContract;
+import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.model.VariableGroupComplexState;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContract;
-import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.model.CallToState;
 
 import java.util.HashMap;
@@ -87,6 +90,16 @@ public final class RenPyStateCopyUtil {
             }
 
             @Override
+            public void accept(CycleMarker marker) {
+                map.put(marker, new CycleMarker(marker.getValue()));
+            }
+
+            @Override
+            public void accept(CycleEntryState entryState) {
+                map.put(entryState, new CycleEntryState(entryState.getValue()));
+            }
+
+            @Override
             public void accept(ComplexState state) {
                 map.put(state, new ComplexState());
             }
@@ -109,6 +122,11 @@ public final class RenPyStateCopyUtil {
             @Override
             public void accept(ComplexOption complexOption) {
                 map.put(complexOption, new ComplexOption(complexOption.getValue(), complexOption.getCondition()));
+            }
+
+            @Override
+            public void accept(RootComplexState rootState) {
+                map.put(rootState, new RootComplexState());
             }
 
             @Override
@@ -147,81 +165,16 @@ public final class RenPyStateCopyUtil {
     }
 
     private static void copyEdges(State flowchart, Map<State, State> map) {
-        RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
-
+        RenPyFlowchartContract callback = new RenPyGenericFlowchartContract() {
             @Override
-            public void accept(EntryState state) {
-                acceptChainState(state);
+            public void acceptChainState(ChainState state) {
+                acceptState(state, state.getNext(), (root, child) -> ((ChainState) root).setNext(child));
             }
 
             @Override
-            public void accept(Text text) {
-                acceptChainState(text);
-            }
-
-            @Override
-            public void accept(Reply reply) {
-                acceptChainState(reply);
-            }
-
-            @Override
-            public void accept(Option option) {
-                acceptChainState(option);
-            }
-
-            @Override
-            public void accept(ConditionalOption option) {
-                acceptChainState(option);
-            }
-
-            @Override
-            public void accept(PassState state) {
-                acceptChainState(state);
-            }
-
-            @Override
-            public void accept(ComplexMenu complexMenu) {
-                acceptComplexState(complexMenu);
-            }
-
-            @Override
-            public void accept(ComplexOption complexOption) {
-                acceptComplexState(complexOption);
-            }
-
-            @Override
-            public void accept(CallToState callState) {
-                acceptChainState(callState);
-            }
-
-            @Override
-            public void accept(LabelledGroupComplexState group) {
-                acceptComplexState(group);
-            }
-
-            @Override
-            public void accept(VariableGroupComplexState group) {
-                acceptComplexState(group);
-            }
-
-            @Override
-            public void accept(ComplexState state) {
-                acceptComplexState(state);
-            }
-
-            @Override
-            public void accept(Marker marker) {
-                acceptChainState(marker);
-            }
-
-            @Override
-            public void accept(ComplexSwitch complexSwitch) {
-                acceptComplexState(complexSwitch);
-            }
-
-            @Override
-            public void accept(ComplexSwitchBranch branch) {
-                acceptComplexState(branch);
+            public void acceptComplexState(ComplexState state) {
+                ComplexState copy = (ComplexState) map.get(state);
+                state.childrenStream().map(map::get).forEach(copy::addChild);
             }
 
             @Override
@@ -236,15 +189,6 @@ public final class RenPyStateCopyUtil {
             public void accept(Switch aSwitch) {
                 acceptState(aSwitch, aSwitch.getTrueBranch(), (root, child) -> ((Switch) root).setTrueBranch(child));
                 acceptState(aSwitch, aSwitch.getFalseBranch(), (root, child) -> ((Switch) root).setFalseBranch(child));
-            }
-
-            private void acceptChainState(ChainState state) {
-                acceptState(state, state.getNext(), (root, child) -> ((ChainState) root).setNext(child));
-            }
-
-            private void acceptComplexState(ComplexState state) {
-                ComplexState copy = (ComplexState) map.get(state);
-                state.childrenStream().map(map::get).forEach(copy::addChild);
             }
 
             private void acceptState(State root, State child, BiConsumer<State, State> consumer) {

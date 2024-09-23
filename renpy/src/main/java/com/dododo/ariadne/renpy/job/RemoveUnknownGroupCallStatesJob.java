@@ -6,7 +6,7 @@ import com.dododo.ariadne.renpy.contract.RenPyFlowchartContract;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.model.CallToState;
-import com.dododo.ariadne.renpy.util.RenPyStateManipulatorUtil;
+import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 
 public final class RemoveUnknownGroupCallStatesJob extends AbstractJob {
 
@@ -17,7 +17,7 @@ public final class RemoveUnknownGroupCallStatesJob extends AbstractJob {
         RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
             public void accept(CallToState state) {
-                RenPyStateManipulatorUtil.replace(state, state.getNext());
+                RenPyFlowchartManipulatorUtil.replace(state, state.getNext());
             }
         };
 

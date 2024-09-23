@@ -1,6 +1,8 @@
 package com.dododo.ariadne.core.contract;
 
 import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
 import com.dododo.ariadne.core.model.EndPoint;
 import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
@@ -34,4 +36,10 @@ public abstract class FlowchartContractAdapter implements FlowchartContract {
 
     @Override
     public void accept(EndPoint point) {}
+
+    @Override
+    public void accept(CycleMarker marker) {}
+
+    @Override
+    public void accept(CycleEntryState entryState) {}
 }

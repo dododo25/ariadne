@@ -19,7 +19,7 @@ public final class RearrangeLabelledGroupsJob extends AbstractJob {
 
         collector.collect(getFlowchart())
                 .stream()
-                .filter(this::checkRootsForLabelledGroup)
+                .filter(this::checkStateRootsForLabelledGroup)
                 .forEach(s -> {
                     Stream.of(s.getRoots()).map(ComplexState.class::cast).forEach(root -> {
                         root.removeChild(s);
@@ -30,7 +30,7 @@ public final class RearrangeLabelledGroupsJob extends AbstractJob {
                 });
     }
 
-    private boolean checkRootsForLabelledGroup(LabelledGroupComplexState state) {
+    private boolean checkStateRootsForLabelledGroup(LabelledGroupComplexState state) {
         return Stream.of(state.getRoots()).noneMatch(root -> getFlowchart() == root);
     }
 }
