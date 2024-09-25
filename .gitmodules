@@ -1,3 +1,6 @@
 [submodule "ariadne-starter"]
 	path = starter
 	url = https://github.com/dododo25/ariadne-starter
+[submodule "ariadne-io"]
+	path = ariadne-op
+	url = https://github.com/dododo25/ariadne-io
