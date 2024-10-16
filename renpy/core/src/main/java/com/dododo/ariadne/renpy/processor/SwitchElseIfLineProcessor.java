@@ -2,6 +2,7 @@ package com.dododo.ariadne.renpy.processor;
 
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
+import com.dododo.ariadne.extended.model.PassState;
 
 import java.util.regex.Matcher;
 
@@ -13,6 +14,8 @@ public final class SwitchElseIfLineProcessor extends GenericLineProcessor {
 
     @Override
     public State prepareState(Matcher matcher) {
-        return new ComplexSwitchBranch(matcher.group(1), true);
+        ComplexSwitchBranch result = new ComplexSwitchBranch(matcher.group(1), true);
+        result.addChild(new PassState());
+        return result;
     }
 }

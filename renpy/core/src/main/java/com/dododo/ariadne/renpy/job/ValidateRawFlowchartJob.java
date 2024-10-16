@@ -11,9 +11,9 @@ import com.dododo.ariadne.extended.model.ComplexOption;
 import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
-import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 
 public final class ValidateRawFlowchartJob extends AbstractJob {
@@ -23,11 +23,6 @@ public final class ValidateRawFlowchartJob extends AbstractJob {
         FlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
             public void accept(RootComplexState state) {
-                acceptComplexState(state);
-            }
-
-            @Override
-            public void accept(ComplexState state) {
                 acceptComplexState(state);
             }
 

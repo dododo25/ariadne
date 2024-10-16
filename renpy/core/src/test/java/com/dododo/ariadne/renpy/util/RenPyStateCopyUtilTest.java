@@ -18,6 +18,7 @@ import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.renpy.model.CallToState;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
 import com.dododo.ariadne.renpy.model.VariableGroupComplexState;
@@ -50,7 +51,7 @@ class RenPyStateCopyUtilTest {
         testCopyEndPointState(new GoToPoint("test"));
         testCopyEndPointState(new EndPoint());
 
-        testCopyComplexState(new ComplexState());
+        testCopyComplexState(new RootComplexState());
         testCopyComplexState(new VariableGroupComplexState());
         testCopyComplexState(new LabelledGroupComplexState("test"));
         testCopyComplexState(new ComplexMenu());

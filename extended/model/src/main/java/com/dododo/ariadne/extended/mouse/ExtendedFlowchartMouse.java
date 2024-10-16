@@ -13,6 +13,7 @@ import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
+import com.dododo.ariadne.extended.model.RootComplexState;
 
 import java.util.function.Consumer;
 
@@ -43,8 +44,8 @@ public class ExtendedFlowchartMouse extends FlowchartMouse {
         }
 
         @Override
-        public void accept(ComplexState state) {
-            acceptComplexState(state);
+        public void accept(RootComplexState rootComplexState) {
+            acceptComplexState(rootComplexState);
         }
 
         @Override
@@ -82,7 +83,7 @@ public class ExtendedFlowchartMouse extends FlowchartMouse {
             point.accept(callback);
         }
 
-        protected void acceptComplexState(ComplexState complexState) {
+        public void acceptComplexState(ComplexState complexState) {
             complexState.accept(callback);
 
             complexState.childrenStream()

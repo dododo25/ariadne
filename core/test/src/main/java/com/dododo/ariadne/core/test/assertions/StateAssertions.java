@@ -46,5 +46,9 @@ public class StateAssertions {
 
         mouse.accept(s1, c1);
         mouse.accept(s2, c2);
+
+        if (!states.isEmpty()) {
+            throw new AssertionError(String.format("Unexpected state %s", states.get(0)));
+        }
     }
 }

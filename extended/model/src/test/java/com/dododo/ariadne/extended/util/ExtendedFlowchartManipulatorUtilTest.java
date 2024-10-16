@@ -14,6 +14,7 @@ import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +39,7 @@ class ExtendedFlowchartManipulatorUtilTest {
         process(new Switch("test"), new Text("replaceable"), new Text("replacement"),
                 (root, state) -> ((Switch) root).setFalseBranch(state), root -> ((Switch) root).getFalseBranch());
 
-        testReplaceComplexStateChild(new ComplexState());
+        testReplaceComplexStateChild(new RootComplexState());
         testReplaceComplexStateChild(new ComplexSwitch());
         testReplaceComplexStateChild(new ComplexSwitchBranch("test", false));
         testReplaceComplexStateChild(new ComplexOption("test", "condition_test"));

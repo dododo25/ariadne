@@ -8,9 +8,9 @@ import com.dododo.ariadne.extended.model.ComplexOption;
 import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
-import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 
 import java.util.stream.IntStream;
@@ -23,11 +23,6 @@ public final class PrepareComplexSwitchStatesJob extends AbstractJob {
 
             @Override
             public void accept(RootComplexState state) {
-                acceptComplexState(state);
-            }
-
-            @Override
-            public void accept(ComplexState state) {
                 acceptComplexState(state);
             }
 

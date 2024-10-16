@@ -4,12 +4,12 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.extended.model.ComplexMenu;
 import com.dododo.ariadne.extended.model.ComplexOption;
-import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ class ExtendedFlowchartMouseTest {
 
     @Test
     void testAcceptShouldDoneWell() {
-        testAccept(new ComplexState());
+        testAccept(new RootComplexState());
         testAccept(new ComplexSwitch());
         testAccept(new ComplexSwitchBranch("test", false));
         testAccept(new Marker("test"));

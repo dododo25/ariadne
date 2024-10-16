@@ -1,59 +1,60 @@
 package com.dododo.ariadne.renpy.job;
 
-import com.dododo.ariadne.core.job.AbstractJob;
-import com.dododo.ariadne.core.mouse.FlowchartMouse;
+import com.dododo.ariadne.core.collector.GenericStateCollector;
+import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
 import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
-import com.dododo.ariadne.extended.model.PassState;
-import com.dododo.ariadne.renpy.contract.RenPyFlowchartContract;
-import com.dododo.ariadne.renpy.contract.RenPyFlowchartContractAdapter;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 
-public final class PrepareSwitchStatesJob extends AbstractJob {
+import java.util.function.Consumer;
+
+public final class PrepareSwitchStatesJob extends RemoveComplexStatesJob {
+
+    private final StateCollector<ComplexSwitch> complexSwitchStateCollector;
+
+    public PrepareSwitchStatesJob() {
+        super();
+        this.complexSwitchStateCollector = new GenericStateCollector<>(new RenPyFlowchartMouse(), ComplexSwitch.class);
+    }
 
     @Override
     public void run() {
-        RenPyFlowchartContract callback = new RenPyFlowchartContractAdapter() {
-            @Override
-            public void accept(ComplexSwitch complexSwitch) {
-                process(complexSwitch);
-            }
-        };
-        FlowchartMouse mouse = new RenPyFlowchartMouse();
+        complexSwitchStateCollector.collect(getFlowchart()).forEach(complexSwitch -> {
+            ComplexSwitchBranch branchState = (ComplexSwitchBranch) complexSwitch.childAt(0);
 
-        mouse.accept(getFlowchart(), callback);
+            Switch rootSwitch = new Switch(branchState.getValue());
+            Switch current = rootSwitch;
+
+            prepareBranch(branchState, current::setTrueBranch);
+
+            for (int i = 1; i < complexSwitch.childrenCount(); i++) {
+                branchState = (ComplexSwitchBranch) complexSwitch.childAt(i);
+
+                if (i < complexSwitch.childrenCount() - 1) {
+                    Switch falseSwitch = new Switch(branchState.getValue());
+
+                    prepareBranch(branchState, falseSwitch::setTrueBranch);
+
+                    current.setFalseBranch(falseSwitch);
+                    current = falseSwitch;
+                } else {
+                    prepareBranch(branchState, current::setFalseBranch);
+                }
+            }
+
+            RenPyFlowchartManipulatorUtil.replace(complexSwitch, rootSwitch);
+        });
     }
 
-    private void process(ComplexSwitch state) {
-        ComplexSwitchBranch branchState = (ComplexSwitchBranch) state.childAt(0);
-        State nextState = branchState.childrenCount() > 0 ? branchState.childAt(0): new PassState();
+    private void prepareBranch(ComplexSwitchBranch switchBranch, Consumer<State> consumer) {
+        State firstState = switchBranch.childAt(0);
 
-        Switch rootSwitch = new Switch(branchState.getValue());
-        Switch aSwitch = rootSwitch;
+        joinChildren(switchBranch);
 
-        aSwitch.setTrueBranch(nextState);
-        nextState.removeRoot(branchState);
-
-        for (int i = 1; i < state.childrenCount(); i++) {
-            branchState = (ComplexSwitchBranch) state.childAt(i);
-            nextState = branchState.childrenCount() > 0 ? branchState.childAt(0): new PassState();
-
-            if (i < state.childrenCount() - 1) {
-                Switch switchBranch = new Switch(branchState.getValue());
-                switchBranch.setTrueBranch(nextState);
-
-                aSwitch.setFalseBranch(switchBranch);
-                aSwitch = switchBranch;
-            } else {
-                aSwitch.setFalseBranch(nextState);
-            }
-
-            nextState.removeRoot(branchState);
-        }
-
-        RenPyFlowchartManipulatorUtil.replace(state, rootSwitch);
+        firstState.removeRoot(switchBranch);
+        consumer.accept(firstState);
     }
 }

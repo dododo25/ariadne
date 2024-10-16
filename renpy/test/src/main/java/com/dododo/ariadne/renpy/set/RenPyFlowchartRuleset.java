@@ -5,7 +5,6 @@ import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.renpy.model.CallToState;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
-import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.model.SkipComplexState;
 import com.dododo.ariadne.renpy.model.VariableGroupComplexState;
 import com.dododo.ariadne.test.annotation.EdgeRule;
@@ -14,11 +13,6 @@ import com.dododo.ariadne.test.annotation.Ruleset;
 
 @Ruleset
 public class RenPyFlowchartRuleset {
-
-    @NodeRule(type = RootComplexState.class)
-    public State createRootComplexState() {
-        return new RootComplexState();
-    }
 
     @NodeRule(type = CallToState.class, params = "value")
     public State createCallToState(String value) {
@@ -46,7 +40,6 @@ public class RenPyFlowchartRuleset {
     }
 
     @EdgeRule(type = {
-            RootComplexState.class,
             LabelledGroupComplexState.class,
             VariableGroupComplexState.class,
             SkipComplexState.class

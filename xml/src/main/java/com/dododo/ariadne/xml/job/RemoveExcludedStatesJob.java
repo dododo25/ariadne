@@ -6,6 +6,7 @@ import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
 import com.dododo.ariadne.extended.model.ComplexState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
 
@@ -20,7 +21,7 @@ public final class RemoveExcludedStatesJob extends AbstractJob {
         FlowchartContract callback = new ExtendedFlowchartContractAdapter() {
 
             @Override
-            public void accept(ComplexState state) {
+            public void accept(RootComplexState state) {
                 acceptComplexState(state);
             }
 

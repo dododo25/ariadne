@@ -39,7 +39,6 @@ class RenPyFlowchartManipulatorUtilTest {
         process(new Switch("test"),new Text("replaceable"),new Text("replacement"),
                 (root, state) -> ((Switch) root).setFalseBranch(state), root -> ((Switch) root).getFalseBranch());
 
-        testReplaceComplexStateChild(new ComplexState());
         testReplaceComplexStateChild(new LabelledGroupComplexState("test"));
         testReplaceComplexStateChild(new ComplexSwitch());
         testReplaceComplexStateChild(new ComplexSwitchBranch("test", false));

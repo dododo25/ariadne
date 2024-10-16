@@ -7,10 +7,10 @@ import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
-import com.dododo.ariadne.extended.contract.ExtendedFlowchartContractAdapter;
+import com.dododo.ariadne.extended.contract.ExtendedGenericFlowchartContract;
+import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
 import com.dododo.ariadne.extended.util.ExtendedFlowchartManipulatorUtil;
-import com.dododo.ariadne.extended.model.ComplexState;
 
 public final class RemoveComplexStatesJob extends AbstractJob {
 
@@ -19,9 +19,9 @@ public final class RemoveComplexStatesJob extends AbstractJob {
         StateCollector<ChainState> leafChainStateCollector =
                 new LeafChainStateCollector(new ExtendedFlowchartMouse());
 
-        ExtendedFlowchartContract callback = new ExtendedFlowchartContractAdapter() {
+        ExtendedFlowchartContract callback = new ExtendedGenericFlowchartContract() {
             @Override
-            public void accept(ComplexState state) {
+            public void acceptComplexState(ComplexState state) {
                 for (int i = 0; i < state.childrenCount() - 1; i++) {
                     State child = state.childAt(i);
                     State nextChild = state.childAt(i + 1);

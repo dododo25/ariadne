@@ -1,7 +1,7 @@
 package com.dododo.ariadne.renpy.job;
 
 import com.dododo.ariadne.core.job.AbstractJob;
-import com.dododo.ariadne.renpy.model.RootComplexState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 
 public final class PrepareComplexStateEntryFlowchartJob extends AbstractJob {
 

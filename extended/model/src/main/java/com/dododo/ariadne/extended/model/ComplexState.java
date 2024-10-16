@@ -1,14 +1,12 @@
 package com.dododo.ariadne.extended.model;
 
-import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Stream;
 
-public class ComplexState extends State {
+public abstract class ComplexState extends State {
 
     private final List<State> children;
 
@@ -53,11 +51,6 @@ public class ComplexState extends State {
             oldState.removeRoot(this);
             newState.addRoot(this);
         }
-    }
-
-    @Override
-    public void accept(FlowchartContract contract) {
-        ((ExtendedFlowchartContract) contract).accept(this);
     }
 
     @Override

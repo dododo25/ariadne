@@ -5,10 +5,16 @@ import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.contract.FlowchartContract;
 import com.dododo.ariadne.core.contract.FlowchartContractAdapter;
 import com.dododo.ariadne.core.model.ChainState;
+import com.dododo.ariadne.core.model.ConditionalOption;
+import com.dododo.ariadne.core.model.CycleEntryState;
+import com.dododo.ariadne.core.model.CycleMarker;
+import com.dododo.ariadne.core.model.EntryState;
 import com.dododo.ariadne.core.model.Menu;
 import com.dododo.ariadne.core.model.Option;
+import com.dododo.ariadne.core.model.Reply;
+import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
-import com.dododo.ariadne.core.model.Switch;
+import com.dododo.ariadne.core.model.Text;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.util.FlowchartManipulatorUtil;
 
@@ -16,7 +22,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public final class RemoveStateDuplicatesJob extends AbstractJob {
@@ -87,14 +95,84 @@ public final class RemoveStateDuplicatesJob extends AbstractJob {
         map.forEach((key, value) -> value.forEach(key::removeBranch));
     }
 
-    private boolean isEqual(State s1, State s2) {
-        if (s1 instanceof ChainState && s2 instanceof ChainState) {
-            return ((ChainState) s1).getNext() == ((ChainState) s2).getNext();
-        } else if (s1 instanceof Switch && s2 instanceof Switch) {
-            return ((Switch) s1).getTrueBranch() == ((Switch) s2).getTrueBranch()
-                    && ((Switch) s1).getFalseBranch() == ((Switch) s2).getFalseBranch();
-        }
+    private static boolean isEqual(State s1, State s2) {
+        AtomicBoolean res = new AtomicBoolean(true);
 
-        return false;
+        FlowchartContract callback = new FlowchartContractAdapter() {
+
+            @Override
+            public void accept(EntryState state) {
+                acceptChainState(state);
+            }
+
+            @Override
+            public void accept(CycleMarker marker) {
+                acceptSimpleState(marker);
+            }
+
+            @Override
+            public void accept(CycleEntryState entryState) {
+                acceptSimpleState(entryState);
+            }
+
+            @Override
+            public void accept(Text text) {
+                acceptSimpleState(text);
+            }
+
+            @Override
+            public void accept(Option option) {
+                acceptSimpleState(option);
+            }
+
+            @Override
+            public void accept(Reply reply) {
+                acceptChainState(reply);
+
+                if (s2 instanceof Reply
+                        && Objects.equals(reply.getCharacter(), ((Reply) s2).getCharacter())
+                        && Objects.equals(reply.getLine(), ((Reply) s2).getLine())) {
+                    return;
+                }
+
+                res.set(false);
+            }
+
+            @Override
+            public void accept(ConditionalOption option) {
+                acceptChainState(option);
+
+                if (s2 instanceof ConditionalOption
+                        && Objects.equals(option.getValue(), ((ConditionalOption) s2).getValue())
+                        && Objects.equals(option.getCondition(), ((ConditionalOption) s2).getCondition())) {
+                    return;
+                }
+
+                res.set(false);
+            }
+
+            private void acceptSimpleState(SimpleState simpleState) {
+                acceptChainState(simpleState);
+
+                if (s2 instanceof SimpleState
+                        && Objects.equals(simpleState.getValue(), ((SimpleState) s2).getValue())) {
+                    return;
+                }
+
+                res.set(false);
+            }
+
+            private void acceptChainState(ChainState chainState) {
+                if (s2 instanceof ChainState && chainState.getNext() == ((ChainState) s2).getNext()) {
+                    return;
+                }
+
+                res.set(false);
+            }
+        };
+
+        s1.accept(callback);
+
+        return res.get();
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.renpy.model.RootComplexState" />
+    <node id="1" type="com.dododo.ariadne.extended.model.RootComplexState" />
     <node id="2" type="com.dododo.ariadne.core.model.Text" value="i = 0" />
     <node id="3" type="com.dododo.ariadne.core.model.Text" value="j = 0" />
     <node id="4" type="com.dododo.ariadne.core.model.Text" value="j = 1" />

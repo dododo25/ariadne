@@ -10,7 +10,6 @@ import com.dododo.ariadne.core.model.ConditionalOption;
 import com.dododo.ariadne.core.model.Reply;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.model.Switch;
-import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
@@ -45,7 +44,6 @@ class RenPyFlowchartMouseTest {
         testCreateFor(new CallToState("test"));
         testCreateFor(new GoToPoint("test"));
 
-        testCreateFor(new ComplexState());
         testCreateFor(new LabelledGroupComplexState("test"));
         testCreateFor(new ComplexSwitch());
         testCreateFor(new ComplexSwitchBranch("test", false));

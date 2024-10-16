@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(FlowchartTypeResolver.class)
-class JoinRootStateChildrenJobTest {
+class ReplaceLabelledGroupsJobTest {
 
     @Test
-    void testRunShouldDoneWell(@InputParam("JoinRootStateChildrenJobTest.expected.xml") State expected,
-                               @InputParam("JoinRootStateChildrenJobTest.setup.xml") State setup) {
-        JoinRootStateChildrenJob job = new JoinRootStateChildrenJob();
+    void testRunShouldDoneWell(@InputParam("ReplaceLabelledGroupsJob.expected.xml") State expected,
+                               @InputParam("ReplaceLabelledGroupsJob.setup.xml") State setup) {
+        ReplaceLabelledGroupsJob job = new ReplaceLabelledGroupsJob();
 
         job.setFlowchart(setup);
         job.run();

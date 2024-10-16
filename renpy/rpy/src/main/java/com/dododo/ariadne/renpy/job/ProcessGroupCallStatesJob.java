@@ -7,7 +7,6 @@ import com.dododo.ariadne.core.collector.StateCollector;
 import com.dododo.ariadne.core.mouse.FlowchartMouse;
 import com.dododo.ariadne.core.model.ChainState;
 import com.dododo.ariadne.core.model.EndPoint;
-import com.dododo.ariadne.core.model.SimpleState;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.renpy.model.CallToState;
@@ -15,15 +14,15 @@ import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
 import com.dododo.ariadne.renpy.util.RenPyFlowchartManipulatorUtil;
 import com.dododo.ariadne.renpy.util.RenPyStateCopyUtil;
 
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public final class PrepareGroupCallStatesJob extends AbstractJob {
+public final class ProcessGroupCallStatesJob extends AbstractJob {
 
     @SuppressWarnings("FieldCanBeLocal")
-    private StateCollector<Marker> labelCollector;
+    private StateCollector<Marker> markerStatesCollector;
 
     private StateCollector<CallToState> linkCallStateCollector;
 
@@ -35,19 +34,20 @@ public final class PrepareGroupCallStatesJob extends AbstractJob {
     public void run() {
         FlowchartMouse mouse = new RenPyFlowchartMouse();
 
-        labelCollector = new GenericStateCollector<>(mouse, Marker.class);
+        markerStatesCollector = new GenericStateCollector<>(mouse, Marker.class);
         linkCallStateCollector = new GenericStateCollector<>(mouse, CallToState.class);
         endPointStateCollector = new GenericStateCollector<>(mouse, EndPoint.class);
         leafChainStateCollector = new LeafChainStateCollector(mouse);
 
-        Map<String, Marker> markers = labelCollector.collect(getFlowchart())
+        Map<String, Marker> markers = markerStatesCollector.collect(getFlowchart())
                 .stream()
-                .collect(Collectors.toMap(SimpleState::getValue, Function.identity()));
+                .collect(Collectors.toMap(Marker::getValue, Function.identity()));
         process(markers);
     }
 
     private void process(Map<String, Marker> markers) {
-        Set<CallToState> states = markers.values().stream()
+        Collection<CallToState> states = markers.values()
+                .stream()
                 .flatMap(link -> linkCallStateCollector.collect(link).stream())
                 .collect(Collectors.toSet());
 
@@ -61,22 +61,20 @@ public final class PrepareGroupCallStatesJob extends AbstractJob {
     private void process(CallToState state, Map<String, Marker> markers) {
         Marker marker = markers.get(state.getValue());
 
-        if (marker != null) {
-            process(state, marker);
+        if (marker == null) {
+            return;
         }
-    }
 
-    private void process(CallToState state, Marker marker) {
         State copy = RenPyStateCopyUtil.copy(marker);
         State nextState = state.getNext();
 
         RenPyFlowchartManipulatorUtil.replace(state, copy);
 
-        leafChainStateCollector.collect(copy).forEach(leaf -> leaf.setNext(nextState));
-
+        leafChainStateCollector.collect(copy)
+                .forEach(leaf -> leaf.setNext(nextState));
         endPointStateCollector.collect(copy)
                 .forEach(s -> RenPyFlowchartManipulatorUtil.replace(s, nextState));
 
-        nextState.removeRoot(state);
+         nextState.removeRoot(state);
     }
 }

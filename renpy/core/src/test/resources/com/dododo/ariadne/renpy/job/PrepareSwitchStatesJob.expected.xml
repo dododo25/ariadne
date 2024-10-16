@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapping root="1">
-    <node id="1" type="com.dododo.ariadne.renpy.model.RootComplexState" />
+    <node id="1" type="com.dododo.ariadne.extended.model.RootComplexState" />
     <node id="2" type="com.dododo.ariadne.core.model.Switch" condition="switch1" />
     <node id="3" type="com.dododo.ariadne.extended.model.PassState" />
     <node id="4" type="com.dododo.ariadne.core.model.Switch" condition="switch2" />
     <node id="5" type="com.dododo.ariadne.extended.model.PassState" />
     <node id="6" type="com.dododo.ariadne.extended.model.PassState" />
+    <node id="7" type="com.dododo.ariadne.extended.model.PassState" />
 
     <edge from="1" to="2" />
     <edge from="2" to="3" switchBranch="true" />
     <edge from="2" to="4" switchBranch="false" />
     <edge from="4" to="5" switchBranch="true" />
     <edge from="4" to="6" switchBranch="false" />
-
+    <edge from="6" to="7" />
 </mapping>

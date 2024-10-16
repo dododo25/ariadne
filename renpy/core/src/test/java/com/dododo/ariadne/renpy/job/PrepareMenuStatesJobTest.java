@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(FlowchartTypeResolver.class)
-class RemoveComplexStatesJobTest {
+public class PrepareMenuStatesJobTest {
 
     @Test
-    void testRunShouldDoneWell(@InputParam("RemoveComplexStatesJob.expected.xml") State expected,
-                               @InputParam("RemoveComplexStatesJob.setup.xml") State setup) {
-        RemoveComplexStatesJob job = new RemoveComplexStatesJob();
+    void testRunShouldDoneWell(@InputParam("PrepareMenuStatesJob.expected.xml") State expected,
+                               @InputParam("PrepareMenuStatesJob.setup.xml") State setup) {
+        PrepareMenuStatesJob job = new PrepareMenuStatesJob();
 
         job.setFlowchart(setup);
         job.run();

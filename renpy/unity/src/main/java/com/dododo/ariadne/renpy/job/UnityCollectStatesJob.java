@@ -4,7 +4,7 @@ import com.dododo.ariadne.core.exception.AriadneException;
 import com.dododo.ariadne.core.job.AbstractJob;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.extended.model.ComplexState;
-import com.dododo.ariadne.renpy.model.RootComplexState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.renpy.processor.LineProcessor;
 import com.dododo.ariadne.renpy.processor.UnityLineProcessorFactory;
 

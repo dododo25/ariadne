@@ -9,13 +9,14 @@ import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 
 public abstract class ExtendedGenericFlowchartContract extends GenericFlowchartContract
         implements ExtendedFlowchartContract {
 
     @Override
-    public final void accept(ComplexState state) {
-        acceptComplexState(state);
+    public final void accept(RootComplexState rootComplexState) {
+        acceptComplexState(rootComplexState);
     }
 
     @Override
@@ -51,5 +52,5 @@ public abstract class ExtendedGenericFlowchartContract extends GenericFlowchartC
     @Override
     public void accept(GoToPoint point) {}
 
-    public abstract void acceptComplexState(ComplexState complexState);
+    public void acceptComplexState(ComplexState complexState) {}
 }

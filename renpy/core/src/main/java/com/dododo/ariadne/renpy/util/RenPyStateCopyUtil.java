@@ -21,8 +21,8 @@ import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.renpy.contract.RenPyGenericFlowchartContract;
-import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.model.VariableGroupComplexState;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
 import com.dododo.ariadne.renpy.mouse.RenPyFlowchartMouse;
@@ -100,11 +100,6 @@ public final class RenPyStateCopyUtil {
             }
 
             @Override
-            public void accept(ComplexState state) {
-                map.put(state, new ComplexState());
-            }
-
-            @Override
             public void accept(Marker marker) {
                 map.put(marker, new Marker(marker.getValue()));
             }
@@ -151,7 +146,7 @@ public final class RenPyStateCopyUtil {
 
             @Override
             public void accept(ComplexSwitch complexSwitch) {
-                map.put(complexSwitch, new ComplexState());
+                map.put(complexSwitch, new ComplexSwitch());
             }
 
             @Override

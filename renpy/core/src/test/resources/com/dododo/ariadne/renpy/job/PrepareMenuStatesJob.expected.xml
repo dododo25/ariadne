@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapping root="1">
+    <node id="1" type="com.dododo.ariadne.extended.model.RootComplexState" />
+    <node id="2" type="com.dododo.ariadne.core.model.Menu" />
+    <node id="3" type="com.dododo.ariadne.core.model.Option" value="option1" />
+    <node id="4" type="com.dododo.ariadne.core.model.Text" value="a = 1" />
+    <node id="5" type="com.dododo.ariadne.core.model.Option" value="option2" />
+    <node id="6" type="com.dododo.ariadne.core.model.Text" value="b = 1" />
+    <node id="7" type="com.dododo.ariadne.core.model.Menu" />
+    <node id="8" type="com.dododo.ariadne.core.model.Option" value="option3" />
+    <node id="9" type="com.dododo.ariadne.core.model.Menu" />
+    <node id="10" type="com.dododo.ariadne.core.model.Option" value="option5" />
+    <node id="11" type="com.dododo.ariadne.core.model.Text" value="e = 1" />
+    <node id="12" type="com.dododo.ariadne.core.model.Option" value="option6" />
+    <node id="13" type="com.dododo.ariadne.core.model.Text" value="f = 1" />
+    <node id="14" type="com.dododo.ariadne.core.model.Text" value="g = 1" />
+    <node id="15" type="com.dododo.ariadne.core.model.Text" value="d = 1" />
+    <node id="16" type="com.dododo.ariadne.core.model.Option" value="option4" />
+    <node id="17" type="com.dododo.ariadne.core.model.Text" value="c = 1" />
+    <node id="18" type="com.dododo.ariadne.core.model.Text" value="h = 1" />
+
+    <edge from="1" to="2" />
+    <edge from="1" to="7" />
+    <edge from="1" to="18" />
+    <edge from="2" to="3" />
+    <edge from="2" to="5" />
+    <edge from="3" to="4" />
+    <edge from="5" to="6" />
+    <edge from="7" to="8" />
+    <edge from="7" to="16" />
+    <edge from="8" to="9" />
+    <edge from="9" to="10" />
+    <edge from="9" to="12" />
+    <edge from="10" to="11" />
+    <edge from="11" to="15" />
+    <edge from="12" to="13" />
+    <edge from="13" to="14" />
+    <edge from="14" to="15" />
+    <edge from="16" to="17" />
+</mapping>

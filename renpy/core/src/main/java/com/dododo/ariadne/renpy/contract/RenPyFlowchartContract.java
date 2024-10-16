@@ -2,13 +2,10 @@ package com.dododo.ariadne.renpy.contract;
 
 import com.dododo.ariadne.extended.contract.ExtendedFlowchartContract;
 import com.dododo.ariadne.renpy.model.CallToState;
-import com.dododo.ariadne.renpy.model.RootComplexState;
 import com.dododo.ariadne.renpy.model.VariableGroupComplexState;
 import com.dododo.ariadne.renpy.model.LabelledGroupComplexState;
 
 public interface RenPyFlowchartContract extends ExtendedFlowchartContract {
-
-    void accept(RootComplexState rootState);
 
     void accept(CallToState callState);
 

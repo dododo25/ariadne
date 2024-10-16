@@ -9,16 +9,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(FlowchartTypeResolver.class)
-class RearrangeLabelledGroupsJobTest {
+class ProcessGroupCallStatesJobTest {
 
     @Test
-    void testRunShouldDoneWell(@InputParam("RearrangeLabelledGroupsJob.expected.xml") State expected,
-                               @InputParam("RearrangeLabelledGroupsJob.setup.xml") State setup) {
-        RearrangeLabelledGroupsJob job = new RearrangeLabelledGroupsJob();
+    void testRunShouldDoneWell(@InputParam("ProcessGroupCallStatesJob.expected.xml") State expected,
+                               @InputParam("ProcessGroupCallStatesJob.setup.xml") State setup) {
+        ProcessGroupCallStatesJob job = new ProcessGroupCallStatesJob();
 
         job.setFlowchart(setup);
         job.run();
 
-        StateAssertions.assertEquals(expected, setup, new RenPyFlowchartMouse());
+        StateAssertions.assertEquals(expected, job.getFlowchart(), new RenPyFlowchartMouse());
     }
 }

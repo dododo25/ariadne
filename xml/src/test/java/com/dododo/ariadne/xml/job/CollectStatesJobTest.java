@@ -3,10 +3,10 @@ package com.dododo.ariadne.xml.job;
 import com.dododo.ariadne.core.configuration.Configuration;
 import com.dododo.ariadne.core.model.State;
 import com.dododo.ariadne.core.test.assertions.StateAssertions;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.extended.mouse.ExtendedFlowchartMouse;
 import com.dododo.ariadne.test.annotation.InputParam;
 import com.dododo.ariadne.test.resolver.FlowchartTypeResolver;
-import com.dododo.ariadne.extended.model.ComplexState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ class CollectStatesJobTest {
         }
 
         String setupFile = url.getFile();
-        State rootState = new ComplexState();
+        State rootState = new RootComplexState();
 
         CollectStatesJob job = new CollectStatesJob(0);
 

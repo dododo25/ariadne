@@ -3,19 +3,19 @@ package com.dododo.ariadne.extended.contract;
 import com.dododo.ariadne.core.contract.SimpleFlowchartContract;
 import com.dododo.ariadne.extended.model.ComplexMenu;
 import com.dododo.ariadne.extended.model.ComplexOption;
-import com.dododo.ariadne.extended.model.ComplexState;
 import com.dododo.ariadne.extended.model.ComplexSwitch;
 import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 
 public abstract class ExtendedSimpleFlowchartContract extends SimpleFlowchartContract
         implements ExtendedFlowchartContract {
 
     @Override
-    public final void accept(ComplexState state) {
-        acceptState(state);
+    public void accept(RootComplexState rootComplexState) {
+        acceptState(rootComplexState);
     }
 
     @Override

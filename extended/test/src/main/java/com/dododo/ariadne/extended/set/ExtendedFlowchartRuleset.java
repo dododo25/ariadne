@@ -10,6 +10,7 @@ import com.dododo.ariadne.extended.model.ComplexSwitchBranch;
 import com.dododo.ariadne.extended.model.GoToPoint;
 import com.dododo.ariadne.extended.model.Marker;
 import com.dododo.ariadne.extended.model.PassState;
+import com.dododo.ariadne.extended.model.RootComplexState;
 import com.dododo.ariadne.test.annotation.EdgeRule;
 import com.dododo.ariadne.test.annotation.NodeRule;
 import com.dododo.ariadne.test.annotation.Ruleset;
@@ -17,9 +18,9 @@ import com.dododo.ariadne.test.annotation.Ruleset;
 @Ruleset
 public class ExtendedFlowchartRuleset {
 
-    @NodeRule(type = ComplexState.class)
-    public State createComplexState() {
-        return new ComplexState();
+    @NodeRule(type = RootComplexState.class)
+    public State createRootComplexState() {
+        return new RootComplexState();
     }
 
     @NodeRule(type = ComplexSwitch.class)
@@ -71,7 +72,7 @@ public class ExtendedFlowchartRuleset {
     }
 
     @EdgeRule(type = {
-            ComplexState.class,
+            RootComplexState.class,
             ComplexMenu.class,
             ComplexOption.class,
             ComplexSwitch.class,

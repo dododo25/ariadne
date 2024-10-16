@@ -16,8 +16,8 @@ public final class AddMissingSwitchFalseBranchComplexStateJob extends AbstractJo
     public void run() {
         FlowchartContract callback = new RenPyFlowchartContractAdapter() {
             @Override
-            public void accept(ComplexSwitch aSwitch) {
-                State lastBranch = aSwitch.childAt(aSwitch.childrenCount() - 1);
+            public void accept(ComplexSwitch complexSwitch) {
+                State lastBranch = complexSwitch.childAt(complexSwitch.childrenCount() - 1);
 
                 if (lastBranch instanceof ComplexSwitchBranch
                         && ((ComplexSwitchBranch) lastBranch).getValue() == null) {
@@ -26,7 +26,7 @@ public final class AddMissingSwitchFalseBranchComplexStateJob extends AbstractJo
 
                 ComplexSwitchBranch newBranch = new ComplexSwitchBranch(false);
                 newBranch.addChild(new PassState());
-                aSwitch.addChild(newBranch);
+                complexSwitch.addChild(newBranch);
             }
         };
         FlowchartMouse mouse = new RenPyFlowchartMouse();

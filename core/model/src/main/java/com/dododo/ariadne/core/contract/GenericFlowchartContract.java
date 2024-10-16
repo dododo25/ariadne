@@ -58,5 +58,5 @@ public abstract class GenericFlowchartContract implements FlowchartContract {
     @Override
     public void accept(EndPoint point) {}
 
-    public abstract void acceptChainState(ChainState state);
+    public void acceptChainState(ChainState state) {}
 }
